@@ -1,137 +1,66 @@
 ---
 layout: lesson
 root: ../..
-title: Introducing the Shell
+title: 쉘(Shell) 소개
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs.
-*   Explain when and why command-line interfaces should be used instead of graphical interfaces.
+#### 목표
+*   쉘(shell)이 어떻게 키보드, 화면, 운영체제, 사용자 프로그램에 연관되는지 설명.
+
+*   명령줄(CLI, command-line interface) 인터페이스가 화면 사용자 인터페이스(GUI, graphic user interface)대신에 언제, 왜 사용되어야 하는지 설명.
 
 </div>
 
-Nelle Nemo, a marine biologist,
-has just returned from a six-month survey of the
-[North Pacific Gyre](http://en.wikipedia.org/wiki/North_Pacific_Gyre),
-where she has been sampling gelatinous marine life in the
-[Great Pacific Garbage Patch](http://en.wikipedia.org/wiki/Great_Pacific_Garbage_Patch).
-She has 300 samples in all, and now needs to:
+해양 생물학자 넬 니모(Nell Nemo) 박사가 방금전 6개월 [북태평양 소용돌이꼴](http://en.wikipedia.org/wiki/North_Pacific_Gyre)조사를 마치고 방금 귀환했다.
+[태평양 거대 쓰레기 지대](http://en.wikipedia.org/wiki/Great_Pacific_Garbage_Patch)에서 젤리같은 해양생물을 표본주출했다.
+총 합쳐서 거의 300개의 시료가 있고 다음 작업이 필요하다.
 
-1.  Run each sample through an assay machine
-    that will measure the relative abundance of 300 different proteins.
-    The machine's output for a single sample is
-    a file with one line for each protein.
-2.  Calculate statistics for each of the proteins separately
-    using a program her supervisor wrote called `goostat`.
-3.  Compare the statistics for each protein
-    with corresponding statistics for each other protein
-    using a program one of the other graduate students wrote called `goodiff`.
-4.  Write up.
-    Her supervisor would really like her to do this by the end of the month
-    so that her paper can appear in an upcoming special issue of *Aquatic Goo Letters*.
+1.  소로 다른 300개 단백질의 상대적인 함유량을 측정하는 분석기계로 시료를 시험한다. 
+    한 시료에 대한 기계 출력결과는 각 단백질에 대해서 한 줄의 파일형식으로 표현된다.
+2.  `goostat`으로 명명된 그녀의 관리자가 작성한 프로그램을 사용하여 각 단백질에 대한 통계량을 계산한다.
+3.  `goodiff`로 명명된 다른 대학원 학생중의 한명이 작성한 각 단백질의 통계량과 다른 단백질에 상응하는 통계량을 비교한다.
+4.  작성. 그녀의 지도교수는 이번달말까지 이일을 정말 좋아해서 논문이 다음번 *Aquatic Goo Letters* 저녈의 특별판에 게재되기를 희망한다.
 
-It takes about half an hour for the assay machine to process each sample.
-The good news is,
-it only takes two minutes to set each one up.
-Since her lab has eight assay machines that she can use in parallel,
-this step will "only" take about two weeks.
+각 시료를 분석장비가 처리하는데 약 반시간 정도 소요된다. 좋은 소식은 각 시료를 준비하는데는 단지 2분만 소요된다. 연구실에 병렬로 사용할 수 있는 8대의 분석장비가 있어서, 이 단계는 약 2주정도만 소요될 것이다.
 
-The bad news is that if she has to run `goostat` and `goodiff` by hand,
-she'll have to enter filenames and click "OK" 45,150 times
-(300 runs of `goostat`, plus 300&times;299/2 runs of `goodiff`).
-At 30 seconds each,
-that will take more than two weeks.
-Not only would she miss her paper deadline,
-the chances of her typing all of those commands right are practically zero.
+나쁜 소식은 `goostat`, `goodiff`을 수작업으로 실행한다면, 파일이름 입력하고 "OK" 버튼을 45,150번 눌려야 된다는 사실이다 (`goostat` 300회 더하기 `goodiff` 300×299/2). 매번 30초씩 가정하면 2주 이상 소요될 것이다.
+  논문 마감일을 놓칠 수도 있지만, 이 모든 명령어를 올바르게 입력할 가능성은 거의 0에 가깝다.
 
-The next few lessons will explore what she should do instead.
-More specifically,
-they explain how she can use a command shell
-to automate the repetitive steps in her processing pipeline
-so that her computer can work 24 hours a day while she writes her paper.
-As a bonus,
-once she has put a processing pipeline together,
-she will be able to use it again whenever she collects more data.
+다음 몇 수업은 대신에 그녀가 무엇을 해야하는지 탐색한다. 좀더 구체적으로 작업처리 중간에 반복되는 작업을 자동화하는 쉘 명령어(command shell)를 어떻게 사용하는지 설명해서 논문을 쓰는 동안에 컴퓨터는 하루에 24시간 작업한다. 덤으로 중간 처리작업을 완성하면, 좀더 많은 데이터를 얻을 때마다 다시 재사용할 수 있다.
 
-### What and Why
+### 쉘이 무엇이고, 왜 사용할까요
 
-At a high level, computers do four things:
+상위 수준에서 컴퓨터는 네가지 일을 수행한다.
 
--   run programs
--   store data
--   communicate with each other
--   interact with us
+-   프로그램 실행
+-   데이터 저장
+-   컴퓨터간 상호 커뮤니케이션
+-   사람과 상호작용
 
-They can do the last of these in many different ways,
-including direct brain-computer links and speech interfaces.
-Since these are still in their infancy,
-most of us use windows, icons, mice, and pointers.
-These technologies didn't become widespread until the 1980s,
-but their roots go back to Doug Engelbart's work in the 1960s,
-which you can see in what has been called
-"[The Mother of All Demos](http://www.youtube.com/watch?v=a11JDLBXtPQ)".
+많은 방식으로 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 마지막일을 수행한다.
+  하지만, 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스, (Pointer)포인터)를 사용한다. 1980년대까지 이러한 기술은 보편적이지 않았지만, 기술의 뿌리는 1960년대 Doug Engelbart의 작업에 있고,"[The Mother of All Demos](http://www.youtube.com/watch?v=a11JDLBXtPQ)"로 불리는 것에서 볼 수 있다.
 
-Going back even further,
-the only way to interact with early computers was to rewire them.
-But in between,
-from the 1950s to the 1980s,
-most people used line printers.
-These devices only allowed input and output of the letters, numbers, and punctuation found on a standard keyboard,
-so programming languages and interfaces had to be designed around that constraint.
+조금 더 멀리 거슬러 올라가면, 초기 컴퓨터와 상호작용하는 유일한 방법은 다시 연결하는 것이다.
+  하지만, 중간에 1950년에서 1980년대 사이에 대부분의 사람들은 라인 프린터(line printer)를 사용했다. 이런 디바이스는 표준 키보드에 문자, 숫자, 특수부호의 입력과 출력만 허용해서 프로그래밍 언어와 인터페이스는 이러한 제약사항에서 설계됐다.
 
-This kind of interface is called a
-[command-line interface](../../gloss.html#command-line-interface), or CLI,
-to distinguish it from the
-[graphical user interface](../../gloss.html#graphical-user-interface), or GUI,
-that most people now use.
-The heart of a CLI is a [read-evaluate-print loop](../../gloss.html#read-eval-print-loop), or REPL:
-when the user types a command and then presses the enter (or return) key,
-the computer reads it,
-executes it,
-and prints its output.
-The user then types another command,
-and so on until the user logs off.
+이런 종류의 인터페이스를 지금 대부분의 사람들이 사용하는 [그래픽 사용자 인터페이스(GUI, graphical user interface)](../../gloss.html#graphical-user-interface)과 구별하기 위해서 [명령 라인 인터페이스(CLI, command-line interface)](../../gloss.html#command-line-interface)라고 한다.
+CLI의 핵심은 [읽기-평가-출력(REPL,read-evaluate-print loop](../../gloss.html#read-eval-print-loop)이다. 사용자가 명령어를 타이핑하고 엔터(enter)/반환(return)키를 입력하면, 컴퓨터가 일고, 실행하고, 결과를 출력한다. 그러면 사용자는 다른 명령를 타이핑하는 것을 로그 오프할때까지 계속한다.
 
-This description makes it sound as though the user sends commands directly to the computer,
-and the computer sends output directly to the user.
-In fact,
-there is usually a program in between called a
-[command shell](../../gloss.html#shell).
-What the user types goes into the shell;
-it figures out what commands to run and orders the computer to execute them.
+상기 묘사가 마치 사용자가 직접 명령어를 컴퓨터에 보내고, 컴퓨터는 사용자에게 직접적으로 출력을 보내는 것처럼 들린다. 사실 중간에 [명령 쉘(command shell)](../../gloss.html#shell)로 불리는 프로그램이 있다.
+  사용자가 타이핑하는 것은 쉘로 간다. 쉘은 무슨 명령어를 수행할지 파악해서 컴퓨터에게 수행하도록 지시한다.
 
-A shell is a program like any other.
-What's special about it is that its job is to run other programs
-rather than to do calculations itself.
-The most popular Unix shell is Bash,
-the Bourne Again SHell
-(so-called because it's derived from a shell written by Stephen Bourne&mdash;this
-is what passes for wit among programmers).
-Bash is the default shell on most modern implementations of Unix,
-and in most packages that provide Unix-like tools for Windows.
+쉘은 다른 것과 마찬가지로 프로그램이다. 조금 특별한 것은 자신이 연산을 수행하기 보다 다른 프로그램을 실행하는 것이다. 가장 보편적인 유닉스 쉘(Unix Shell)은 Bash(Bourne Again SHell)다. Stephen Bourne이 작성한 쉘에서 나와서 그렇게 불리우고, 프로그래머 사이에 재치로 통한다. Bash는 대부분의 유닉스 컴퓨터에 기본으로 장착되는 쉘이고, 윈도우용 유닉스스러운 도구로 제공되는 패키지에도 적용된다.
 
-Using Bash or any other shell
-sometimes feels more like programming than like using a mouse.
-Commands are terse (often only a couple of characters long),
-their names are frequently cryptic,
-and their output is lines of text rather than something visual like a graph.
-On the other hand,
-the shell allows us to combine existing tools in powerful ways with only a few keystrokes
-and to set up pipelines to handle large volumes of data automatically.
-In addition,
-the command line is often the easiest way to interact with remote machines.
-As clusters and cloud computing become more popular for scientific data crunching,
-being able to drive them is becoming a necessary skill.
+Bash나 다른 쉘을 사용하는 것은 마우스 보다 프로그래밍 같은 느낌이 난다. 명령어는 간략해서 종종 2~3자리 수이고, 명령어는 종종 암호스럽고, 출력은 그래프같은 시각적인 것보다 텍스트 라인이다. 다른 한편으로는 쉘을 사용하여 좀더 강력한 방식으로 존재하는 도구를 단지 몇 키보드 입력으로 조합해서
+  대용량의 데이터를 자동적으로 다룰 수 있는 파이프라인을 구축할 수 있다. 추가로 명령 라인은 종종 멀리 떨어진 컴퓨터와 상호작용하는 가장 쉬운 방법이다.
+  클러스트 컴퓨팅과 클라우드 컴퓨팅이 과학 데이터 클런칭(scientific data cruching)이 점점 대중화됨에 따라 원격 컴퓨터를 구동하는 것이 필수적인 기술이 되어가고 있다.
 
 <div class="keypoints" markdown="1">
 
-#### Key Points
-*   A shell is a program whose primary purpose is to read commands and run other programs.
-*   The shell's main advantages are its high action-to-keystroke ratio,
-    its support for automating repetitive tasks,
-    and that it can be used to access networked machines.
-*   The shell's main disadvantages are its primarily textual nature
-    and how cryptic its commands and operation can be.
+#### 주요점
+*   쉘은 프로그램으로 명령어를 읽고 다른 프로그램을 수행하는 것이 주요 목적이다.
+*   쉘의 주요 장점은 키보드 입력 대비 높은 수행 비율(action-to-keystroke)로 반복적인 작업을 자동화하고 원격으로 네트워크에 연결된 컴퓨터에 접근할 수 있게 한다.
+*   쉘의 주된 단점은 주로 텍스트로 되어 있고, 명령어와 수행이 수수께끼같을 수 있다.
 
 </div>

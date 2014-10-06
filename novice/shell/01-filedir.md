@@ -1,45 +1,31 @@
 ---
 layout: lesson
 root: ../..
-title: Files and Directories
+title: 파일과 디렉토리
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Explain the similarities and differences between a file and a directory.
-*   Translate an absolute path into a relative path and vice versa.
-*   Construct absolute and relative paths that identify specific files and directories.
-*   Explain the steps in the shell's read-run-print cycle.
-*   Identify the actual command, flags, and filenames in a command-line call.
-*   Demonstrate the use of tab completion, and explain its advantages.
+#### 목표
+*   파일과 디렉토리의 차이점과 다른점을 설명한다.
+*   절대경로를 상대경로로 변환하고 반대로 상대경로를 절대경로로 변환한다.
+*   특정 파일과 디렉토리를 확인할 수 있는 절대경로와 상대경로를 구성한다.
+*   쉘의 읽기-실행-출력(read-run-print) 주기를 각 단계별로 설명한다.
+*   명령 라인 호출에 실제 명령어, 플래그, 파일명을 확인한다.
+*   탭 완성기능을 시연하고 장점을 설명한다.
 
 </div>
-
-The part of the operating system responsible for managing files and directories
-is called the [file system](../../gloss.html#filesystem).
-It organizes our data into files,
-which hold information,
-and directories (also called "folders"),
-which hold files or other directories.
-
-Several commands are frequently used to create, inspect, rename, and delete files and directories.
-To start exploring them,
-let's open a shell window:
+파일과 디렉토리를 관리를 담당하고 있는 운영체제 부분을 [파일 시스템(file system)](../../gloss.html#filesystem)이라고 한다. 파일 시스템은 데이터를 정보를 담고 있는 파일과 파일 혹은 다른 디렉토리를 담고 있는 디렉토리(혹은 폴더)로 조직한다.
+  
+파일과 디렉토리를 생성, 검사, 새이름, 삭제하는데 몇가지 명령어가 자주 사용된다.
+명령어를 살펴보기 위해서 쉘 윈도우를 엽니다.
 
 ~~~
 $
 ~~~
 {:class="in"}
+달러 기호 ($)는 [프롬프트(prompt)](../../gloss.html#prompt)로 쉘이 입력을 기다리는 것을 보여준다. 여러분의 쉴이 좀더 정교한 다른 것을 보여줄수도 있다.
 
-The dollar sign is a [prompt](../../gloss.html#prompt),
-which shows us that the shell is waiting for input;
-your shell may show something more elaborate.
-
-Type the command `whoami`,
-then press the Enter key (sometimes marked Return) to send the command to the shell.
-The command's output is the ID of the current user,
-i.e.,
-it shows us who the shell thinks we are:
+`whoami` 명령어를 타이핑하고, 명령을 쉘에 보내기 위해서 엔터키(Enter Key, 종종 키보드에 따라 Return으로 표기도 됨)를 누룹니다. 명령어의 출력은 현재 사용자의 ID가 됩니다. 즉, 쉘이 생각하는 사용자가 누구인지를 보여줍니다.
 
 ~~~
 $ whoami
@@ -50,12 +36,12 @@ nelle
 ~~~
 {:class="out"}
 
-More specifically, when we type `whoami` the shell:
+좀더 구체적으로, `whoami`를 타이핑할 때, 쉘은
 
-1.  finds a program called `whoami`,
-2.  runs that program,
-3.  displays that program's output, then
-4.  displays a new prompt to tell us that it's ready for more commands.
+1.  `whoami` 프로그램을 찾고,
+2.  프로그램을 실행하고,
+3.  프로그램 실행 결과를 출력하고,
+4.  새로운 프롬프트를 화면에 출력해서 더 많은 명령어를 받을 준비가 되어 있음을 알려줍니다.
 
 Next,
 let's find out where we are by running a command called `pwd`
