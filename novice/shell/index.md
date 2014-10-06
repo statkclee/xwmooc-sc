@@ -1,25 +1,21 @@
 ---
 layout: lesson
 root: ../..
-title: The Unix Shell
+title: 유닉스 쉘(Unix Shell)
 ---
-The Unix shell has been around longer than most of its users have been alive.
-It has survived so long because it's a power tool
-that allows people to do complex things with just a few keystrokes.
-More importantly,
-it helps them combine existing programs in new ways
-and automate repetitive tasks
-so that they don't have to type the same things over and over again.
+
+유닉스 쉘(Unix Shell)은 대부분의 컴퓨터 사용자가 살아온 것보다 오래 동안 존재했다.
+오래동안 생존한 이유는 사용자로 하여금 단지 키보드 몇번 쳐서 복잡한 작업을 할 수 있게 하는 강력한 도구이기 때문이다. 좀더 중요하게는 기존의 프로그램을 새로운 방식으로 조합해서 반복적인 작업을 자동화해서 동일한 작업을 반복적으로 하지 않게 만든다.
 
 <div class="toc" markdown="1">
 
-1.  [Introducing the Shell](00-intro.html)
-2.  [Files and Directories](01-filedir.html)
-3.  [Creating Things](02-create.html)
-4.  [Pipes and Filters](03-pipefilter.html)
-5.  [Loops](04-loop.html)
-6.  [Shell Scripts](05-script.html)
-7.  [Finding Things](06-find.html)
+1.  [쉘(shell) 소개](00-intro.html)
+2.  [파일과 디렉토리](01-filedir.html)
+3.  [파일과 디렉토리 생성](02-create.html)
+4.  [파이프(pipe)와 필터(filter)](03-pipefilter.html)
+5.  [루프(Loops)](04-loop.html)
+6.  [쉘 스크립트(shell script)](05-script.html)
+7.  [원하는 것 찾기](06-find.html)
 
 [Reference](../ref/01-shell.html)
 
