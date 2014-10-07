@@ -1,26 +1,21 @@
 ---
 layout: lesson
 root: ../..
-title: Pipes and Filters
+title: 파이프와 필터
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Redirect a command's output to a file.
-*   Process a file instead of keyboard input using redirection.
-*   Construct command pipelines with two or more stages.
-*   Explain what usually happens if a program or pipeline isn't given any input to process.
-*   Explain Unix's "small pieces, loosely joined" philosophy.
+#### 목표
+*   명령어의 출력결과를 파일로 다시 돌리기
+*   키보드 입력 대신에 다시 보내기(redirection)를 사용하여 파일 처리하기
+*   2단계 혹은 3단계를 가진 명령문 구성하기
+*   프로그램 혹은 파이프라인에 처리할 입력을 주지 않았을 때 통상 발생하는 일을 설명하기
+*   "작은 조각, 느슨하게 결합하기(small pieces, loosely joined)"라는 유닉스 철학을 설명하기
 
 </div>
 
-Now that we know a few basic commands,
-we can finally look at the shell's most powerful feature:
-the ease with which it lets us combine existing programs in new ways.
-We'll start with a directory called `molecules`
-that contains six files describing some simple organic molecules.
-The `.pdb` extension indicates that these files are in Protein Data Bank format,
-a simple text format that specifies the type and position of each atom in the molecule.
+몇가지 기초 명령어를 배웠기 때문에 마침내 쉘의 가장 강령한 기능을 살펴볼 수 있다. 새로운 방식으로 존재하는 프로그램을 쉽게 조합할 수 있게 합니다. 간단한 유기분자 설명을 하는 6개 파일을 담고 있는 `molecules`(분자)라는 디렉토리로 시작한다. 
+`.pdb` 파일 확장자는 단백질 데이터 뱅크 (Protein Data Bank) 형식으로 분자의 각 원자의 형식과 위치를 표시하는 간단한 텍스트 형식을 나타낸다.
 
 ~~~
 $ ls molecules
@@ -32,11 +27,8 @@ octane.pdb    pentane.pdb   propane.pdb
 ~~~
 {:class="out"}
 
-Let's go into that directory with `cd` and run the command `wc *.pdb`.
-`wc` is the "word count" command:
-it counts the number of lines, words, and characters in files.
-The `*` in `*.pdb` matches zero or more characters,
-so the shell turns `*.pdb` into a complete list of `.pdb` files:
+명령어 `cd`로 디렉토리로 가서 `wc *.pdb` 명령어를 실행한다. `wc` 명령어는 "word count"의 축약어로 파일의 라인 수, 단어수, 문자수를 카운트한다.
+`*.pdb`에서 `*`은 0 혹은 더 많은 일치하는 문자를 찾는다. 그래서 쉘은 `*.pdb`을 통해 `.pdb` 전체 리스트를 반환한다.
 
 ~~~
 $ cd molecules
@@ -54,32 +46,27 @@ $ wc *.pdb
 ~~~
 {:class="out"}
 
-> #### Wildcards
+> #### 와일드 카드(Wildcards)
 > 
-> `*` is a [wildcard](../../gloss.html#wildcard). It matches zero or more
-> characters, so `*.pdb` matches `ethane.pdb`, `propane.pdb`, and so on.
-> On the other hand, `p*.pdb` only matches `pentane.pdb` and
-> `propane.pdb`, because the 'p' at the front only matches itself.
-> 
-> `?` is also a wildcard, but it only matches a single character. This
-> means that `p?.pdb` matches `pi.pdb` or `p5.pdb`, but not `propane.pdb`.
-> We can use any number of wildcards at a time: for example, `p*.p?*`
-> matches anything that starts with a 'p' and ends with '.', 'p', and at
-> least one more character (since the '?' has to match one character, and
-> the final '\*' can match any number of characters). Thus, `p*.p?*` would
-> match `preferred.practice`, and even `p.pi` (since the first '\*' can
-> match no characters at all), but not `quality.practice` (doesn't start
-> with 'p') or `preferred.p` (there isn't at least one character after the
-> '.p').
-> 
-> When the shell sees a wildcard, it expands the wildcard to create a
-> list of matching filenames *before* running the command that was
-> asked for.  This means that commands like `wc` and `ls` never see
-> the wildcard characters, just what those wildcards matched. This is
-> another example of orthogonal design.
+> `*`는 [wildcard](../../gloss.html#wildcard)다.
+> 와일드카드는 0 혹은 그 이상의 문자와 일치해서, `*.pdb`은 `ethane.pdb`, `propane.pdb` 등등을 매치하는데 맨 앞에 'p'만 일치하기만 하면 되기 때문이다.
+>
+> `?`도 또한 와일드카드지만 단지 단일 문자만 매칭한다. 이것이 의미하는 바는 `p?.pdb`은 
+> `pi.pdb` 혹은 `p5.pdb`을 매칭하지만, `propane.pdb`은 매칭하지 않는다.
+> 한번에 원하는 수만큼 와일드카드를 사용할 수 있다. 예를 들어, `p*.p?*`는 'p'로 시작하고 
+> '.'과 'p', 그리고 최소 한자의 이상의 문자로 끝나는 임의의 문자열을 매칭한다고 
+> 표현할 수 있는데 '?'이 한 문자를 매칭해야하고 마지막 '*'은 끝에 임의의 문자숫자와 매칭할 
+> 수 있기 때문이다. 그래서 `p*.p?*`은 `preferred.practice`과 심지어 `p.pi`도 
+> 매칭한다(첫번째 '*'은 어떤 문자도 매칭할 수가 없음). 하지만 `quality.practice`은 
+> 매칭할 수 없는데 이유는 'p'로 시작하지 않고, `preferred.p`도 매칭할 수 없는데 'p' 
+> 다음에 최소 하나의 문자가 필요한데 없기 때문이다.
+>
+> 쉘이 와일드카드를 봤을 때, 요청된 명령문을 *시작하기 전에* 와일드카드를 확장하여
+> 매칭할 파일 이름 목록을 생성한다. 
+>  `wc`과 `ls` 명령어는 결코 와일드카드 문자를 보지 못하고 단지 와일드카드가 매칭하는 것만을 보게된다. 
+>이것은 직교 설계(orthogonal design)의 또 다른 사례이다.
 
-If we run `wc -l` instead of just `wc`,
-the output shows only the number of lines per file:
+`wc` 대신에 `wc -l`을 실행하면, 출력결과는 파일마다 행수만을 보여준다.
 
 ~~~
 $ wc -l *.pdb
@@ -96,26 +83,18 @@ $ wc -l *.pdb
 ~~~
 {:class="out"}
 
-We can also use `-w` to get only the number of words,
-or `-c` to get only the number of characters.
+단어 숫자만을 얻기 위해서 `-w`, 문자 숫자만을 얻기 위해서 `-c`을 사용할 수 있다.
 
-Which of these files is shortest?
-It's an easy question to answer when there are only six files,
-but what if there were 6000?
-Our first step toward a solution is to run the command:
+파일 중에서 어느 파일이 가장 짧을까요? 단지 6개의 파일이 있기 때문에 질문에 답하기는 쉬울 것이다. 하지만 만약에 6000 파일이 있다면 어떨까요?
+해결에 이르는 첫번째 단계는 다음 명령을 실행하는 것이다.
 
 ~~~
 $ wc -l *.pdb > lengths
 ~~~
 {:class="in"}
 
-The `>` tells the shell to [redirect](../../gloss.html#redirect) the command's output
-to a file instead of printing it to the screen.
-The shell will create the file if it doesn't exist,
-or overwrite the contents of that file if it does.
-(This is why there is no screen output:
-everything that `wc` would have printed has gone into the file `lengths` instead.)
-`ls lengths` confirms that the file exists:
+`>` 은 쉘로 하여금 화면에 처리 결과를 뿌리는 대신에 파일로 [되돌리기(redirect)](../../gloss.html#redirect)게 한다.
+  만약 파일이 존재하지 않으면 파일을 생성하고 파일이 존재하면 파일의 내용을 덮어쓰기 한다. (이것이 왜 화면에 출력결과가 없는 이유다. `wc`이 출력하는 모든 것은 `lengths` 파일에 대신 들어간다.)  `ls lengths` 을 통해 파일이 존재하는 것을 확인한다.
 
 ~~~
 $ ls lengths
@@ -126,11 +105,7 @@ lengths
 ~~~
 {:class="out"}
 
-We can now send the content of `lengths` to the screen using `cat lengths`.
-`cat` stands for "concatenate":
-it prints the contents of files one after another.
-There's only one file in this case,
-so `cat` just shows us what it contains:
+`cat lengths`을 사용해서 화면에 `lengths`의 내용을 보낼 수 있다. `cat`은 "concatenate"를 줄인 것이고 하나씩 하나씩 파일의 내용을 출력한다. 이번 사례에는 단지 하나의 파일이 있어서 `cat`는 단지 한 파일이 담고 있는 내용만을 보여준다.
 
 ~~~
 $ cat lengths
@@ -147,11 +122,8 @@ $ cat lengths
 ~~~
 {:class="out"}
 
-Now let's use the `sort` command to sort its contents.
-We will also use the -n flag to specify that the sort is 
-numerical instead of alphabetical.
-This does *not* change the file;
-instead, it sends the sorted result to the screen:
+`sort` 명령어를 사용해서 파일 내용을 정렬합니다.
+  '-n' 옵션을 사용해서 알파벳 대신에 숫자 방식으로 정렬할 것임을 표시한다. 이 명령어는 파일 자체를 변경하지 *않고* 대신에 정렬된 결과를 화면으로 보낸다.
 
 ~~~
 $ sort -n lengths
@@ -168,11 +140,8 @@ $ sort -n lengths
 ~~~
 {:class="out"}
 
-We can put the sorted list of lines in another temporary file called `sorted-lengths`
-by putting `> sorted-lengths` after the command,
-just as we used `> lengths` to put the output of `wc` into `lengths`.
-Once we've done that,
-we can run another command called `head` to get the first few lines in `sorted-lengths`:
+`> lengths`을 사용해서 `wc` 실행결과를 `lengths`에 넣었듯이, 명령문 다음에 `&gt; sorted-lengths`을 넣음으로서 임시 파일이름인 `sorted-lengths`에 정렬된 목록 라인을 담을 수 있다.
+이것을 실행한 다음에, 또 다른 `head` 명령어를 실행해서 `sorted-lengths`에서 첫 몇 행을 뽑아낼 수 있다.
 
 ~~~
 $ sort -n lengths > sorted-lengths
@@ -184,18 +153,10 @@ $ head -1 sorted-lengths
 ~~~
 {:class="out"}
 
-Using the parameter `-1` with `head` tells it that
-we only want the first line of the file;
-`-20` would get the first 20,
-and so on.
-Since `sorted-lengths` contains the lengths of our files ordered from least to greatest,
-the output of `head` must be the file with the fewest lines.
+`head`에 `-1` 매개변수를 사용해서 파일의 첫번째 행만이 필요하다고 지정한다. `-20`은 처음 20개 행만을 지정한다. `sorted-lengths`이 가장 작은 것에서부터 큰 것으로 정렬된 파일 길이 정보를 담고 있어서, `head`의 출력 결과는 가장 짧은 행을 가진 파일이 되어야만 한다.
 
-If you think this is confusing,
-you're in good company:
-even once you understand what `wc`, `sort`, and `head` do,
-all those intermediate files make it hard to follow what's going on.
-We can make it easier to understand by running `sort` and `head` together:
+이것이 혼란스럽다고 생각한다면, 여러분은 정말 좋은 회사에 다니고 있는 것이다. 
+`wc`, `sort`, `head` 멸영어가 무엇을 수행하는지 이해해도, 중간에 산출되는 파일은 무엇이 진행되고 있는지 따라가기가 쉽지 않다. `sort`과 `head`을 함께 실행해서 이해하기 훨씬 쉽게 할 수 있다.
 
 ~~~
 $ sort -n lengths | head -1
@@ -206,17 +167,9 @@ $ sort -n lengths | head -1
 ~~~
 {:class="out"}
 
-The vertical bar between the two commands is called a [pipe](../../gloss.html#pipe).
-It tells the shell that we want to use
-the output of the command on the left
-as the input to the command on the right.
-The computer might create a temporary file if it needs to,
-or copy data from one program to the other in memory,
-or something else entirely;
-we don't have to know or care.
+두 명령문 사이의 수직 막대를 [파이프(pipe)](../../gloss.html#pipe)라고 부른다. 수직막대는 쉘에게 왼편의 명령문의 출력결과를 오른쪽 명령문의 입력값을 사용한다고 한다고 말을 전한다. 컴퓨터는 필요하면 임시 파일을 생성하거나 한 프로그램에서 주 기억장치의 다른 프로그램으로 데이터를 복사하거나 혹은 완전히 다른 작업을 수행한다. 사용자는 알 필요도 없고 관심을 가질 이유도 없다.
 
-We can use another pipe to send the output of `wc` directly to `sort`,
-which then sends its output to `head`:
+또 다른 파이프를 사용해서 `wc`의 출력결과를 `sort`에 바로 보내고 나서 다시 처리 결과를 `head`에 보낸다.
 
 ~~~
 $ wc -l *.pdb | sort -n | head -1
@@ -227,84 +180,40 @@ $ wc -l *.pdb | sort -n | head -1
 ~~~
 {:class="out"}
 
-This is exactly like a mathematician nesting functions like *sin(&pi;x)<sup>2</sup>*
-and saying "the square of the sine of *x* times &pi;".
-In our case,
-the calculation is "head of sort of line count of `*.pdb`".
+이것이 정확하게 수학자가 *sin(&pi;x)<sup>2</sup>*같은 
+중첩함수를 사용하는 것과 같다. *sin(&pi;x)<sup>2</sup>*은
+*x* 곱하기 &pi;의 사인 제곱과 같다. 우리의 경우는 `*.pdb`의 행수를 세어서 정렬의 첫 부분을 계산하는 것이다.</p>
 
-Here's what actually happens behind the scenes when we create a pipe.
-When a computer runs a program&mdash;any program&mdash;it creates a [process](../../gloss.html#process)
-in memory to hold the program's software and its current state.
-Every process has an input channel called [standard input](../../gloss.html#standard-input).
-(By this point, you may be surprised that the name is so memorable, but don't worry:
-most Unix programmers call it "stdin".
-Every process also has a default output channel called [standard output](../../gloss.html#standard-output)
-(or "stdout").
+<p>파이프를 생성할 때 뒤에서 실질적으로 일어나는 일은 다음과 같다. 컴퓨터가 프로그램을 실행할 때 프로그램의 소프트웨어와 현재 상태 정보를 담기 위해서 주기억장치 메모리에 [프로세스(process)](../../gloss.html#process)를 생성한다. 모든 프로세스는 [표준 입력(standard input)](../../gloss.html#standard-input)이라는 입력 채널을 가지고 있다. (여기서 이름이 너무 기억하기 좋아서 놀랄지도 모른다. 하지만 걱정하지 마세요. 대부분의 유닉스 프로그래머는 "stdin"이라고 부른다.) 또한 모든 프로세스는 [표준 출력(standard output)](../../gloss.html#standard-output)(혹은 "stdout")라고 불리는 디폴트 출력 채널이 있다.
 
-The shell is actually just another program.
-Under normal circumstances,
-whatever we type on the keyboard is sent to the shell on its standard input,
-and whatever it produces on standard output is displayed on our screen.
-When we tell the shell to run a program,
-it creates a new process
-and temporarily sends whatever we type on our keyboard to that process's standard input,
-and whatever the process sends to standard output to the screen.
+쉘은 실질적으로 또다른 프로그램이다. 정상적인 상황에서 사용자가 키보드로 무엇을 타이핑하는 모든 것은 표준 입력으로 쉘에 보내지고, 표준 출력에서 만들어지는 무엇이든지 화면에 출력된다. 쉘에게 프로그램을 실행하게 할때, 새로운 프로게스를 생성하고 임시적으로 키보드에 타이핑하는 무엇이든지 그 프로세스의 표준 입력으로 보내지고, 프로세스는 표준 출력에 무엇이든지 화면에 전송한다.
 
-Here's what happens when we run `wc -l *.pdb > lengths`.
-The shell starts by telling the computer to create a new process to run the `wc` program.
-Since we've provided some filenames as parameters,
-`wc` reads from them instead of from standard input.
-And since we've used `>` to redirect output to a file,
-the shell connects the process's standard output to that file.
+`wc -l *.pdb > lengths`을 실행할 때 여기 일어나는 것을 설명하면 다음과 같다. `wc` 프로그램을 실행할 
+새로운 프로세스를 생성하라고 컴퓨터에 말하면서 쉘은 시작한다.
+파일이름을 매개변수로 제공했기 때문에 표준 입력 대신에 `wc`는 매개변수에서 입력값을 읽어온다. `>`을 사용해서 출력값을 파일에 되돌리는데 사용했기 때문에, 쉘은 프로세스의 표준 출력결과를 파일에 연결한다.
 
-If we run `wc -l *.pdb | sort -n` instead,
-the shell creates two processes
-(one for each process in the pipe)
-so that `wc` and `sort` run simultaneously.
-The standard output of `wc` is fed directly to the standard input of `sort`;
-since there's no redirection with `>`,
-`sort`'s output goes to the screen.
-And if we run `wc -l *.pdb | sort -n | head -1`,
-we get three processes with data flowing from the files,
-through `wc` to `sort`,
-and from `sort` through `head` to the screen.
+`wc -l *.pdb | sort -n`을 실행한다면, 쉘은 
+두개의 프로세스를 생성한다. (파이프의 각 프로세스에 대해서 하나씩) 그래서 
+`wc`과 `sort`은 동시에 실행된다.
+`wc`의 표준 출력은 직접적으로 `sort`의 표준 입력으로 들어간다. `>`같은 되돌리기가 없기 때문에 
+`sort`의 출력은 화면으로 나가게 된다. 
+`wc -l *.pdb | sort -n | head -1`을 실행하면, 파일에서 `wc`에서 `sort`으로, `sort`에서 `head`을 통해 화면으로 나가게 되는 데이터 흐름을 가진 3개의 프로세스가 있다.
 
-This simple idea is why Unix has been so successful.
-Instead of creating enormous programs that try to do many different things,
-Unix programmers focus on creating lots of simple tools that each do one job well,
-and that work well with each other.
-This programming model is called [pipes and filters](../../gloss.html#pipe-and-filter).
-We've already seen pipes;
-a [filter](../../gloss.html#filter) is a program like `wc` or `sort`
-that transforms a stream of input into a stream of output.
-Almost all of the standard Unix tools can work this way:
-unless told to do otherwise,
-they read from standard input,
-do something with what they've read,
-and write to standard output.
+이 간단한 아이디어가 왜 유닉스가 그토록 성공적이었는지를 보여준다. 많은 다른 작업을 수행하는 거대한 프로그램을 생성하는 대신에 유닉스 프로그래머는 각자가 한가지 작업만을 잘 수행하는 많은 간단한 툴을 생성하는데 집중하고 서로간에 유지적으로 잘 작동하게 한다. 이러한 프로그래밍 모델을 [파이프와 필터(pipes and filters)](../../gloss.html#pipe-and-filter)라고 부른다. 파이프는 이미 살펴봤고, [필터(filter)](../../gloss.html#filter)는 `wc`, `sort`같은 프로그램으로 입력 스트림을 출력 스트림으로 변환하는 것이다. 거의 모든 표준 유닉스 툴은 이런 방식으로 동작한다. 별도로 언급되지 않는다면, 표준 입력에서 읽고 읽은 것을 가지고 무언가를 수행하고 표준 출력에 쓴다.
 
-The key is that any program that reads lines of text from standard input
-and writes lines of text to standard output
-can be combined with every other program that behaves this way as well.
-You can *and should* write your programs this way
-so that you and other people can put those programs into pipes to multiply their power.
+중요한 점은 표준입력에서 텍스트 행을 읽고 표준 출력에 텍스트 행을 쓰는 임의의 프로그램은 이런 방식으로 행동하는 모든 다른 프로그램과 조합될 수 있다는 것이다. 여러분도 여러분이 작성한 프로그램을 이러한 방식으로 작성할 수 있어야 하고 *작성해야 한다.* 그래서 여러분과 다른 사람들이 이러한 프로그램을 파이프에 넣어서 프로그램의 힘을 배가할 수 있다.
 
-> #### Redirecting Input
+> #### 입력 되돌리기
 > 
-> As well as using `>` to redirect a program's output, we can use `<` to
-> redirect its input, i.e., to read from a file instead of from standard
-> input. For example, instead of writing `wc ammonia.pdb`, we could write
-> `wc < ammonia.pdb`. In the first case, `wc` gets a command line
-> parameter telling it what file to open. In the second, `wc` doesn't have
-> any command line parameters, so it reads from standard input, but we
-> have told the shell to send the contents of `ammonia.pdb` to `wc`'s
-> standard input.
+> 프로그램의 출력 결과를 되돌리기 위해서 `>`을 사용하는 것과 마찬가지로 `<`을 사용해서 입력을
+> 되돌릴 수도 있다. 즉, 표준 입력 대신에 파일로 부터 읽을 수 있다.
+> 예를 들어, 첫째 사례로, `wc`는 무슨 파일을 여는지를 명령 라인의 매개변수에서 얻는다. 
+> 두번째 사례는, `wc`가 명령 라인 매개변수가 없다. 그래서 표준 입력에서 읽지만, 
+> 쉘에게 `ammonia.pdb`의 내용을 `wc`에 표준 입력으로 보내라고 했다.
 
-### Nelle's Pipeline: Checking Files
+### Nelle의 파이프라인 Pipeline: 파일 확인하기
 
-Nelle has run her samples through the assay machines
-and created 1520 files in the `north-pacific-gyre/2012-07-03` directory described earlier.
-As a quick sanity check, she types:
+앞에서 설명한 것 처럼 Nelle은 분석기를 통해 시료를 시험해서 1520개 파일을 `north-pacific-gyre/2012-07-03` 디렉토리에 생성했다. 빠르게 건정성 확인하기 위해서 다음과 같이 타이핑한다.
 
 ~~~
 $ cd north-pacific-gyre/2012-07-03
@@ -312,7 +221,7 @@ $ wc -l *.txt
 ~~~
 {:class="in"}
 
-The output is 1520 lines that look like this:
+결과는 다음과 같은 1520 행이 출력된다.
 
 ~~~
 300 NENE01729A.txt
@@ -325,7 +234,7 @@ The output is 1520 lines that look like this:
 ~~~
 {:class="out"}
 
-Now she types this:
+이번에는 다음과 같이 타이핑한다.
 
 ~~~
 $ wc -l *.txt | sort -n | head -5
@@ -340,13 +249,7 @@ $ wc -l *.txt | sort -n | head -5
 ~~~
 {:class="out"}
 
-Whoops: one of the files is 60 lines shorter than the others.
-When she goes back and checks it,
-she sees that she did that assay at 8:00 on a Monday morning&mdash;someone
-was probably in using the machine on the weekend,
-and she forgot to reset it.
-Before re-running that sample,
-she checks to see if any files have too much data:
+이런, 파일중에 하나가 다른 것보다 60행이 짧다. 다시 돌아가서 확인하면, 월요일 아침 8:00 시각에 분석을 수행한 것을 알고 있다. 아마도 누군가 주말에 누군가 기계를 사용했고, 다시 돌려놓는 것을 깜빡 잊었다. 시료를 다시 시험하기 전에 파일중에 너무 큰 데이터가 있는지를 확인한다.
 
 ~~~
 $ wc -l *.txt | sort -n | tail -5
@@ -361,11 +264,7 @@ $ wc -l *.txt | sort -n | tail -5
 ~~~
 {:class="out"}
 
-Those numbers look good&mdash;but what's that 'Z' doing there in the third-to-last line?
-All of her samples should be marked 'A' or 'B';
-by convention,
-her lab uses 'Z' to indicate samples with missing information.
-To find others like it, she does this:
+숫자는 좋아 보인다. 하지만 끝에서 세번째 줄에 'Z'는 무엇일까? 모든 시료는 'A' 혹은 'B'로 표시되어야 한다. 시험실 관례로 'Z'는 결측치가 있는 시료를 표식하기 위해 사용된다. 더 많은 결측 시료를 찾기 위해서 다음과 같이 타이핑한다.
 
 ~~~
 $ ls *Z.txt
@@ -376,30 +275,19 @@ NENE01971Z.txt    NENE02040Z.txt
 ~~~
 {:class="out"}
 
-Sure enough,
-when she checks the log on her laptop,
-there's no depth recorded for either of those samples.
-Since it's too late to get the information any other way,
-she must exclude those two files from her analysis.
-She could just delete them using `rm`,
-but there are actually some analyses she might do later where depth doesn't matter,
-so instead, she'll just be careful later on to select files using the wildcard expression `*[AB].txt`.
-As always,
-the '\*' matches any number of characters;
-the expression `[AB]` matches either an 'A' or a 'B',
-so this matches all the valid data files she has.
+노트북의 로그 이력을 확인할 때, 상기 샘플 각각에 대해 깊이(depth) 정보에 대해서 기록된 것이 없다. 다른 방법으로 정보를 더 수집하기에는 너무 늦어서, 분석에서 두 파일을 제외하기로 했다. `rm` 명령어를 사용하여 삭제할 수 있지만, 향후에 깊이(depth)정보가 관련없는 다른 분석을 실시할 수도 있다. 그래서 와일드 카드 표현식 `*[AB].txt`을 사용하여 파일을 조심해서 선택하기로 한다. 언제나 그렇듯이, '\*'는 임의 숫자의 문자를 매칭한다. `[AB]` 표현식은 'A'혹은 'B'를 매칭해서 Nelle이 가지고 있는 유효한 데이터 파일 모두를 매칭한다.
 
 <div class="keypoints" markdown="1">
 
-#### Key Points
-*   `command > file` redirects a command's output to a file.
-*   `first | second` is a pipeline: the output of the first command is used as the input to the second.
-*   The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).
+#### 주요점
+*   `명령어 > 파일` (`command > file`)은 명령어의 출력을 파일로 되돌린다.
+*   `첫째_명령어 | 둘째_명령어`(`first | second`)는 파이프라인이다. 첫째_명령어 출력은 둘째_명령어의 입력으로 사용된다.
+*   쉘을 사용하는 가장 좋은 방법은 파이프를 사용해서 간단한 단일 목적 프로그램(필터)을 조합하는 것이다.
 
 </div>
 
 <div class="challenge" markdown="1">
-If we run `sort` on this file:
+파일에 `sort`를 실행하면,
 
 ~~~
 10
@@ -409,7 +297,7 @@ If we run `sort` on this file:
 6
 ~~~
 
-the output is:
+출력은 다음과 같다.
 
 ~~~
 10
@@ -419,7 +307,7 @@ the output is:
 6
 ~~~
 
-If we run `sort -n` on the same input, we get this instead:
+동일한 입력에 `sort -n`을 실행하면, 대신에 다음을 얻게된다.
 
 ~~~
 2
@@ -429,17 +317,17 @@ If we run `sort -n` on the same input, we get this instead:
 22
 ~~~
 
-Explain why `-n` has this effect.
+인수 `-n`가 왜 이런 효과를 가지는지 설명하세요.
 </div>
 
 <div class="challenge" markdown="1">
-What is the difference between:
+다음 명령문과
 
 ~~~
 wc -l < mydata.dat
 ~~~
 
-and:
+다음 명령문의 차이점은 무엇인지 설명하세요.
 
 ~~~
 wc -l mydata.dat
@@ -447,8 +335,7 @@ wc -l mydata.dat
 </div>
 
 <div class="challenge" markdown="1">
-The command `uniq` removes adjacent duplicated lines from its input.
-For example, if a file `salmon.txt` contains:
+명령문 `uniq`은 입력으로부터 인접한 중복된 행을 제거한다. 예를 들어, `salmon.txt` 파일이 다음을 포함한다면,
 
 ~~~
 coho
@@ -459,7 +346,7 @@ steelhead
 steelhead
 ~~~
 
-then `uniq salmon.txt` produces:
+`uniq salmon.txt` 명령문 실행은 다음을 출력한다.
 
 ~~~
 coho
@@ -468,13 +355,11 @@ coho
 steelhead
 ~~~
 
-Why do you think `uniq` only removes *adjacent* duplicated lines?
-(Hint: think about very large data sets.) What other command could
-you combine with it in a pipe to remove all duplicated lines?
+`uniq`가 왜 인접한 중복 행만을 단지 제거한다고 생각합니까? (힌트: 매우 큰 파일을 생각해보세요.) 모든 중복된 행을 제거하기 위해서 파이프로 무슨 다른 명령어를 조합할 수 있을까요?
 </div>
 
 <div class="challenge" markdown="1">
-A file called `animals.txt` contains the following data:
+`animals.txt`로 불리는 파일은 다음 데이터를 포함한다
 
 ~~~
 2012-11-05,deer
@@ -487,7 +372,7 @@ A file called `animals.txt` contains the following data:
 2012-11-07,bear
 ~~~
 
-What text passes through each of the pipes and the final redirect in the pipeline below?
+다음 아래 파이프라인에 각 파이프를 통과하고 마지막 되돌리기를 마친  텍스트는 무엇일까요?
 
 ~~~
 cat animals.txt | head -5 | tail -3 | sort -r > final.txt
@@ -495,13 +380,13 @@ cat animals.txt | head -5 | tail -3 | sort -r > final.txt
 </div>
 
 <div class="challenge" markdown="1">
-The command:
+다음 명령문을 실행하면,
 
 ~~~
 $ cut -d , -f 2 animals.txt
 ~~~
 
-produces the following output:
+다음 출력결과를 만들어 낸다.
 
 ~~~
 deer
@@ -514,7 +399,5 @@ rabbit
 bear
 ~~~
 
-What other command(s) could be added to this in a pipeline to find
-out what animals the file contains (without any duplicates in their
-names)?
+파일이 담고 있는 동물이 무엇인지를 알아내기 위해서 무슨 다른 명령어가 파이프라인에 추가되어야 하나요? (동물 이름에 어떠한 중복도 없어야 합니다.)
 </div>
