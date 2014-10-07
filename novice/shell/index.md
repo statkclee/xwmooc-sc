@@ -15,7 +15,7 @@ title: 유닉스 쉘(Unix Shell)
 4.  [파이프(pipe)와 필터(filter)](03-pipefilter.html)
 5.  [루프(Loops)](04-loop.html)
 6.  [쉘 스크립트(shell script)](05-script.html)
-7.  [원하는 것 찾기](06-find.html)
+7.  [파일, 문자, 디렉토리  등 찾기](06-find.html)
 
 [Reference](../ref/01-shell.html)
 

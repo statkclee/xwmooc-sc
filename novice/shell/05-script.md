@@ -1,27 +1,23 @@
 ---
 layout: lesson
 root: ../..
-title: Shell Scripts
+title: 쉘 스크립트
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Write a shell script that runs a command or series of commands for a fixed set of files.
-*   Run a shell script from the command line.
-*   Write a shell script that operates on a set of files defined by the user on the command line.
-*   Create pipelines that include user-written shell scripts.
+#### 목표
+*   고정된 파일 집합에 하나의 명령어 혹은 일련의 명령어를 실행하는 쉘 스크립트를 작성하기
+*   명령 라인에서 쉘 스크립트 실행하기
+*   명령 라인에서 사용자가 정의한 파일 집합에 동작하는 쉘 스크립트 작성하기
+*   사용자가 작성한 쉘 스크립트를 포함하는 파이프라인 생성하기
 
 </div>
 
-We are finally ready to see what makes the shell such a powerful programming environment.
-We are going to take the commands we repeat frequently and save them in files
-so that we can re-run all those operations again later by typing a single command.
-For historical reasons,
-a bunch of commands saved in a file is usually called a [shell script](../../gloss.html#shell-script),
-but make no mistake:
-these are actually small programs.
+마침내 무엇이 쉘을 그토록 강력한 프로그래밍 환경이 되도록 만드는지 볼 준비가 되었다.
+자주 반복적으로 사용하는 명령어를 파일에 저장할 것이고, 단 하나의 명령어를 타이핑함으써 나중에 이 모든 연산을 다시 실행할 수 있다.
+역사적 이유로 파일에 저장된 명령어 꾸러미는 통상 [쉘 스크립트(shell script)](../../gloss.html#shell-script)라고 부르지만 실수로 그렇게 부르는 것은 아니다. 실제로 작은 프로그램이다.
 
-Let's start by going back to `molecules/` and putting the following line in the file `middle.sh`:
+`molecules/` 디렉토리로 돌아가서 `middle.sh` 파일에 다음 행을 추가해서 시작해 봅시다.
 
 ~~~
 $ cd molecules
@@ -35,14 +31,11 @@ head -15 octane.pdb | tail -5
 ~~~
 </div>
 
-This is a variation on the pipe we constructed earlier:
-it selects lines 11-15 of the file `octane.pdb`.
-Remember, we are *not* running it as a command just yet:
-we are putting the commands in a file.
+앞서 작성한 파이프에 변형으로 `octane.pdb` 파일에서 11-15 행을 선택한다.
+  기억할 것은 명령어로서 *실행하지 않고*, 명령어를 파일에 넣는다.
 
-Once we have saved the file,
-we can ask the shell to execute the commands it contains.
-Our shell is called `bash`, so we run the following command:
+파일을 저장하면, 쉘로 하여금 파일이 담고 있는 명령어를 실행하게 할 수 있다. 지금 쉘은 `bash`이고,
+다음과 같이 명령어를 실행한다.
 
 ~~~
 $ bash middle.sh
@@ -57,26 +50,18 @@ ATOM     13  H           1      -3.172  -1.337   0.206  1.00  0.00
 ~~~
 {:class="out"}
 
-Sure enough,
-our script's output is exactly what we would get if we ran that pipeline directly.
+과연, 스크립트의 출력은 정확하게 파이프라인을 직접적으로 실행한 것과 동일하다.
 
-> #### Text vs. Whatever
+> #### 텍스트 대 텍스트가 아닌 것 아무거나
 >
-> We usually call programs like Microsoft Word or LibreOffice Writer "text
-> editors", but we need to be a bit more careful when it comes to
-> programming. By default, Microsoft Word uses `.docx` files to store not
-> only text, but also formatting information about fonts, headings, and so
-> on. This extra information isn't stored as characters, and doesn't mean
-> anything to tools like `head`: they expect input files to contain
-> nothing but the letters, digits, and punctuation on a standard computer
-> keyboard. When editing programs, therefore, you must either use a plain
-> text editor, or be careful to save files as plain text.
+> 종종 마이크로소프트 워드 혹은 리브르오피스 Writer 프로그램을 "텍스트 편집기"로 호출한다.
+> 하지만, 프로그램에 대해서는 조금더 주의를 할 필요가 있다. 디폴트로, 마이크로소프트 워드는 `.docx` 파일을 사용해서 텍스트 를 저장할 뿐만 아니라
+> 글꼴, 제목, 등등의 형식 정보도 함께 저장한다. 이렇나 추가 정보는 문자로 
+> 저장되지 않아서 `head` 같은 도구에게는 무의미하다. `head` 같은 툴은 
+> 입력 파일이 문자, 숫자, 표준 컴퓨터 키보드의 특수문자만을 포함하기를 바란다.
+> 그러므로 프로그램을 편집할 때, 일반 텍스트 편집기를 사용하거나, 혹은 일반 텍스트로 파일을 저장하도록 주의한다.
 
-What if we want to select lines from an arbitrary file?
-We could edit `middle.sh` each time to change the filename,
-but that would probably take longer than just retyping the command.
-Instead,
-let's edit `middle.sh` and replace `octane.pdb` with a special variable called `$1`:
+만약 임의의 파일에서 행을 선택하고자 한다면 어떨까요? 파일 이름을 바꾸기 위해서 매번 `middle.sh`을 편집할 수 있지만, 단순히 명령어를 다시 타이핑하는 것보다 아마 오래 걸릴 것이다. 대신에 `middle.sh`을 편집해서 `octane.pdb`을 `$1`으로 불리는 특수 변수로 변경하자.
 
 ~~~
 $ cat middle.sh
@@ -87,9 +72,8 @@ head -20 $1 | tail -5
 ~~~
 {:class="out"}
 
-Inside a shell script,
-`$1` means "the first filename (or other parameter) on the command line".
-We can now run our script like this:
+쉘 스크립트 내부에서, `$1`은 "명령 라인에 첫 파일 이름(혹은 다른 매개변수)"을 의미한다.
+스크립트를 다음과 같이 이제 실행할 수 있다.
 
 ~~~
 $ bash middle.sh octane.pdb
@@ -104,7 +88,7 @@ ATOM     13  H           1      -3.172  -1.337   0.206  1.00  0.00
 ~~~
 {:class="out"}
 
-or on a different file like this:
+혹은 다음과 같이 다른 파일에 스크립트를 실행한다.
 
 ~~~
 $ bash middle.sh pentane.pdb
@@ -119,9 +103,7 @@ ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00
 ~~~
 {:class="out"}
 
-We still need to edit `middle.sh` each time we want to adjust the range of lines,
-though.
-Let's fix that by using the special variables `$2` and `$3`:
+하지만, 여전히 행의 범위를 조절할 때마다 `middle.sh`을 편집할 필요가 있다. 특수 변수 `$2`과 `$3`을 사용해서 이 문제를 해결하자.
 
 ~~~
 $ cat middle.sh
@@ -144,9 +126,8 @@ TER      18              1
 ~~~
 {:class="out"}
 
-This works,
-but it may take the next person who reads `middle.sh` a moment to figure out what it does.
-We can improve our script by adding some [comments](../../gloss.html#comment) at the top:
+제대로 동작하지만, `middle.sh`을 읽는 다음 사람은 잠시 시간을 들여서 스크립트가 무엇을 수행하는지 알아내야 할지 모른다.
+스크립트를 상단에 [주석(comments)](../../gloss.html#comment)을 추가해서 좀더 낫게 만들 수 있다.
 
 ~~~
 $ cat middle.sh
@@ -159,30 +140,20 @@ head $2 $1 | tail $3
 ~~~
 {:class="out"}
 
-A comment starts with a `#` character and runs to the end of the line.
-The computer ignores comments,
-but they're invaluable for helping people understand and use scripts.
+주석은 `#`문자로 시작하고 행의 끝까지 간다. 컴퓨터는 주석을 무시하지만, 사람들이 스크립트를 이행하고 사용하는데 정말 귀중한다.
 
-What if we want to process many files in a single pipeline?
-For example, if we want to sort our `.pdb` files by length, we would type:
+만약 많은 파일을 단 하나의 파이프라인으로 처리하고자 한다면 어떨까? 예를 들어, `.pdb` 파일을 길이 순으로 정렬하려면 다음과 같이 타이핑한다.
 
 ~~~
 $ wc -l *.pdb | sort -n
 ~~~
 {:class="in"}
 
-because `wc -l` lists the number of lines in the files
-and `sort -n` sorts things numerically.
-We could put this in a file,
-but then it would only ever sort a list of `.pdb` files in the current directory.
-If we want to be able to get a sorted list of other kinds of files,
-we need a way to get all those names into the script.
-We can't use `$1`, `$2`, and so on
-because we don't know how many files there are.
-Instead, we use the special variable `$*`,
-which means,
-"All of the command-line parameters to the shell script."
-Here's an example:
+`wc -l`은 파일에 행수를 출력하고 `sort -n`은 숫자순으로 파일의 행수를 정렬한다.
+파일에 담을 수 있지만, 현재 디렉토리에 `.pdb` 파일만을 정렬한다. 
+다른 종류의 파일의 정렬된 목록을 얻으려고 한다면, 스크립트에 이 모든 이름을 얻는 방법이 필요하다.
+`$1`, `$2` 등등을 사용할 수 없는데 왜냐하면 얼마나 많은 파일이 있는지를 알 수 없기 때문이다.
+대신에, 특수 변수 `$*`을 사용한다. `$*`은 "쉘 스크립트에 모든 명령-라인 매개변수"를 의미한다. 예제가 여기 있다.
 
 ~~~
 $ cat sorted.sh
@@ -208,25 +179,24 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 ~~~
 {:class="out"}
 
-> #### Why Isn't It Doing Anything?
+> #### 왜 쉘 스크립트가 어떤 것도 하지 않을까?
 >
-> What happens if a script is supposed to process a bunch of files, but we
-> don't give it any filenames? For example, what if we type:
+> 스크립트가 파일 꾸러미를 처리하고 했지만, 어떠한 파일 이름도 주지 않는다면 
+> 무슨 일이 발생할까요? 예를 들어, 만약 다음과 같이 타이핑한다면 어떨까요?
 >
 >     $ bash sorted.sh
 >
-> but don't say `*.dat` (or anything else)? In this case, `$*` expands to
-> nothing at all, so the pipeline inside the script is effectively:
+> 하지만 `*.dat` (혹은 다른 어떤 것)을 타이핑하지 않는다면 어떨까요? 이 경우 
+> `$*`은 아무 것도 전개하지 않아서 스크립트 내부의 파이프라인은 사실상 다음과 같다.
 >
 >     wc -l | sort -n
 >
-> Since it doesn't have any filenames, `wc` assumes it is supposed to
-> process standard input, so it just sits there and waits for us to give
-> it some data interactively. From the outside, though, all we see is it
-> sitting there: the script doesn't appear to do anything.
+> 어떠한 파일이름도 주지 않아서, `wc`은 표준 입력을 처리하려 한다고 가정해서 
+> 단지 앉아서 사용자가 인터랙티브하게 어떤 데이터를 전달하길 기다린다. 하지만, 
+> 밖에서는 사용자에게 보이는 것은 스크립트가 거기 앉아서 정지한 것처럼 보여 
+> 스크핍트가 아무 일도 수행하지 않는 것처럼 보인다.
 
-We have two more things to do before we're finished with our simple shell scripts.
-If you look at a script like:
+간단한 쉘 스크립트로 마치기 전에 두개가 더 있다. 다음과 같은 스크립트를 살펴보면,
 
 <div class="file" markdown="1">
 ~~~
@@ -234,9 +204,7 @@ wc -l $* | sort -n
 ~~~
 </div>
 
-you can probably puzzle out what it does.
-On the other hand,
-if you look at this script:
+아마도 스크립트가 무엇을 하는지 생각해 낼 수 있다. 다른 한편으로 다음 스크립트를 살펴보면,
 
 <div class="file" markdown="1">
 ~~~
@@ -245,29 +213,17 @@ wc -l $* | sort -n
 ~~~
 </div>
 
-you don't have to puzzle it out&mdash;the comment at the top tells you what it does.
-A line or two of documentation like this make it much easier for other people
-(including your future self)
-to re-use your work.
-The only caveat is that each time you modify the script,
-you should check that the comment is still accurate:
-an explanation that sends the reader in the wrong direction is worse than none at all.
+사용자가 생각해 낼 필요가 없다. 상단의 주석이 무엇을 수행하는지 자동으로 말해준다. 한줄 혹은 두줄의 이와 같은 문서화는 앞으로 여러분 자신과 다른 사람이 여러분이 작성한 스크립트나 프로그램을 재사용하기 쉽게 한다. 주의할 점은 매번 스크립트를 변경할 때마다, 주석이 여전히 정확한지를 확인해야만 한다. 독자에게 잘못된 방향을 주는 설명은 아무것도 없는 것보다 더 나쁠 수 있다.
 
-Second,
-suppose we have just run a series of commands that did something useful&mdash;for example,
-that created a graph we'd like to use in a paper.
-We'd like to be able to re-create the graph later if we need to,
-so we want to save the commands in a file.
-Instead of typing them in again
-(and potentially getting them wrong)
-we can do this:
+둘째로, 유용한 무언가를 수행하는 일련의 명령어를 방금 실행했다고 가정하자. 예를 들어 스크립트가 논문에 사용될 그래프를 생성했다.
+필요하면 나중에 그래프를 다시 생성하고자 해서 파일에 명령어를 저장하고자 한다. 명령문을 다시 타이핑(그리고 잠재적으로 잘못 타이핑할 수도 있다)하는 대신에 다음과 같이 할 수도 있다.
 
 ~~~
 $ history | tail -4 > redo-figure-3.sh
 ~~~
 {:class="in"}
 
-The file `redo-figure-3.sh` now contains:
+`redo-figure-3.sh` 파일은 이제 다음을 담고 있다.
 
 <div class="file" markdown="1">
 ~~~
@@ -278,14 +234,12 @@ The file `redo-figure-3.sh` now contains:
 ~~~
 </div>
 
-After a moment's work in an editor to remove the serial numbers on the commands,
-we have a completely accurate record of how we created that figure.
+명령어의 일련 번호를 제거하기 위해서 편집기에서 한동안 작업한 후에 그림을 어떻게 생성하는지에 대한 정말로 정확한 기록을 갖게 된다.
 
-> #### Unnumbering
+> #### 매긴 번호 지우기(Unnumbering)
 >
-> Nelle could also use `colrm` (short for "column removal") to remove the
-> serial numbers on her previous commands.
-> Its parameters are the range of characters to strip from its input:
+> 앞선 명령에 붙은 일련번호를 제거하기 위해서 Nelle은 `colrm` ("column removal(열 제거)"의 줄임말)를 사용할 수 있다.
+> 매개변수가 입력에서 제거할 문자 범위가 된다.
 >
 > ~~~
 > $ history | tail -5
@@ -303,25 +257,16 @@ we have a completely accurate record of how we created that figure.
 > history | tail -5 | colrm 1 7
 > ~~~
 
-In practice, most people develop shell scripts by running commands at the shell prompt a few times
-to make sure they're doing the right thing,
-then saving them in a file for re-use.
-This style of work allows people to recycle
-what they discover about their data and their workflow with one call to `history`
-and a bit of editing to clean up the output
-and save it as a shell script.
+실제로, 대부분의 사람들은 쉘 프롬프트에서 몇번 명령어를 실행해서 올바들게 수행되는지를 확인한 다음 재사용을 위해서 파일에 저장한다.
+이런 유형의 작업은 데이터와 워크플로어에서 발견한 것을 `history`를 호출해서 재사용할 수 있게 하고 출력을 깔끔하게 하기 위해 약간의 편집을 하고 쉘 스크립트로 저장한다.
 
-### Nelle's Pipeline: Creating a Script
+### Nelle의 파이프라인: 스크립트 생성하기
 
-An off-hand comment from her supervisor has made Nelle realize that
-she should have provided a couple of extra parameters to `goostats` when she processed her files.
-This might have been a disaster if she had done all the analysis by hand,
-but thanks to for loops,
-it will only take a couple of hours to re-do.
+지도교수의 즉석 코멘트는 Nelle이 파일을 처리할 때 `goostats`에 추가 몇개의 매개변수를 주어야 한다는 것을 깨닫게 했다.
+수작업으로 모든 분석을 했다면 아마도 재난이었을 것이다. 하지만, 루프덕분에 다시 작업하는데는 몇시간이 소요될 것이다.
 
-But experience has taught her that if something needs to be done twice,
-it will probably need to be done a third or fourth time as well.
-She runs the editor and writes the following:
+만약 무언가가 두번 수행될 필요가 있다면 아마도 세번 혹은 네번도 수행될 필요가 있다는 것을 경험으로 알고 있다.
+편집기를 실행하고 다음과 같이 작성한다.
 
 <div class="file" markdown="1">
 ~~~
@@ -334,28 +279,23 @@ done
 ~~~
 </div>
 
-(The parameters `-J 100` and `-r` are the ones her supervisor said she should have used.)
-She saves this in a file called `do-stats.sh`
-so that she can now re-do the first stage of her analysis by typing:
+(매개변수 `-J 100`과 `-r`은 지도교수가 사용해야 된다고 알려준 것이다.) `do-stats.sh` 이름으로 파일에 저장해서 다음과 같이 타이핑해서 첫번째 단계 분석을 다시 수행할 수 있다.
 
 ~~~
 $ bash do-stats.sh *[AB].txt
 ~~~
 {:class="in"}
 
-She can also do this:
+또한 다음과 같이도 할 수 있다.
 
 ~~~
 $ bash do-stats.sh *[AB].txt | wc -l
 ~~~
 {:class="in"}
 
-so that the output is just the number of files processed
-rather than the names of the files that were processed.
+그렇게 해서 출력은 처리된 파일 이름이 아니라 처리된 파일의 숫자만 출력된다.
 
-One thing to note about Nelle's script is that
-it lets the person running it decide what files to process.
-She could have written it as:
+Nelle의 스크립트에서 주목할 한가지는 스크립트를 실행하는 사람이 무슨 파일을 처리할지를 결정하게 하는 것이다. 스크립트를 다음과 같이 작성할 수 있다.
 
 <div class="file" markdown="1">
 ~~~
@@ -368,30 +308,22 @@ done
 ~~~
 </div>
 
-The advantage is that this always selects the right files:
-she doesn't have to remember to exclude the 'Z' files.
-The disadvantage is that it *always* selects just those files&mdash;she can't run it on all files
-(including the 'Z' files),
-or on the 'G' or 'H' files her colleagues in Antarctica are producing,
-without editing the script.
-If she wanted to be more adventurous,
-she could modify her script to check for command-line parameters,
-and use `*[AB].txt` if none were provided.
-Of course, this introduces another tradeoff between flexibility and complexity.
+장점은 이 스크립트는 항상 올바른 파일만을 선택한다. 'Z'파일을 제거했는지 기억할 필요가 없다.
+단점은 *항상** 이 파일만을 선택한다는 것이다. 모든 파일('Z'를 포함하는 파일), 혹은 남극 동료가 생성한 "G", "H" 파일에 대해서 스크립트를 편집하지 않고는 실행할 수 없다. 좀더 모험적이라면, 스크립트를 변경해서 명령-라인 매개변수를 검증해서 만약 어떠한 매개변수도 제공되지 않았다면 `*[AB].txt`을 사용한다. 물론, 이런 접근법은 유연성과 복잡성 사이에 서로 대립되는 요소 사이의 균형, 즉 트레이드오프(trade-off)를 야기한다.
 
 <div class="keypoints" markdown="1">
 
-#### Key Points
-*   Save commands in files (usually called shell scripts) for re-use.
-*   `bash filename` runs the commands saved in a file.
-*   `$*` refers to all of a shell script's command-line parameters.
-*   `$1`, `$2`, etc., refer to specified command-line parameters.
-*   Letting users decide what files to process is more flexible and more consistent with built-in Unix commands.
+#### 주요점
+*   재사용을 위해서 통상 쉘 스크립트로 불리는 명령어를 파일에 저장한다.
+*   `bash filename`은 파일에 저장된 명령어를 실행한다.
+*   `$*` 모든 쉘 스크립트의 명령-라인 매개변수를 말한다.
+*   `$1`, `$2`, 등등은 특정 명령-라인 매개변수를 말한다.
+*   사용자가 무슨 파일을 처리할지 결정하게 하는 것이 좀더 유연하고 좀더 내장된 유닉스 명령어와 일관성이 있다.
 
 </div>
 
 <div class="challenge" markdown="1">
-Leah has several hundred data files, each of which is formatted like this:
+Leah는 수백개의 데이터 파일이 있고, 각각은 다음과 같은 형식을 가지고 있다.
 
 ~~~
 2013-11-05,deer,5
@@ -404,44 +336,34 @@ Leah has several hundred data files, each of which is formatted like this:
 2013-11-07,bear,1
 ~~~
 
-Write a shell script called `species.sh` that takes any number of
-filenames as command-line parameters, and uses `cut`, `sort`, and
-`uniq` to print a list of the unique species appearing in each of
-those files separately.
+임의의 파일이름을 명령-라인 매개변수로 갖는 `species.sh` 이름의 쉘 스크립트를 작성하라.
+`cut`, `sort`, `uniq`을 사용해서 각각의 파일별로 나오는 유일한 종의 목록을 화면에 출력하세요.
 </div>
 
 <div class="challenge" markdown="1">
-Write a shell script called `longest.sh` that takes the name of a
-directory and a filename extension as its parameters, and prints
-out the name of the file with the most lines in that directory
-with that extension. For example:
+디렉토리 이름과 파일이름 확장자를 매개변수를 갖는 `longest.sh`이름의 쉘 스크립트를 작성해서 그 디렉토리에 그 확장자를 가지는 파일 중에 가장 긴 줄을 가진 파일이름을 화면에 출력하세요. 예를 들어, 다음은
 
 ~~~
 $ bash longest.sh /tmp/data pdb
 ~~~
 
-would print the name of the `.pdb` file in `/tmp/data` that has
-the most lines.
+`/tmp/data` 디렉토리에 `.pdb` 확장자를 가진 파일 중에 가장 긴 줄을 가진 파일이름을 화면에 출력한다.
 </div>
 
 <div class="challenge" markdown="1">
-If you run the command:
+다음 명령어를 실행하면,
 
 ~~~
 history | tail -5 > recent.sh
 ~~~
 
-the last command in the file is the `history` command itself, i.e.,
-the shell has added `history` to the command log before actually
-running it. In fact, the shell *always* adds commands to the log
-before running them. Why do you think it does this?
+파일의 마지막 명령어는 `history` 명령어 자체다. 즉, 쉘은 `history`에 실질적으로 실행하기 전에 명령어 이력(log)을 추가한다.
+사실, 쉘은 *항상** 명령어를 실행하기 전에 이력(log)에 명령어를 추가한다. 그렇게 하는 이유가 무엇이라고 생각합니까?
 </div>
 
 <div class="challenge" markdown="1">
-Joel's `data` directory contains three files: `fructose.dat`,
-`glucose.dat`, and `sucrose.dat`. Explain what a script called
-`example.sh` would do when run as `bash example.sh *.dat` if it
-contained the following lines:
+Joel의 `data` 디렉토리가 `fructose.dat`, `glucose.dat`, `sucrose.dat` 파일 세개를 담고 있다.
+다음행을 담고 있는 스크립트로 `bash example.sh *.dat`로 실행할 때 `example.sh` 이름의 스크립트가 무엇을 수행하는지 설명하세요.
 
 ~~~
 # Script 1
