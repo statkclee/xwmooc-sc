@@ -327,9 +327,8 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
 {:class="out"}
 
-Whoops:
-Git won't commit because we didn't use `git add` first.
-Let's fix that:
+이럴 수가, `git add`을 먼저 하지 않아서 Git가 커밋을 할 수 없다.
+고쳐봅시다.
 
 ~~~
 $ git add mars.txt
@@ -342,32 +341,17 @@ $ git commit -m "Concerns about Mars's moons on my furry friend"
 ~~~
 {:class="out"}
 
-Git insists that we add files to the set we want to commit
-before actually committing anything
-because we may not want to commit everything at once.
-For example,
-suppose we're adding a few citations to our supervisor's work
-to our thesis.
-We might want to commit those additions,
-and the corresponding addition to the bibliography,
-but *not* commit the work we're doing on the conclusion
-(which we haven't finished yet).
+실제로 무엇을 커밋하기 전에 커밋하고자하는 파일을 먼저 추가하라고 Git이 주장하는데, 왜냐하면 한번에 모든것을 커밋하지 싶지 않을지도 모르기 때문이다.
+예를 들어, 작성하고 있는 논문에 지도교수 작업 몇몇 인용을 추가한다고 가정하자. 논문 중간에 인용되는 추가부분과 상응하는 참고 문헌 부분을 커밋하고는 싶지만 결론 부분을 커밋하고는 싶지 *않다*. (아직 결론은 완성되지 않았다.) 
 
-To allow for this,
-Git has a special staging area
-where it keeps track of things that have been added to
-the current [change set](../../gloss.html#change-set)
-but not yet committed.
-`git add` puts things in this area,
-and `git commit` then copies them to long-term storage (as a commit):
+이런 부분을 고려해서, Git은 특별한 준비 영역(staging)이 있어서 현재 [변경부분(change set)](../../gloss.html#change-set)을 추가는 했으나 아직 커밋하지 않는 것을 준비 영역에 기억하고 있다. 
+`git add`를 하면 이 영역에 작업 중 해당하는 것을 놓고 
+`git commit`이 커밋으로 장기 저장소로 복사한다.
 
 <img src="img/git-staging-area.svg" alt="The Git Staging Area" />
 
-Let's watch as our changes to a file move from our editor
-to the staging area
-and into long-term storage.
-First,
-we'll add another line to the file:
+편집기의 파일을 준비 영역으로 그리고, 장기 저장소로 옮기는 것을 살펴보자.
+먼저 파일에 또 하나의 행을 추가한다.
 
 ~~~
 $ nano mars.txt
@@ -396,11 +380,8 @@ index 315bf3a..b36abfd 100644
 ~~~
 {:class="out"}
 
-So far, so good:
-we've added one line to the end of the file
-(shown with a `+` in the first column).
-Now let's put that change in the staging area
-and see what `git diff` reports:
+지금까지 좋다. 파일의 끝에 행을 하나 추가했다. (첫 열에 `+`이 보인다.)
+이제, 준비영역에 변경 사항을 놓고, `git diff` 명령어가 보고하는 것을 살펴보자.
 
 ~~~
 $ git add mars.txt
@@ -408,12 +389,7 @@ $ git diff
 ~~~
 {:class="in"}
 
-There is no output:
-as far as Git can tell,
-there's no difference between what it's been asked to save permanently
-and what's currently in the directory.
-However,
-if we do this:
+출력결과가 없다. Git말할 수 있는 것은 영구히 저장되는 것과 현재 디렉토리에 작업하고 있는 것과 차이가 없다. 하지만, 다음과 같이 명령어를 친다면,
 
 ~~~
 $ git diff --staged
@@ -431,10 +407,7 @@ index 315bf3a..b36abfd 100644
 ~~~
 {:class="out"}
 
-it shows us the difference between
-the last committed change
-and what's in the staging area.
-Let's save our changes:
+마지막으로 커밋된 변경사항과 준비 영역(Staging)에 있는 것과 차이를 보여준다. 변경사항을 저장하자.
 
 ~~~
 $ git commit -m "Thoughts about the climate"
@@ -446,7 +419,7 @@ $ git commit -m "Thoughts about the climate"
 ~~~
 {:class="out"}
 
-check our status:
+현재 상태를 확인하자.
 
 ~~~
 $ git status
@@ -458,7 +431,7 @@ nothing to commit, working directory clean
 ~~~
 {:class="out"}
 
-and look at the history of what we've done so far:
+그리고 지금까지 작업한 이력을 살펴보자.
 
 ~~~
 $ git log
@@ -485,19 +458,13 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 ~~~
 {:class="out"}
 
-To recap, when we want to add changes to our repository,
-we first need to add the changed files to the staging area
-(`git add`) and then commit the staged changes to the
-repository (`git commit`):
+요약하면, 변경사항을 저장소에 추가하고자 할 때, 먼저 변경된 파일을 준비 영역(Staging)에 `git add` 명령어를 추가하고, 준비 영역의 변경사항을 저장소에 `git commit` 명령어로 최종 커밋한다.
 
 <img src="img/git-committing.svg" alt="The Git Commit Workflow" />
 
-### Exploring History
+### 이력 탐험하기.
 
-If we want to see what we changed when,
-we use `git diff` again,
-but refer to old versions
-using the notation `HEAD~1`, `HEAD~2`, and so on:
+언제 변경한 것을 변경했는지를 알기 위해서는 `git diff`를 다시 사용한다. 하지만 오래된 버젼은 `HEAD~1`, `HEAD~2`, 등등 표기를 사용하여 참조한다.
 
 ~~~
 $ git diff HEAD~1 mars.txt
@@ -530,13 +497,8 @@ index df0654a..b36abfd 100644
 ~~~
 {:class="out"}
 
-In this way,
-we build up a chain of revisions.
-The most recent end of the chain is referred to as `HEAD`;
-we can refer to previous revisions using the `~` notation,
-so `HEAD~1` (pronounced "head minus one")
-means "the previous revision",
-while `HEAD~123` goes back 123 revisions from where we are now.
+이런 방식으로, 연쇄 수정 사슬을 만들 수 있다. 가장 최근 사슬의 끝값은 `HEAD`로 참조된다. `~` 표기법을 사용하여 앞선 수정을 참조할 수 있다. 그래서 `HEAD~1`("head" 빼기 1로 발음한다.)은 "바로 앞선 수정"을 의미하고, `HEAD~123`은 지금 있는 위치에서 123번째 이전 수정으로 간다는 의미다.
+
 
 We can also refer to revisions using
 those long strings of digits and letters
