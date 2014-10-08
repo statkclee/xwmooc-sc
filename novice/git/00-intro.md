@@ -1,52 +1,24 @@
 ---
 layout: lesson
 root: ../..
-title: Introducing Version Control
+title: 버젼 관리 소개
 ---
-Wolfman and Dracula have been hired by Universal Missions
-(a space services spinoff from Euphoric State University)
-to investigate if it is possible to send their next planetary lander to Mars.
-They want to be able to work on the plans at the same time,
-but they have run into problems doing this in the past.
-If they take turns,
-each one will spend a lot of time waiting for the other to finish,
-but if they work on their own copies and email changes back and forth
-things will be lost, overwritten, or duplicated.
 
-The right solution is to use [version control](../../gloss.html#version-control)
-to manage their work.
-Version control is better than mailing files back and forth because:
+Universal Missions 회사는 (Euphoric State University에서 분사한 항공 서비스 전문회사)늑대인가(Wolfman)과 드라큘라(Dracula)를 고용해서 다음 행성 착륙선을 화성에 보낼 수 있는지를 조사하려고 한다. 늑대인간과 드라큘라 모두 동시에 계획에 대해서 작업을 할 수 있길 희망하지만, 과거에도 동일한 문제에 봉착한 경험이 있다. 순ㄷ서대로 작업을 한다면, 각자는 서로가 작업이 끝날 때까지 한참을 기다려야 한다. 하자만, 자신만의 작업본을 가지고 변경사항을 가지고 주고 받고 한다면, 작업이 중간에 망실 될 수도 있고, 덮어쓰기도 될 수 있고, 중복될 수도 있다.
 
-*   Nothing that is committed to version control is ever lost.
-    This means it can be used like the "undo" feature in an editor,
-    and since all old versions of files are saved
-    it's always possible to go back in time to see exactly who wrote what on a particular day,
-    or what version of a program was used to generate a particular set of results.
-*   It keeps a record of who made what changes when,
-    so that if people have questions later on,
-    they know who to ask.
-*   It's hard (but not impossible) to accidentally overlook or overwrite someone's changes:
-    the version control system automatically notifies users
-    whenever there's a conflict between one person's work and another's.
+작업을 관리하기 위해서 적합한 해결책은 [버젼 관리(version control)](../../gloss.html#version-control)를 사용하는 것이다.
+버젼관리가 전자우편을 주고 받는 것보다 나은데 이유는 다음과 같다.
+
+*   버젼 관리에 커밋(commit)된 어떠한 것도 잃어버지 않는다. 이것이 의미하는 바는 편집기의 원상태로 되돌릭(undo)같은 기능이다. 모든 옛 파일의 버젼이 저장되어있다. 그래서 정확하게 누가 무엇을 특정한 날에 작성을 했는지를 보거나 특정한 결과를 생성하기 위해서 무슨 버젼의 프로그램을 사용했는지를 항상 살펴볼 수 있다.
+*   버젼 관리는 누가 무슨 변경을 언제 했는지를 기록한다. 그래서 나중에 다른 사람이 궁금한 점이 있다면, 누구에게 질문을 해야하는지 알 수 있다.
+*   다른 사람이 변경한 사항을 간과해서 무심히 넘어가거나, 덮어쓰기고 지나가기가 불가능하지는 않지만, 어렵다. 버젼 관리 시스템이 자신이 작업과 다른 사람의 작업에 충돌(conflict)이 발생할 때마다 자동적으로 통지를 준다.
 
 <div class="challenges" markdown="1">
 
-#### Challenges
+#### 도전 과제
 
-On Wikipedia all changes and their authors are tracked. You can go
-[here](https://en.wikipedia.org/w/index.php?title=Mars&action=history)
-and you will find the history of all changes done to the article about the planet
-Mars. Find the last edit done last month and look at the changes made by
-clicking on the "prev" link on the left of the history entry.
+위키피디이아에 모든 변경사항과 저자 정보는 추적되고 기록된다. [여기](https://en.wikipedia.org/w/index.php?title=Mars&action=history)에 가서 화성에 대한 글의 모든 변경이력을 확인할 수 있다. 지단 달 마지막 편집된 것을 찾아서 "prev" 링크를 클릭해서 변경사항을 확인한다.
 
 </div>
 
-This lesson shows how to use
-a popular open source version control system called Git.
-It is more complex than some alternatives,
-but it is widely used,
-both because it's easy to set up
-and because of a hosting site called [GitHub](http://github.com).
-No matter which version control system you use,
-the most important thing to learn is not the details of their more obscure commands,
-but the workflow that they encourage.
+Git라는 대중적인 공개 소프트웨어 버젼 관리 시스템을 어떻게 사용하는지 수업한다.Git는 다른 버젼 관리 소프트웨어보다 좀더 복잡하지만, 폭넓게 사용되는데 이유는 시작하기 쉽고 [GitHub](http://github.com)라는 호스팅 사이트 때문이다. 어떠한 버젼관리 시스템을 사용하든지, 학습에서 중요하는 점은 이해하기 어려운 명령어의 자세한 점보다는 각 버젼 관리 시스템이 주안점을 두고 있는 워크플로우(workflow)다.

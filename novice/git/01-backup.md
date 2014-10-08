@@ -1,38 +1,31 @@
 ---
 layout: lesson
 root: ../..
-title: A Better Kind of Backup
+title: 더 훌륭한 백업 방법
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Explain which initialization and configuration steps are required once per machine,
-    and which are required once per repository.
-*   Go through the modify-add-commit cycle for single and multiple files
-    and explain where information is stored at each stage.
-*   Identify and use Git revision numbers.
-*   Compare files with old versions of themselves.
-*   Restore old versions of files.
-*   Configure Git to ignore specific files,
-    and explain why it is sometimes useful to do so.
+#### 목표
+*    컴퓨터마다 요구되는 초기화 및 설정단계, 그리고 저장소마다 필요한 것이 무엇인지 설명한다.
+*   파일 한개 혹은 여려개의 파일에 대해서 변경-추가-커밋(modify-add-commit) 주기를 수행하고, 각 단계별로 정보가 어디에 저장되는지를 설명한다.
+*   Git 변경 번호를 확인하고 사용한다.
+*   파일을 동일한 옛 버젼 파일과 비교한다.
+*   옛 버젼 파일을 복원한다.
+*   Git 설정을 변경하여 특정 파일을 버젼관리에서 제외하고 왜 제외하는 것이 때때로 유용한지 설명한다.
 
 </div>
 
-We'll start by exploring how version control can be used
-to keep track of what one person did and when.
-Even if you aren't collaborating with other people,
-version control is much better for this than this:
+누군가가 무엇을 했는지, 언제 했는지를 기억하기 위해서 버젼 관리를 어떻게 사용할 수 있는지 탐험을 시작할 것이다. 다른 사람과 협업을 하지 않더라도, 버젼관리는 훨씬 더 낫다.
 
 <div>
   <a href="http://www.phdcomics.com"><img src="img/phd101212s.gif" alt="Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com" /></a>
   <p>"Piled Higher and Deeper" by Jorge Cham, http://www.phdcomics.com</p>
 </div>
 
-### Setting Up
+### 설정
 
-The first time we use Git on a new machine,
-we need to configure a few things.
-Here's how Dracula sets up his new laptop:
+처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다.
+다음은 Dracula가 새로 구입한 노트북에 어떻게 설정하는지 보여준다.
 
 ~~~
 $ git config --global user.name "Vlad Dracula"
@@ -42,27 +35,21 @@ $ git config --global core.editor "nano"
 ~~~
 {:class="in"}
 
-(Please use your own name and email address instead of Dracula's,
-and please make sure you choose an editor that's actually on your system,
-such as `notepad` on Windows.)
+(드라큘라 정보 대신에 자신의 이름과 전자우편 주소를 사용하세요. 윈도우에서는 `notepad` 같은 실제 컴퓨터에서 작동하는 편집기를 선택했는지 확인하세요.)
 
-Git commands are written `git verb`,
-where `verb` is what we actually want it to do.
-In this case,
-we're telling Git:
+Git 명령어는 `git verb` 형식으로 작성되고 `verb` 가 실제로 수행하고자 하는 명령어다. 상기의 경우 Git에게 다음을 명령한다.
 
-*   our name and email address,
-*   to colorize output,
-*   what our favorite text editor is, and
-*   that we want to use these settings globally (i.e., for every project),
+*   자신의 이름과 전자우편 주소
+*   출력 결과를 색깔을 넣어 표현한다.
+*   주 사용 텍스트 편집기
+*   설정 사항을 전역으로 한다. (즉, 모든 프로젝트에 적용)
 
-The four commands above only need to be run once:
-the flag `--global` tells Git to use the settings for every project on this machine.
+상기 4개 명령어는 한번만 실행되면 된다. `--global` 플래그는 Git에게 해당 컴퓨터에서 실행되는 모든 프로젝트에 적용되도록 설정한다.
 
-> #### Proxy
+> #### 프록시(Proxy)
 >
-> In some networks you need to use a proxy. If this is the case you may also
-> need to tell Git about the proxy:
+> 몇몇 네트워크에서 프록시를 사용할 필요가 있다. 만약 이런 경우라면, 
+> 프록시에 대해서 Git 설정을 다음과 같이 변경한다.
 >
 > ~~~
 > $ git config --global http.proxy proxy-url
@@ -70,7 +57,7 @@ the flag `--global` tells Git to use the settings for every project on this mach
 > ~~~
 > {:class="in"}
 >
-> To disable the proxy, use
+> 프록시를 사용하지 않기 위해서 다음을 사용한다.
 >
 > ~~~
 > $ git config --global --unset http.proxy
@@ -78,11 +65,9 @@ the flag `--global` tells Git to use the settings for every project on this mach
 > ~~~
 > {:class="in"}
 
-### Creating a Repository
+### 저장소 생성하기
 
-Once Git is configured,
-we can start using it.
-Let's create a directory for our work:
+Git 설정이 완료되면, Git를 사용할 수 있다. 작업을 위해서 디렉토리를 생성하자.
 
 ~~~
 $ mkdir planets
@@ -90,24 +75,21 @@ $ cd planets
 ~~~
 {:class="in"}
 
-and tell Git to make it a [repository](../../gloss.html#repository)&mdash;a place where
-Git can store old versions of our files:
+생성된 디렉토리를 Git [저장소(repository)](../../gloss.html#repository)로 만든다. 저장소는 Git가 파일의 옛 버젼을 저장하는 장소다.
 
 ~~~
 $ git init
 ~~~
 {:class="in"}
 
-If we use `ls` to show the directory's contents,
-it appears that nothing has changed:
+`ls`를 사용해서 디렉토리의 내용을 살펴보면, 아무것도 변경된 것이 없는 것처럼 보인다.
 
 ~~~
 $ ls
 ~~~
 {:class="in"}
 
-But if we add the `-a` flag to show everything,
-we can see that Git has created a hidden directory called `.git`:
+하지만, `-a` 플래그를 추가해서 모든 것이 보이도록 한다면, Git가 `.git` 로 불리는 숨겨진 디렉토리를 생성한 것을 볼 수 있다.
 
 ~~~
 $ ls -a
@@ -118,12 +100,9 @@ $ ls -a
 ~~~
 {:class="out"}
 
-Git stores information about the project in this special sub-directory.
-If we ever delete it,
-we will lose the project's history.
+Git는 이 특별한 하위 디렉토리에 프로젝트에 대한 정보를 저장한다. 만약 `.git`를 삭제한다면, 프로젝트 이력을 모두 잃어버린다.
 
-We can check that everything is set up correctly
-by asking Git to tell us the status of our project:
+모든 것이 제대로 설정되었는지를 확인을 다음과 같이 프로젝트 상태를 Git 명령어로 수행한다.
 
 ~~~
 $ git status
@@ -138,27 +117,24 @@ nothing to commit (create/copy files and use "git add" to track)
 ~~~
 {:class="out"}
 
-### Tracking Changes to Files
+### 파일 변경사항 추적하기
 
-Let's create a file called `mars.txt` that contains some notes
-about the Red Planet's suitability as a base.
-(We'll use `nano` to edit the file;
-you can use whatever editor you like.
-In particular, this does not have to be the core.editor you set globally earlier.)
+전진기지로서 화성의 적합성에 관한 기록을 담고 있는 `mars.txt` 파일을 생성한다. 
+(파일 편집을 위해서 `nano` 편집기를 사용한다. 원하면 무슨 편집기를 사용해도 된다. 특히, 앞에서 전역으로 설정한 core.editor가 될 필요도 없다.)
 
 ~~~
 $ nano mars.txt
 ~~~
 {:class="in"}
 
-Type the text below into the `mars.txt` file:
+`mars.txt` 파일에 다음 텍스트를 타이핑한다.
 
 ~~~
 Cold and dry, but everything is my favorite color
 ~~~
 {:class="in"}
 
-`mars.txt` now contains a single line:
+`mars.txt` 파일은 이제 한 줄을 포함하고 있다.
 
 ~~~
 $ ls
@@ -177,8 +153,7 @@ Cold and dry, but everything is my favorite color
 ~~~
 {:class="out"}
 
-If we check the status of our project again,
-Git tells us that it's noticed the new file:
+다시 한번 프로젝트의 상태를 확인하고자 하면, Git가 새로운 파일을 하나를 알아차렸다고 말하고 있다.
 
 ~~~
 $ git status
@@ -197,16 +172,14 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {:class="out"}
 
-The "untracked files" message means that there's a file in the directory
-that Git isn't keeping track of.
-We can tell Git that it should do so using `git add`:
+"untracked files" 메시지가 의미하는 것은 Git가 추적하고 있지 않는 파일 하나가 디렉토리에 있다는 것이다. `git add`를 사용해서 Git에게 추적관리하라고 작업명령을 낼 수 있다.
 
 ~~~
 $ git add mars.txt
 ~~~
 {:class="in"}
 
-and then check that the right thing happened:
+그리고 나서 올바르게 되었는지 확인한다.
 
 ~~~
 $ git status
@@ -225,10 +198,7 @@ $ git status
 ~~~
 {:class="out"}
 
-Git now knows that it's supposed to keep track of `mars.txt`,
-but it hasn't yet recorded any changes for posterity as a commit.
-To get it to do that,
-we need to run one more command:
+Git는 `mars.txt` 파일을 추적할 것이라는 것을 알고 있지만, 아직 저장소에는 어떤 변경사항도 기록하지는 않았다. 이를 위해서 명령어 하나를 더 실행할 필요가 있다.
 
 ~~~
 $ git commit -m "Starting to think about Mars"
@@ -241,20 +211,12 @@ $ git commit -m "Starting to think about Mars"
 ~~~
 {:class="out"}
 
-When we run `git commit`,
-Git takes everything we have told it to save by using `git add`
-and stores a copy permanently inside the special `.git` directory.
-This permanent copy is called a [revision](../../gloss.html#revision)
-and its short identifier is `f22b25e`.
-(Your revision may have another identifier.)
+`git commit`을 실행할 때, Git는 `git add`를 사용해서 저장하려고 하는 모든 대상을 받아서 `.git` 디렉토리 내부에 영구 사본으로 저장한다.
+이 영구 사본을 [수정(revision)](../../gloss.html#revision)이라고 하고, 짧은 식별자는 `f22b25e`이다. (여러분의 수정번호의 짧은 확장자는 다를 수 있다.)
 
-We use the `-m` flag (for "message")
-to record a comment that will help us remember later on what we did and why.
-If we just run `git commit` without the `-m` option,
-Git will launch `nano` (or whatever other editor we configured at the start)
-so that we can write a longer message.
+`-m` ("message"를 위미) 플래그를 사용해서 나중에 무엇을 왜 했는지 기억에 도움이 될 수 있는 주석을 기록한다. `-m` 옵션 없이 `git commit`을 실행하면, Git는 `nano`(혹은 시초에 설정한 다른 편집기)를 실행해서 좀더 긴 메시지를 작성할 수 있다.
 
-If we run `git status` now:
+이제 `git status`를 시작하면, 
 
 ~~~
 $ git status
@@ -266,9 +228,7 @@ nothing to commit, working directory clean
 ~~~
 {:class="out"}
 
-it tells us everything is up to date.
-If we want to know what we've done recently,
-we can ask Git to show us the project's history using `git log`:
+모든 것이 최신 상태라고 보여준다. 최근에 작업한 것을 알고자 한다면, `git log`를 사용해서 프로젝트 이력을 보여주도록 Git에게 명령어를 보내다.
 
 ~~~
 $ git log
@@ -283,28 +243,18 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 ~~~
 {:class="out"}
 
-`git log` lists all revisions  made to a repository in reverse chronological order.
-The listing for each revision includes
-the revision's full identifier
-(which starts with the same characters as
-the short identifier printed by the `git commit` command earlier),
-the revision's author,
-when it was created,
-and the log message Git was given when the revision was created.
+`git log`는 역 시간순으로 저장소의 모든 변경사항을 나열한다.
+각 수정사항 목록은 전체 수정 식별자(앞서 `git commit` 명령어로 출력한 짧은 문자와 동일하게 시작), 수정한 사람, 언제 생성되었는지, 생성할 때 Git에 작성한 로그 메시지를 포함한다. 
 
-> #### Where Are My Changes?
+> #### 내 변경사항은 어디로 갔을까?
 >
-> If we run `ls` at this point, we will still see just one file called `mars.txt`.
-> That's because Git saves information about files' history
-> in the special `.git` directory mentioned earlier
-> so that our filesystem doesn't become cluttered
-> (and so that we can't accidentally edit or delete an old version).
+> 이 시점에서 `ls` 명령어르 다시 실행하면, `mars.txt` 파일만 덩그러니 보게 된다. 
+> 왜냐하면, Git이 앞에서 언급한 `.git` 특수 디렉토리에 파일 변경 이력 정보를 저장했기 때문이다.
+> 그래서 파일 시스템이 뒤죽박죽되지 않게 된다. (따라서, 옛 버젼을 실수로 편집하거나 삭제할 수 없다.)
 
-### Changing a File
+### 파일 변경하기
 
-Now suppose Dracula adds more information to the file.
-(Again, we'll edit with `nano` and then `cat` the file to show its contents;
-you may use a different editor, and don't need to `cat`.)
+이제 드라큘라가 파일에 정보를 좀더 추가했다고 가정하자. (다시 한번 `nano`편집기로 편집하고 나서 `cat`으로 파일 내용을 살펴본다. 다른 편집기를 사용할 수도 있고, `cat`으로 파일 내용을 반듯이 볼 필요도 없다.)
 
 ~~~
 $ nano mars.txt
@@ -317,8 +267,7 @@ The two moons may be a problem for Wolfman
 ~~~
 {:class="out"}
 
-When we run `git status` now,
-it tells us that a file it already knows about has been modified:
+`git status`를 실행하면, 이미 알고 있는 파일이 변경되었다고 알려준다.
 
 ~~~
 $ git status
@@ -336,16 +285,8 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
 {:class="out"}
 
-The last line is the key phrase:
-"no changes added to commit".
-We have changed this file,
-but we haven't told Git we will want to save those changes
-(which we do with `git add`)
-much less actually saved them.
-Let's double-check our work using `git diff`,
-which shows us the differences between
-the current state of the file
-and the most recently saved version:
+마지막 줄이 중요한 문구다: "no changes added to commit".
+`mars.txt` 파일을 변경했지만, 아직 Git에게는 변경을 사항(`git add`로 수행)을 저장한다고 말하지는 않았다. `git diff`를 사용해서 작업 내용을 두번 검증한다. `git diff`는 현재 파일의 상태와 가장 최근에 저장된 버젼의 차이를 보여준다.
 
 ~~~
 $ git diff
@@ -362,22 +303,13 @@ index df0654a..315bf3a 100644
 ~~~
 {:class="out"}
 
-The output is cryptic because
-it is actually a series of commands for tools like editors and `patch`
-telling them how to reconstruct one file given the other.
-If we can break it down into pieces:
+출력 결과가 아리송한데 실제로 다른 파일이 주어졌을 때 파일 하나를 어떻게 재구성하는지를 말해주는 `patch`와 편집기 같은 도구를 위한 일련의 명령이기 때문이다.
 
-1.  The first line tells us that Git is producing output similar to the Unix `diff` command
-    comparing the old and new versions of the file.
-2.  The second line tells exactly which [revisions](../../gloss.html#revision) of the file
-    Git is comparing;
-    `df0654a` and `315bf3a` are unique computer-generated labels for those revisions.
-3.  The remaining lines show us the actual differences
-    and the lines on which they occur.
-    In particular,
-    the `+` markers in the first column show where we are adding lines.
+1.  첫번째 행은 Git이 신규와 옛 버젼 파일을 비교하는 유닉스 `diff` 명령어와 유사한 출력결과를 생성하게 한다.
+2.  두번째 행은 정확하게 Git 파일 어느 [수정(revisions)](../../gloss.html#revision)본을 비교하는지 알려준다. `df0654a`과 `315bf3a`은 수정을 위한 목적으로 중복되지 않게 컴퓨터가 생성한 표식이다.
+3.  나머지 행은 실제 차이가 나는 것과 어디 행에서 발생했는지 보여준다. 특히 첫번째 열의 `+` 기호는 어디서 행이 추가 되었는지 보여준다.
 
-Let's commit our change:
+변경사항을 커밋(commit)하자.
 
 ~~~
 $ git commit -m "Concerns about Mars's moons on my furry friend"
