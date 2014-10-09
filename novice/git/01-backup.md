@@ -497,19 +497,9 @@ index df0654a..b36abfd 100644
 ~~~
 {:class="out"}
 
-이런 방식으로, 연쇄 수정 사슬을 만들 수 있다. 가장 최근 사슬의 끝값은 `HEAD`로 참조된다. `~` 표기법을 사용하여 앞선 수정을 참조할 수 있다. 그래서 `HEAD~1`("head" 빼기 1로 발음한다.)은 "바로 앞선 수정"을 의미하고, `HEAD~123`은 지금 있는 위치에서 123번째 이전 수정으로 간다는 의미다.
+이런 방식으로, 연쇄 수정 사슬을 만들 수 있다. 가장 최근 사슬의 끝값은 `HEAD`로 참조된다. `~` 표기법을 사용하여 앞선 수정을 참조할 수 있다. 그래서 `HEAD~1`("head" 빼기 1로 읽는다.)은 "바로 앞선 수정"을 의미하고, `HEAD~123`은 지금 있는 위치에서 123번째 이전 수정으로 간다는 의미다.
 
-
-We can also refer to revisions using
-those long strings of digits and letters
-that `git log` displays.
-These are unique IDs for the changes,
-and "unique" really does mean unique:
-every change to any set of files on any machine
-has a unique 40-character identifier.
-Our first commit was given the ID
-f22b25e3233b4645dabd0d81e651fe074bd8e73b,
-so let's try this:
+수정된 것을 `git log` 명령어가 화면에 뿌려주는 숫자와 문자로 구성된 긴 문자열을 사용하여 참조할 수도 있다. 변경사항에 대한 중복되지 않는 ID로 "중복되지 않는(unique)"의 의미는 정말 유일하다는 의미다. 특정 컴퓨터에 있는 임의의 파일 집합에 모든 변경사항은 중복되지 않는 40 문자 식별자가 붙어있다. 첫번째 커밋은 ID로 f22b25e3233b4645dabd0d81e651fe074bd8e73b 이 주어졌다. 그래서 다음과 같이 시도하자.
 
 ~~~
 $ git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
@@ -527,9 +517,7 @@ index df0654a..b36abfd 100644
 ~~~
 {:class="out"}
 
-That's the right answer,
-but typing random 40-character strings is annoying,
-so Git lets us use just the first few:
+올바든 정답이지만, 난수 40 문자로 된 문자열을 타이핑하는 것은 매우 귀찮은 일이다. 그래서 Git 앞의 몇개 문자만으로 사용할 수 있게 했다.
 
 ~~~
 $ git diff f22b25e mars.txt
@@ -547,12 +535,9 @@ index df0654a..b36abfd 100644
 ~~~
 {:class="out"}
 
-### Recovering Old Versions
+### 옛 버젼 복구하기
 
-All right:
-we can save changes to files and see what we've changed---how
-can we restore older versions of things?
-Let's suppose we accidentally overwrite our file:
+좋았어요. 파일에 변경사항을 저장할 수 있고 변경된 것을 확인할 수 있다. 어떻게 옛 버젼의 파일을 되살릴 수 있을까? 우연히 파일을 덮어썼다고 가정하자.
 
 ~~~
 $ nano mars.txt
@@ -564,8 +549,7 @@ We will need to manufacture our own oxygen
 ~~~
 {:class="out"}
 
-`git status` now tells us that the file has been changed,
-but those changes haven't been staged:
+이제 `git status`를 통해서 파일이 변경되었다고 하지만, 변경사항은 아직 준비영역(Stagin)에 옮겨지지 않은 것을 확인한다.
 
 ~~~
 $ git status
@@ -583,8 +567,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
 {:class="out"}
 
-We can put things back the way they were
-by using `git checkout`:
+`git checkout` 명령어를 사용해서 과거에 있던 상태로 파일을 돌려 놓을 수 있다.
 
 ~~~
 $ git checkout HEAD mars.txt
@@ -598,66 +581,40 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {:class="out"}
 
-As you might guess from its name,
-`git checkout` checks out (i.e., restores) an old version of a file.
-In this case,
-we're telling Git that we want to recover the version of the file recorded in `HEAD`,
-which is the last saved revision.
-If we want to go back even further,
-we can use a revision identifier instead:
+이름에서 유추할 수 있듯이, `git checkout` 명령어는 파일의 옛 버젼을 확인한다. 즉, 되살린다. 이 경우 `HEAD`에 기록된 가장 최근에 저장된 파일 버젼을 되살린다. 좀더 오래된 버젼을 되살리고자 한다면, 대신에 수정 식별자를 사용한다.
 
 ~~~
 $ git checkout f22b25e mars.txt
 ~~~
 {:class="in"}
 
-It's important to remember that
-we must use the revision number that identifies the state of the repository
-*before* the change we're trying to undo.
-A common mistake is to use the revision number of
-the commit in which we made the change we're trying to get rid of.
-In the example below, we want retrieve the state from before the most
-recent commit (`HEAD~1`), which is revision `f22b25e`:
+실행 취소를 하는 변경을 하기 *전에** 저장소 상태를 확인하는 수정 번호를 사용해야 한다는 것을 기억하는 것은 중요하다. 흔한 실수는 제거하려는 변경하려고 사용한 커밋 수정 번호를 사용하는 것이다.  아래 예제에서는 수정 번호가 `f22b25e`인 가장 최신 커밋(`HEAD~1`) 앞의 상태로 다시 돌아가고자 한다.
 
 <img src="img/git-checkout.svg" alt="Git Checkout" />
 
-The following diagram illustrates what the history of a file might look
-like (moving back from `HEAD`, the most recently committed version):
+다음 도표는 파일 이력이 어떻게 보이는지 예시로 보여준다. (가장 최근에 커밋된 버젼 `HEAD`에서 거슬러 올라간다.)
 
 <img src="img/git-when-revisions-updated.svg" alt="When Git Updates Revision Numbers" />
 
-> #### Simplifying the Common Case
+> #### 흔한 경우를 간단히
 >
-> If you read the output of `git status` carefully,
-> you'll see that it includes this hint:
+> `git status` 출력 결과를 주의 깊이 읽게 되면, 힌트를 포함한 것을 알게 된다.
 >
 > ~~~
 > (use "git checkout -- <file>..." to discard changes in working directory)
 > ~~~
 > {:class="in"}
 >
-> As it says,
-> `git checkout` without a version identifier restores files to the state saved in `HEAD`.
-> The double dash `--` is needed to separate the names of the files being recovered
-> from the command itself:
-> without it,
-> Git would try to use the name of the file as the revision identifier.
+> 출력 결과가 말해주듯이, 버젼 식별자 없는 `git checkout` 명령어가 `HEAD`에 
+> 저장된 상태로 파일을 되돌린다.
+> 이중 대쉬 `--`가 명령어와 구분하기 위해서 파일 이름과 되살리려는 파일 이름을 구별하는데 필요하다.
+> 이중 대쉬가 없다면, Git는 파일 이름을 수정 식별자로 사용하려고 한다.
 
-The fact that files can be reverted one by one
-tends to change the way people organize their work.
-If everything is in one large document,
-it's hard (but not impossible) to undo changes to the introduction
-without also undoing changes made later to the conclusion.
-If the introduction and conclusion are stored in separate files,
-on the other hand,
-moving backward and forward in time becomes much easier.
+파일이 하나씩 하나씩 옛 상태로 돌아간다는 사실이 사람들이 작업을 조직하는 방식에 변화를 주는 경향이 있다. 모든 것이 하나의 큰 문서로 되어있다면, 결론부분에 후에 만든 변경없이 소개부분에 변경을 다시 되돌리기가 어렵다.(하지만 불가능하지는 않다.) 다른 한편으로 만약 소개부분과 결론부분이 다른 파일에 저장되어 있다면, 시간 앞뒤로 이동하기가 훨씬 쉽다.
 
-### Ignoring Things
+### 파일 무시하기
 
-What if we have files that we do not want Git to track for us,
-like backup files created by our editor
-or intermediate files created during data analysis.
-Let's create a few dummy files:
+만약 Git가 추적하기 원하지 않는 파일이 있다면 어떨까요? 편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간물 파일을 예가 된다. 몇개 더미(dummy) 파일을 생성하자.
 
 ~~~
 $ mkdir results
@@ -665,7 +622,7 @@ $ touch a.dat b.dat c.dat results/a.out results/b.out
 ~~~
 {:class="in"}
 
-and see what Git says:
+그려면 Git은 다음을 보여준다.
 
 ~~~
 $ git status
@@ -684,12 +641,9 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {:class="out"}
 
-Putting these files under version control would be a waste of disk space.
-What's worse,
-having them all listed could distract us from changes that actually matter,
-so let's tell Git to ignore them.
+벼젼 관리아래 파일을 놓는 것은 디스크 공간 낭비다. 더 좋은 않는 것은 파일을 모두 목록에 넣는 것은 실질적으로 중요한 변경사항을 놓치게 할 수도 있다. 그래서 Git에게 중요하지 않는 파일을 무시하게 하자.
 
-We do this by creating a file in the root directory of our project called `.gitignore`.
+`.gitignore`로 불리는 파일을 프로젝트 루트 디렉토리에 생성해서 무시할 것을 명기해서 수행한다.
 
 ~~~
 $ nano .gitignore
@@ -702,13 +656,9 @@ results/
 ~~~
 {:class="out"}
 
-These patterns tell Git to ignore any file whose name ends in `.dat`
-and everything in the `results` directory.
-(If any of these files were already being tracked,
-Git would continue to track them.)
+상기 패턴은 `.dat` 확장자를 가지는 임의의 파일과 `results` 디렉토리에 있는 모든 것을 무시한다. (하지만, 이들 파일 중의 일부가 이미 추적되고 있다면, Git는 계속 추적한다.)
 
-Once we have created this file,
-the output of `git status` is much cleaner:
+`.gitignore` 파일을 생성하자마자 `git status` 출력결과는 훨씬 깨끗하다.
 
 ~~~
 $ git status
@@ -724,11 +674,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {:class="out"}
 
-The only thing Git notices now is the newly-created `.gitignore` file.
-You might think we wouldn't want to track it,
-but everyone we're sharing our repository with will probably want to ignore
-the same things that we're ignoring.
-Let's add and commit `.gitignore`:
+이제 Git가 알아차리는 유일한 것은 새로 생성된 `.gitignore` 파일이다. 우리는 이들 파일을 추적하여 관리하지 않는다고 생각할 수도 있지만, 우리와 저장소를 공유하고 있는 모든 사람은 우리가 추적관리하지 않는 동일한 것을 추적관리하고 싶지 않을 것이다. `.gitignore` 를 추가해서 커밋하자.
 
 ~~~
 $ git add .gitignore
@@ -742,8 +688,7 @@ nothing to commit, working directory clean
 ~~~
 {:class="out"}
 
-As a bonus,
-using `.gitignore` helps us avoid accidentally adding files to the repository that we don't want.
+보너스로, `.gitignore`는 실수로 원하지 않는 파일을 저장소에 추가하는 것을 피하게 돕는다.
 
 ~~~
 $ git add a.dat
@@ -757,9 +702,7 @@ fatal: no files added
 ~~~
 {:class="out"}
 
-If we really want to override our ignore settings,
-we can use `git add -f` to force Git to add something.
-We can also always see the status of ignored files if we want:
+만약 `.gitignore` 설정을 우선하여 파일을 추가하려면, `git add -f`를 사용해서 강제로 Git에 파일을 추가할 수 있다. 추적관리되지 않는 파일의 상태를 항상 보려면 다음을 사용한다.
 
 ~~~
 $ git status --ignored
@@ -781,32 +724,27 @@ nothing to commit, working directory clean
 
 <div class="keypoints" markdown="1">
 
-#### Key Points
-*   Use `git config` to configure a user name, email address, editor, and other preferences once per machine.
-*   `git init` initializes a repository.
-*   `git status` shows the status of a repository.
-*   Files can be stored in a project's working directory (which users see),
-    the staging area (where the next commit is being built up)
-    and the local repository (where snapshots are permanently recorded).
-*   `git add` puts files in the staging area.
-*   `git commit` creates a snapshot of the staging area in the local repository.
-*   Always write a log message when committing changes.
-*   `git diff` displays differences between revisions.
-*   `git checkout` recovers old versions of files.
-*   The `.gitignore` file tells Git what files to ignore.
+#### 주요점
+*   컴퓨터마다 사용자 이름, 전자우편, 편집기 그리고 다른 환경설정 사항을 `git config`로 지정한다. 
+*   `git init` 명령어는 저장소를 초기화한다.
+*   `git status` 명령어는 저장소 상태를 보여준다.
+*   파일은 사용자가 볼 수 있는 프로젝트 작업 디렉토리, 다음번 커밋이 구축되는 준비 영역(Staging), 그리고 스냅샷(snapshot)이 항상 기록되는 로컬 저장소에 저장될 수 있다.
+*   `git add` 명령어는 파일을 준비 영역에 놓는다.
+*   `git commit` 명령어는 준비 영역의 스냅샷을 로컬 저장소에 생성한다.
+*   변경사항을 커밋할 때마다 항상 로그 메시지를 작성하라.
+*   `git diff` 명령어는 수정사항 사이의 차이를 화면에 출력한다.
+*   `git checkout` 명령어는 옛 버전 파일을 복구한다.
+*   `.gitignore` 파일은 Git가 무시하여 기록관리하지 않는 파일 정보를 담고 있다.
 
 </div>
 
 <div class="challenge" markdown="1">
-Create a new Git repository on your computer called `bio`.
-Write a three-line biography for yourself in a file called `me.txt`,
-commit your changes,
-then modify one line and add a fourth and display the differences
-between its updated state and its original state.
+
+컴퓨터에 `bio`라는 신규 Git 저장소를 생성하세요. `me.txt` 파일에 3줄 자신의 약력을 작성하고 변경사항을 커밋하세요. 그리고 나서, 한줄을 변경하고 4번째 행을 추가해서 변경상태와 최초 상태의 차이를 화면에 출력하세요.
 </div>
 
 <div class="challenge" markdown="1">
-The following sequence of commands creates one Git repository inside another:
+다음 일련의 명령어는 Git 저장소 내부에 또다른 Git 저장소를 생성하는 것이다.
 
 ~~~
 cd           # return to home directory
@@ -819,5 +757,5 @@ git init     # make the beta sub-directory a Git repository
 ~~~
 {:class="in"}
 
-Why is it a bad idea to do this?
+이렇게 하는 것이 왜 좋은 생각이 아닐까요?
 </div>
