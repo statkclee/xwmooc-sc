@@ -1,28 +1,22 @@
 ---
 layout: lesson
 root: ../..
-title: Conflicts
+title: 충돌(Conflicts)
 ---
 <div class="objectives" markdown="1">
 
-#### Objectives
-*   Explain what conflicts are and when they can occur.
-*   Resolve conflicts resulting from a merge.
+#### 목표
+*   충돌이 무엇이고, 언제 생기는지를 설명한다.
+*   병합(머지, merge)로부터 생기는 충돌을 해결한다.
 
 </div>
 
-As soon as people can work in parallel,
-someone's going to step on someone else's toes.
-This will even happen with a single person:
-if we are working on a piece of software on both our laptop and a server in the lab,
-we could make different changes to each copy.
-Version control helps us manage these [conflicts](../../gloss.html#conflict)
-by giving us tools to [resolve](../../gloss.html#resolve) overlapping changes.
+사람들이 병렬로 작업을 할 수 있게 됨에 따라, 사람들이 누군가의 영역을 침범하게 된다.
+혼자서 작업할 경우에도 이런 현상이 발생한다.
+소프트웨어 개발을 노트북과 연구실의 서버에서 작업한다면, 각 작업본에 다른 변경사항을 만들 수 있다.
+버젼 제어(version control)가 중복 변경사항을 [해결(resolve)](../../gloss.html#resolve)할 수 있는 툴을 제공함으로서 이러한 [충돌(conflicts)](../../gloss.html#conflict)을 관리할 수 있게 한다.
 
-To see how we can resolve conflicts,
-we must first create one.
-The file `mars.txt` currently looks like this
-in both partners' copies of our `planets` repository:
+충돌을 어떻게 해소할 수 있는지 확인하기 위해서, 먼저 파일을 생성하자. `mars.txt` 파일은 현재 두 협업하는 사람의 `planets` 저장소에서 다음과 같이 보인다.
 
 ~~~
 $ cat mars.txt
@@ -35,7 +29,7 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {:class="out"}
 
-Let's add a line to **one partner's copy** only:
+**협업하는 한 사람만의 작업본만** 한 줄을 추가하자.
 
 ~~~
 $ nano mars.txt
@@ -50,7 +44,7 @@ This line added to Sarah's copy
 ~~~
 {:class="out"}
 
-and then push the change to GitHub:
+그리고 변경사항을 GitHub에 푸쉬하자.
 
 ~~~
 $ git add mars.txt
@@ -77,9 +71,7 @@ To https://github.com/vlad/planets
 ~~~
 {:class="out"}
 
-Now let's have the other partner
-make a different change to their copy
-*without* updating from GitHub:
+이제 또다른 협업하는 사람이 GitHub에서 갱신(update)하지 *않고* 변경사항을 작업파일에 만든다.
 
 ~~~
 $ cd /tmp/planets
@@ -95,7 +87,7 @@ We added a different line in the other copy
 ~~~
 {:class="out"}
 
-We can commit the change locally:
+로컬의 변경사항을 커밋한다.
 
 ~~~
 $ git add mars.txt
@@ -108,7 +100,7 @@ $ git commit -m "Adding a line in my copy"
 ~~~
 {:class="out"}
 
-but Git won't let us push it to GitHub:
+하지만 GitHub에는 푸쉬할 수 없다.
 
 ~~~
 $ git push origin master
@@ -127,12 +119,8 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 <img src="img/conflict.svg" alt="The conflicting changes" />
 
-Git detects that the changes made in one copy overlap with those made in the other
-and stops us from trampling on our previous work.
-What we have to do is pull the changes from GitHub,
-[merge](../../gloss.html#merge) them into the copy we're currently working in,
-and then push that.
-Let's start by pulling:
+작업해서 변경한 사항이 다른 사람이 작업한 변경사항과 중첩되는 것을 Git이 탐지해서 앞에서 작업한 것을 뭉개지 않게 정지시킨다.
+이제 해야될 일은 GitHub에서 변경사항을 풀(Pull)해서 가져오고 현재 작업중인 작업본과 병합(merge)해서 푸쉬한다. 풀(Pull)부터 시작하자.
 
 ~~~
 $ git pull origin master
@@ -151,8 +139,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ~~~
 {:class="out"}
 
-`git pull` tells us there's a conflict,
-and marks that conflict in the affected file:
+`git pull` 수행결과 충돌이 있고, 해당 파일에 충돌되는 부분을 표시한다.
 
 ~~~
 $ cat mars.txt
@@ -170,18 +157,13 @@ This line added to Sarah's copy
 ~~~
 {:class="out"}
 
-Our change---the one in `HEAD`---is preceded by `<<<<<<<`.
-Git has then inserted `=======` as a separator between the conflicting changes
-and marked the end of the content downloaded from GitHub with `>>>>>>>`.
-(The string of letters and digits after that marker
-identifies the revision we've just downloaded.)
+`<<<<<<<` 다음에 `HEAD`에 있는 우리의 변경사항이 있다.
+Git이 자동으로 `=======`을 넣어서 충돌되는 변경사항 사이에 구분자로 넣고,  
+`>>>>>>>`으로 GitHub에서 다운로드된 파일 내용의 마지막을 표시한다.
+(`>>>>>>>` 표시자 다음에 문자와 숫자로 구성된 문자열은 방금 다운로드한 수정 확장자다.)
 
-It is now up to us to edit this file to remove these markers
-and reconcile the changes.
-We can do anything we want: keep the change made in the local repository, keep
-the change made in the remote repository, write something new to replace both,
-or get rid of the change entirely.
-Let's replace both so that the file looks like this:
+파일을 편집해서 표시자/구분자를 제거하고 변경사항을 일치하는 것은 전적으로 우리에게 달려있다.
+원하는 무엇이든지 할 수 있다. 예를 들어, 로컬 저장소의 변경사항을 반영하든, 원격 저장소의 변경사항을 반영하든, 로컬과 원격 저장소의 내용을 대체하는 새로운 것을 작성하든, 혹은 변경사항을 완전히 제거하는 것도 가능하다. 로컬과 원격 모두 대체해서 파일이 다음과 같이 보이도록 하자.
 
 ~~~
 $ cat mars.txt
@@ -195,9 +177,7 @@ We removed the conflict on this line
 ~~~
 {:class="out"}
 
-To finish merging,
-we add `mars.txt` to the changes being made by the merge
-and then commit:
+병합을 마무리하기 위해서, 병합으로 생성된 변경사항을 `mars.txt` 파일에 추가하고 커밋하자.
 
 ~~~
 $ git add mars.txt
@@ -224,7 +204,7 @@ $ git commit -m "Merging changes from GitHub"
 ~~~
 {:class="out"}
 
-Now we can push our changes to GitHub:
+이제 변경사항을 GitHub에 푸쉬할 수 있다. 
 
 ~~~
 $ git push origin master
@@ -241,9 +221,8 @@ To https://github.com/vlad/planets.git
 ~~~
 {:class="out"}
 
-Git keeps track of what we've merged with what,
-so we don't have to fix things by hand again
-when the collaborator who made the first change pulls again:
+Git가 병합하면서 수행한 것을 모두 추적하고 있어서, 수작업으로 다시 고칠 필요는 없다.
+처음 변경사항을 만든 협력하는 프로그래머가 다시 풀하게 되면, 
 
 ~~~
 $ git pull origin master
@@ -263,7 +242,7 @@ Fast-forward
 ~~~
 {:class="out"}
 
-we get the merged file:
+병합된 파일을 얻게 된다.
 
 ~~~
 $ cat mars.txt 
@@ -277,37 +256,23 @@ We removed the conflict on this line
 ~~~
 {:class="out"}
 
-We don't need to merge again because Git knows someone has already done that.
+다시 병합할 필요는 없는데, Git가 다른 누군가 작업을 했다는 것을 알기 때문이다.
 
-Version control's ability to merge conflicting changes
-is another reason users tend to divide their programs and papers into multiple files
-instead of storing everything in one large file.
-There's another benefit too:
-whenever there are repeated conflicts in a particular file,
-the version control system is essentially trying to tell its users
-that they ought to clarify who's responsible for what,
-or find a way to divide the work up differently.
+충돌되는 변경사항을 병합하는 버젼 제어 기능으로 인해서 사용자가 프로그램이나 논문을 다중 파일로 쪼개서 작업하는 또다른 이유다.
+또다른 좋은 점도 있다. 특정 파일에 반복되는 충돌이 있을 때마다, 버젼 제어 시스템은 본직적으로 사용자에게 누가 무엇에 책임이 있는지, 작업을 다르게 나누는 방법을 찾을 수 있도록 명확히 하게 말해준다.
 
 <div class="keypoints" markdown="1">
 
-#### Key Points
-*   Conflicts occur when two or more people change the same file(s) at the same time.
-*   The version control system does not allow people to blindly overwrite each other's changes.
-    Instead, it highlights conflicts so that they can be resolved.
+#### 주요점
+*   충돌은 두명 혹은 그 이상의 사람이 동시에 동일한 파일에 변경을 할 때 발생한다.
+*   버젼 제어 시스템은 사람들이 모르고 서로의 변경사항을 덮어쓰게 하지 못하게 한다. 대신에 충돌되는 부분을 눈에 부각시켜서 해소되어 일치할 수 있게 한다.
 
 </div>
 
 <div class="challenge" markdown="1">
-Clone the repository created by your instructor.
-Add a new file to it,
-and modify an existing file (your instructor will tell you which one).
-When asked by your instructor,
-pull her changes from the repository to create a conflict,
-then resolve it.
+강사가 생성한 저장소를 복제하세요. 저장소에 새 파일을 추가하고, 기존 파일을 변경하세요. (강사가 변경할 기존 파일이 어느 것인지 알려줄 것이다.) 강사의 말에 따라 충돌을 생성하는 연습을 하기 위해서 저장소에서 변경사항을 가져오도록 풀(Pull)하세요. 그리고 해소해서 일치해 보세요.
 </div>
 
 <div class="challenge" markdown="1">
-What does Git do
-when there is a conflict in an image or some other non-textual file
-that is stored in version control?
+버젼 제어 저장소의 이미지 파일이나 혹은 다른 텍스트가 아닌 파일에 충돌이 발생할 때, Git는 무엇을 하나요?
 </div>
