@@ -15,7 +15,7 @@ title: 공개 과학(Open Science)
 
 <blockquote>
 "공개(open)"의 반대는 "폐쇄(closed)"가 아니다.
-"공개(open)"의 반대는 "망가진(broken)" 것이다.
+"공개(open)"의 반대는 "망한(broken)" 것이다.
 <br/>
 &mdash; John Wilbanks
 </blockquote>
