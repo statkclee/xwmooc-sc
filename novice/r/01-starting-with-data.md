@@ -5,13 +5,10 @@ root: ../..
 
 
 
-## Analyzing Patient Data
+## 환자 데이터(Patient Data) 분석
 
-We are studying inflammation in patients who have been given a new treatment for arthritis,
-and need to analyze the first dozen data sets. 
-The data sets are stored in [comma-separated values](../../gloss.html#comma-separeted-values) (CSV) format: each row holds information for a single patient, and the columns represent successive days. 
-The first few rows of our first file look like this:
-
+관절염에 새로운 치료법이 처방된 환자의 염증에 대한 연구를 진행하고 있고, 첫 12 데이터셋(Data Set)을 분석할 필요가 있다.
+데이터셋은 [CSV 형식(comma-separated values, 구분자가 콤마 값을 가진 파일 형식)](../../gloss.html#comma-separeted-values)으로 저장되어 있다. 각 행은 환자 한명의 정보로 구성되어 있고, 열은 일련의 날짜 정보를 나타낸다. 첫번째 파일의 첫 몇 행의 정보는 다음과 같다.
 
 <div class='out'><pre class='out'><code>0,0,1,3,1,2,4,7,8,3,3,3,10,5,7,4,7,7,12,18,6,13,11,11,7,7,4,6,8,8,4,4,5,7,3,4,2,3,0,0
 0,1,2,1,2,1,3,2,2,6,10,11,5,9,4,4,7,16,8,6,18,4,12,5,12,7,11,5,11,3,3,5,4,4,5,5,1,1,0,1
@@ -20,168 +17,124 @@ The first few rows of our first file look like this:
 0,1,1,3,3,1,3,5,2,4,4,7,6,5,3,10,8,10,6,17,9,14,9,7,13,9,12,6,7,7,9,6,3,2,2,4,2,0,1,1
 </code></pre></div>
 
-We want to:
+다음을 수행해야 된다.
 
-* load that data into memory,
-* calculate the average inflammation per day across all patients, and
-* plot the result.
+* CSV 형식 데이터 파일을 주기억장치에 적재한다.
+* 모든 환자에 대해서 각 날짜별로 평균 염증을 계산한다.
+* 결과값을 플롯(plot)한다.
 
-To do all that, we'll have to learn a little bit about programming.
+상기 모든 것을 수행하기 위해서, 프로그래밍에 관해 약간 학습할 필요가 있다.
 
-#### Objectives
+#### 목표
 
-* Read tabular data from a file into a program.
-* Assign values to variables.
-* Select individual values and subsections from data.
-* Perform operations on a data frame of data.
-* Display simple graphs.
+* 파일에서 테이블 형식의 데이터를 읽는다.
+* 값을 변수에 할당한다.
+* 데이터에서 개별적인 값과 일부분을 선택한다.
+* 데이터의 데이터프레임에 연산을 수행한다.
+* 간단한 그래프를 화면에 출력한다.
 
-### Loading Data
+### 데이터 적재하기(Loading Data)
 
-To load our inflammation data, first we need to locate our data.
-We can change the current working directory to the location of the CSV files using the function `setwd`.
-For example, if the CSV files are located in a directory named `swc` in our home directory, we would change the working directory using the following command:
-
+염증 데이터를 적재(load)하기 위해서, 먼저 데이터의 위치를 지정할 필요가 있다. 현재 작업 디렉토리를 
+`setwd` 함수를 사용해서 CSV 파일이 있는 지점으로 변경한다.
+예를 들어, CSV 파일이 홈디렉토리 `swc`로 명명된 디렉토리에 자리하고 있다면, 다음 명령어를 사용하여 작업 디렉토리를 변경한다.
 
 <pre class='in'><code>setwd("~/swc")</code></pre>
 
-Just like in the Unix Shell, we type the command and then press `Enter` (or `return`).
-Alternatively you can change the working directory using the RStudio GUI using the menu option `Session` -> `Set Working Directory` -> `Choose Directory...`
+유닉스 쉘과 마찬가지로 명령어를 타이핑하고 '엔터(Enter)' (혹은 '리턴(return)') 키를 누른다. RStudio GUI의 메뉴 옵션(`Session` -> `Set Working Directory` -> `Choose Directory...`)을 사용하여 작업 디렉토리를 변경할 수 있다.
 
-Now we could load the data into R using `read.csv`:
-
+이제 `read.csv`를 사용하여 R에 데이터를 적재할 수 있다.
 
 <pre class='in'><code>read.csv(file = "inflammation-01.csv", header = FALSE)</code></pre>
 
-The expression `read.csv(...)` is a [function call](../../gloss.html#function-call) that asks R to run the function `read.csv`. 
+`read.csv(...)` 표현식은 [함수 호출(function call)](../../gloss.html#function-call)로 R에게 요청하여 `read.csv`을 실행하게 한다.
 
-`read.csv` has two [arguments](../../gloss.html#argument): the name of the file we want to read, and whether the first line of the file contains names for the columns of data.
-The filename needs to be a character string (or [string](../../gloss.html#string) for short), so we put it in quotes.
-Assigning the second argument, `header`, to be `FALSE` indicates that the data file does not have column headers.
-We'll talk more about the value `FALSE`, and its converse `TRUE`, in lesson 04.
+`read.csv`는 두 개의 [인수(arguments)](../../gloss.html#argument)가 있다. 하나는 읽고자 하는 파일 이름이고, 다른 하나는 파일의 첫 행이 데이터의 칼럼(열) 이름 포함 여부다. 파일이름은 [문자열(string)](../../gloss.html#string)이 될 필요가 있어서 인용부호안에 파일이름을 넣는다. 두번째 인수 `header`가 `FALSE`로 할당된 것은 데이터 파일이 칼럼 헤더(column header)를 가지고 있지 않음을 나타낸다. `FALSE` 값과 반대의 경우 `TRUE`가 되는 것은 4번째 학습에서 더 얘기를 나눌 것이다. 
 
-The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s).
-For example, in this case if we provided the name of a different file to the argument `file`, `read.csv` would read it instead.
-We'll learn more of the details about functions and their arguments in the next lesson.
+함수의 유용성은 무슨 값이 인수에 전달되든지 주어진 행동을 수행한다는 것이다. 예를 들어, 인수 `file`에 다른 파일의 이름을 제공한다면, `read.csv`는 대신에 그 파일을 읽을 것이다. 다음 학습에서 함수와 인수에 관한 좀더 자세한 내용을 배울 것이다.
 
-Since we didn't tell it to do anything else with the function's output, the console will display the full contents of the file `inflammation-01.csv`.
-Try it out.
+함수의 출력결과에 대해서 어떤 특별한 것을 지시하지 않아서, 콘솔에서 `inflammation-01.csv` 파일 전체 내용을 화면에 출력한다. 시도해 보세요.
 
-`read.csv` read the file, but didn't save the data in memory.
-To do that, we need to assign the data frame to a variable.
-A variable is just a name for a value, such as `x`, `current_temperature`, or `subject_id`.
-We can create a new variable simply by assigning a value to it using `<-`
-
+`read.csv`는 파일을 읽어들이지만, 데이터를 주기억장치(memory)에 저장하지 않는다.
+저장을 하기고자 한다면, 데이터프레임을 변소에 할당할 필요가 있다. 변수는 단순히 값에 대한 이름으로 `x`, `current_temperature`, `subject_id`과 같다. 새로운 변수를 생성하여 `<-`을 사용해서 값을 변수에 할당할 수 있다.
 
 <pre class='in'><code>weight_kg <- 55</code></pre>
 
-Once a variable has a value, we can print it by typing the name of the variable and hitting `Enter` (or `return`).
-In general, R will print to the console any object returned by a function or operation *unless* we assign it to a variable.
-
+변수가 값을 가지게 되면, 변수 이름을 타이핑하고 `엔터(Enter)` 혹은 `리턴(return)`을 쳐서 변수를 출력할 수 있다. 일반적으로 변수에 할당하는 경우를 *제외하고* R은 함수나 연산에서 반환되는 임의의 개체를 콘솔에 출력한다.
 
 <pre class='in'><code>weight_kg</code></pre>
-
-
 
 <div class='out'><pre class='out'><code>[1] 55
 </code></pre></div>
 
-We can do arithmetic with the variable:
-
+변수로 산수를 할 수 있다.
 
 <pre class='in'><code># weight in pounds:
 2.2 * weight_kg</code></pre>
 
-
-
 <div class='out'><pre class='out'><code>[1] 121
 </code></pre></div>
 
-> **Tip:** We can add comments to our code using the `#` character.
-It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing.
+> **Tip:** `#`문자를 사용해서 코드에 주석을 추가할 수 있다. 이런 방식으로 코드를 문서화하는 것은 매우 유용하다. 그렇게 함으로써 다른 사람이나 자신도 다음에 코드를 읽을 때 코드가 무엇을 하는 것인지 따라가기가 쉽다.
 
-We can also change an object's value by assigning it a new value:
-
+새로운 값을 할당함으로써 개체의 값을 변경할 수 있다.
 
 <pre class='in'><code>weight_kg <- 57.5
 # weight in kilograms is now
 weight_kg</code></pre>
 
-
-
 <div class='out'><pre class='out'><code>[1] 57.5
 </code></pre></div>
 
-If we imagine the variable as a sticky note with a name written on it, 
-assignment is like putting the sticky note on a particular value:
+만약 변수를 이름이 써진 포스트잇 같은 스티커 노트라고 가정한다면, 할당은 특정한 값에 스티커 노트를 붙이는 것과 같다.
 
 <img src="../python/img/python-sticky-note-variables-01.svg" alt="Variables as Sticky Notes" />
 
-This means that assigning a value to one object does not change the values of other variables. 
-For example, let's store the subject's weight in pounds in a variable:
-
+이것이 의미하는 바는 한 개체에 값을 할당하는 것은 다른 변수의 값을 변경시키지는 않는다. 예를 들어, 변수에 개체의 무게를 파운드로 저장하자.
 
 <pre class='in'><code>weight_lb <- 2.2 * weight_kg
 # weight in kg...
 weight_kg</code></pre>
 
-
-
 <div class='out'><pre class='out'><code>[1] 57.5
 </code></pre></div>
 
-
-
 <pre class='in'><code># ...and in pounds
 weight_lb</code></pre>
-
-
 
 <div class='out'><pre class='out'><code>[1] 126.5
 </code></pre></div>
 
 <img src="../python/img/python-sticky-note-variables-02.svg" alt="Creating Another Variable" />
 
-and then change `weight_kg`:
-
+그리고 나서 `weight_kg`를 변경하자.
 
 <pre class='in'><code>weight_kg <- 100.0
 # weight in kg now...
 weight_kg</code></pre>
 
-
-
 <div class='out'><pre class='out'><code>[1] 100
 </code></pre></div>
 
-
-
 <pre class='in'><code># ...and in weight pounds still
 weight_lb</code></pre>
-
-
 
 <div class='out'><pre class='out'><code>[1] 126.5
 </code></pre></div>
 
 <img src="../python/img/python-sticky-note-variables-03.svg" alt="Updating a Variable" />
 
-Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes. 
-This is different from the way spreadsheets work.
+`weight_lb` 변수는 값이 어디에서 왔는지 기억하지 않기 때문에, 자동적으로 `weight_kg`이 변경될 때 갱신되지 않는다. 엑셀같은 스프레드쉬트가 동작하는 방식과 이런 점이 다르다.
 
-Now that we know how to assign things to variables, let's re-run `read.csv` and save its result:
-
+변수에 어떻게 값을 할당하는지 알기 때문에, `read.csv`을 다시 실행하고 결과를 저장하자.
 
 <pre class='in'><code>dat <- read.csv(file = "inflammation-01.csv", header = FALSE)</code></pre>
 
-This statement doesn't produce any output because assignment doesn't display anything.
-If we want to check that our data has been loaded, we can print the variable's value.
-However, for large data sets it is convenient to use the function `head` to display only the first few rows of data.
-
+상기 문장은 결과를 출력하지 않는데 할당은 어떤 것도 화면에 출력하지 않기 때문이다.
+데이터가 주기억장치에 적재되었는지 확인하고자 한다면, 변수의 값을 출력할 수 있다.
+하지만, 큰 데이터셋에 대해서는 `head` 함수를 사용해서 데이터의 처음 몇 줄만 화면에 출력하는 것이 편리하다.
 
 <pre class='in'><code>head(dat)</code></pre>
-
-
 
 <div class='out'><pre class='out'><code>  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20
 1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18
@@ -206,9 +159,9 @@ However, for large data sets it is convenient to use the function `head` to disp
 6   2   1
 </code></pre></div>
 
-#### Challenge
+#### 도전하기
 
-Draw diagrams showing what variables refer to what values after each statement in the following program:
+도표를 그려서 다음 프로그램의 각 문장이 실행된 후에 무슨 변수가 무슨 값을 참조하는지 보이세요.
 
 	mass <- 47.5
 	age <- 122
