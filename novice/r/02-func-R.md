@@ -146,22 +146,15 @@ final <- fahr_to_celsius(original)</code></pre>
 
 <img src="../python/img/python-call-stack-05.svg" alt="Call Stack During Call to Second Nested Function" />
 
-다시 한번, R은 
-
-Once again, R throws away that stack frame when `kelvin_to_celsius` is done
-and creates the variable `result` in the stack frame for `fahr_to_celsius`:
+다시 한번, R은 `kelvin_to_celsius` 함수가 수행완료될 때 스택 프레임을 폐기한다. 그리고 `fahr_to_celsius` 함수를 위해 스택 프레임에 `result` 변수를 생성한다.
 
 <img src="../python/img/python-call-stack-06.svg" alt="Call Stack After Second Nested Function Returns" />
 
-Finally, when `fahr_to_celsius` is done, R throws away *its* stack frame and puts its result in a new variable called `final` that lives in the stack frame we started with:
+마지막으로, `fahr_to_celsius` 함수 수행이 완료될 때, R은 *자신의* 스택 프레임을 폐기하고 초기 시작한 스택 프레임에 있는 신규 변수 `final`에 결과값을 넣는다.
 
 <img src="../python/img/python-call-stack-07.svg" alt="Call Stack After All Functions Have Finished" />
 
-This final stack frame is always there;
-it holds the variables we defined outside the functions in our code.
-What it *doesn't* hold is the variables that were in the various stack frames.
-If we try to get the value of `temp` after our functions have finished running, R tells us that there's no such thing:
-
+이 마지막 스택 프레임은 항상 존재해서 작성한 코드 중에 함수 외부에서 정의한 변수를 간직한다. 간직하지 않는 것은 다양한 스택 프레임에 있었던 변수다. 만약 함수가 수행 종료된 후에 `temp` 값을 얻고자 한다면, R은 그런 것은 없다고 회답한다.
 
 <pre class='in'><code>temp</code></pre>
 
@@ -170,18 +163,13 @@ If we try to get the value of `temp` after our functions have finished running, 
 <div class='out'><pre class='out'><code>Error: object 'temp' not found
 </code></pre></div>
 
-> **Tip:** The explanation of the stack frame above was very general and the basic concept will help you understand most languages you try to program with.
-However, R has some unique aspects that can be exploited when performing more complicated operations.
-We will not be writing anything that requires knowledge of these more advanced concepts.
-In the future when you are comfortable writing functions in R, you can learn more by reading the [R Language Manual][man] or this [chapter][] from [Advanced R Programming][adv-r] by Hadley Wickham.
-For context, R uses the terminology "environments" instead of frames.
+> **Tip:** 상기 스택 프레임(stack frame)의 설명은 매우 일반적이다. 기본 개념이 여러분이 프로그램하는 대부분의 언어를 이해하는데 도움을 줄 것이다. 하지만, 좀더 복잡한 연산을 수행할 때, R은 활용할 몇가지 독특한 점이 있다. 좀더 고급 개념의 지식이 필요한 어떠한 것도 작성하지는 않을 것이다. 향후에 R로 함수를 작성하는 것이 편해질 때 [R Language Manual][man] 혹은 Hadley Wickham의 [Advanced R Programming][adv-r]에서 환경 [장(chapter)][]에서 좀더 많을 것을 배울 수 있다. 프레임(frame) 대신에 "환경(environment)" 용어를 R에서 사용한다.
 
 [man]: http://cran.r-project.org/doc/manuals/r-release/R-lang.html#Environment-objects
 [chapter]: http://adv-r.had.co.nz/Environments.html
 [adv-r]: http://adv-r.had.co.nz/
 
-Why go to all this trouble? Well, here's a function called `span` that calculates the difference between the mininum and maximum values in an array:
-
+왜 이 모든 어려움으로 갈가요? 배열의 최대값과 최소값의 차이를 계산하는 `span`이라는 함수가 다음에 있다.
 
 <pre class='in'><code>span <- function(a) {
   diff <- max(a) - min(a)
@@ -197,8 +185,7 @@ span(dat)</code></pre>
 <div class='out'><pre class='out'><code>[1] 20
 </code></pre></div>
 
-Notice `span` assigns a value to variable called `diff`. We might very well use a variable with the same name (`diff`) to hold the inflammation data:
-
+`span` 함수는 값을 `diff` 변수에 할당함을 주목하세요. 염증 데이터 정보를 담고 있는 동일한 이름의 변수(`diff`)를 매우 사용할 수도 있다.
 
 <pre class='in'><code>diff <- read.csv(file = "inflammation-01.csv", header = FALSE)
 # span of inflammation data
@@ -209,18 +196,13 @@ span(diff)</code></pre>
 <div class='out'><pre class='out'><code>[1] 20
 </code></pre></div>
 
-We don't expect the variable `diff` to have the value 20 after this function call, so the name `diff` cannot refer to the same variable defined inside `span` as it does in as it does in the main body of our program (which R refers to as the global environment).
-And yes, we could probably choose a different name than `diff` for our variable in this case, but we don't want to have to read every line of code of the R functions we call to see what variable names they use, just in case they change the values of our variables.
+함수 호출 뒤에 변수 `diff`가 값 20을 갖게 되는 것을 기대하지 않는다. 그래서 R이 전역 환경(global environment)으로 부르는 프로그램 메인에서 하는 것처럼, `diff` 이름이 `span` 내부에 정의된 동일한 변수를 참조할 수 없다. 이 경우에 변수에 `diff`와 다른 이름을 아마도 선택할 수 있지만, 변수의 값이 변경되는 경우마다 무슨 변수명이 사용되었는지를 살펴보기 위해 호출하는 R함수의 모든 코드 행을 읽고 싶지는 않다.
 
-The big idea here is [encapsulation](../../gloss.html#encapsulation), and it's the key to writing correct, comprehensible programs.
-A function's job is to turn several operations into one so that we can think about a single function call instead of a dozen or a hundred statements each time we want to do something.
-That only works if functions don't interfere with each other; if they do, we have to pay attention to the details once again, which quickly overloads our short-term memory.
+여기서 기본적인 아이디어는 [캡슐화(encapsulation)](../../gloss.html#encapsulation)이고, 정확하고 이해하기 쉬운 프로그램을 작성하는 열쇠다. 함수가 하는 일은 몇개의 작업을 하나로 변환하는 것이어서 무언가를 하고자 할 때마다 수십개에서 수백개의 문장을 수행하는 대신에 단 하나의 함수 호출을 생각할 수 있다. 함수가 서로에게 간섭하지 않는다면 이 방식은 동작한다. 만약 서로 간섭하게 되면 다시 한번 세부사항에 주의를 기울여야 하고 급격하게 단기 기억에 과부하를 주게된다.   
 
-#### Challenges
+#### 도전 과제
 
-  + We previously wrote functions called `fence` and `outer`.
-    Draw a diagram showing how the call stack changes when we run the following:
-
+  + 이전에 `fence`와 `outer` 함수를 작성했다. 다음을 실행할 때 콜 스택(call stack)이 어떻게 변하는지 다이어그램을 그려보세요.
 
 <pre class='in'><code>inside <- "carbon"
 outside <- "+"
