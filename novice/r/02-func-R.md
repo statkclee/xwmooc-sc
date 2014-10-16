@@ -5,49 +5,38 @@ root: ../..
 
 
 
-## Creating Functions
+## 함수 생성하기
 
-If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet and use that to plot some simple statistics. 
-But we have twelve files to check, and may have more in the future.
-In this lesson, we'll learn how to write a function so that we can repeat several operations with a single command.
+만약 분석할 데이터셋이 하나라면, 파일을 스프레드쉬트에 올려서 간단한 통계치를 구하고 그래프를 그리는 것이 아마도 휠씬 빠르다. 하지만, 확인할 파일이 12개이고 앞으로 더 늘어난다면 얘기는 달라진다. 이번 학습에서 함수를 어떻게 작성하는지 배워서 하나의 명령어로 몇개 작업을 반복할 수 있다.
 
-#### Objectives
+#### 목표
 
-* Define a function that takes arguments.
-* Return a value from a function.
-* Test a function.
-* Explain what a call stack is, and trace changes to the call stack as functions are called.
-* Set default values for function arguments.
-* Explain why we should divide programs into small, single-purpose functions.
+* 인자(argument)를 받는 함수를 작성한다.
+* 함수에서 값을 반환한다.
+* 함수를 테스트한다.
+* 콜 스택(call stack)이 무엇인지 설명하고 함수가 호출될때 콜 스택에 변경사항을 추적한다.
+* 함수 인자로 디폴트 값을 설정한다.
+* 왜 프로그램을 작게 단일 목적 함수로 잘게 쪼개는지 설명한다.
 
-### Defining a function
+### 함수 정의하기
 
-Let's start by defining a function `fahr_to_kelvin` that converts temperatures from Fahrenheit to Kelvin:
-
+화씨(Fahrenheit)에서 절대온도(Kelvin)로 온도를 변환하는 `fahr_to_kelvin` 함수를 정의하는 것부터 시작하자.
 
 <pre class='in'><code>fahr_to_kelvin <- function(temp) {
   kelvin <- ((temp - 32) * (5 / 9)) + 273.15
   return(kelvin)
 }</code></pre>
 
-We define `fahr_to_kelvin` by assigning it to the output of `function`.
-The list of argument names are containted within parentheses.
-Next, the [body](../../gloss.html#function-body) of the function--the statements that are executed when it runs--is contained within curly braces (`{}`).
-The statements in the body are indented by two spaces.
-This makes the code easier to read but does not affect how the code operates. 
+함수 `function` 출력을 할당해서 `fahr_to_kelvin` 함수를 정의한다.
+인자이름 목록은 괄호에 포함된다. 다음에 함수 [몸통부문(body)](../../gloss.html#function-body)은 함수가 수행될 때 실행되는 문장(스테이트먼트, statement)으로 중괄호(`{}`) 내부에 포함된다. 몸통부문의 문장은 공백 2개로 들여쓰기 된다. 들여쓰기는 코드를 일기 쉽게하지만, 코드가 어떻게 동작하는지에는 영향을 주지 않는다.
 
-When we call the function, the values we pass to it are assigned to those variables so that we can use them inside the function.
-Inside the function, we use a [return statement](../../gloss.html#return-statement) to send a result back to whoever asked for it.
+함수를 호출할 때, 함수에 전달하는 값은 변수에 할당되어서 함수 내부에서 사용할 수 있다. 함수 내부에 [리턴 문장(return statement)](../../gloss.html#return-statement)을 사용해서 요청하는 곳에 결과를 되돌린다.
 
-> **Tip:** One feature unique to R is that the return statement is not required.
-R automatically returns whichever variable is on the last line of the body of the function.
-Since we are just learning, we will explicitly define the return statement.
+> **Tip:** R에만 있는 독특한 기능 중의 하나는 반환문장(return statement)가 반드시 필요한 아니다. R은 자동적으로 함수 몸통부문 마지막 행에 있는 임의의 변수를 반환한다. 지금은 학습 단계여서 명시적으로 반환문장을 정의한다.
 
-Let's try running our function.
-Calling our own function is no different from calling any other function:
+상기 함수를 실행하자. 본인이 작성한 함수를 호출하는 것은 다른 함수를 호출하는 것과 차이가 없다.
 
-
-<pre class='in'><code># freezing point of water
+<pre class='in'><code># 물의 어는 점
 fahr_to_kelvin(32)</code></pre>
 
 
@@ -57,7 +46,7 @@ fahr_to_kelvin(32)</code></pre>
 
 
 
-<pre class='in'><code># boiling point of water
+<pre class='in'><code># 물의 끓는 점
 fahr_to_kelvin(212)</code></pre>
 
 
@@ -65,30 +54,25 @@ fahr_to_kelvin(212)</code></pre>
 <div class='out'><pre class='out'><code>[1] 373.1
 </code></pre></div>
 
-We've successfully called the function that we defined, and we have access to the value that we returned.
+정의한 함수를 성공적으로 호출해서 반환한 값에 접근할 수 있다.
 
-### Composing Functions
+### 함수 조합하기
 
-Now that we've seen how to turn Fahrenheit into Kelvin, it's easy to turn Kelvin into Celsius:
-
+화씨온도를 절대온도로 어떻게 변환하는지 봤기 때문에 절대온도를 섭씨온도로 바꾸는 것은 쉽다.
 
 <pre class='in'><code>kelvin_to_celsius <- function(temp) {
   celsius <- temp - 273.15
   return(celsius)
 }
 
-#absolute zero in Celsius
+# 섭씨에서 영도
 kelvin_to_celsius(0)</code></pre>
-
 
 
 <div class='out'><pre class='out'><code>[1] -273.1
 </code></pre></div>
 
-What about converting Fahrenheit to Celsius?
-We could write out the formula, but we don't need to.
-Instead, we can [compose](../../gloss.html#function-composition) the two functions we have already created:
-
+화씨온도에서 섭씨온도로 변환하는 것은 어떤가요? 공식을 적을 수도 있지만, 그럴 필요가 없다. 이미 작성한 두개의 함수를 [조합(compose)](../../gloss.html#function-composition)할 수 있다.
 
 <pre class='in'><code>fahr_to_celsius <- function(temp) {
   temp_k <- fahr_to_kelvin(temp)
@@ -104,18 +88,13 @@ fahr_to_celsius(32.0)</code></pre>
 <div class='out'><pre class='out'><code>[1] 0
 </code></pre></div>
 
-This is our first taste of how larger programs are built: we define basic operations, then combine them in ever-large chunks to get the effect we want. 
-Real-life functions will usually be larger than the ones shown here--typically half a dozen to a few dozen lines--but they shouldn't ever be much longer than that, or the next person who reads it won't be able to understand what's going on.
+어떻게 좀더 커다란 프로그램이 만들어지는지 첫번째 맛을 봤다. 기본 연산을 정의하고 원하는 효과를 얻기 위해서 이를 조합한다. 실제 함수는 상기 보여진 것보다 더 크다. 일반적으로 대략 6줄에서 20~30줄 정도 한다. 하지만 이보다 함수가 더 길거나 함수를 읽는 사람이 어떻게 동작하는지 이해할수 없는 것은 곤란하다.
 
-#### Challenges
+#### 도전 
 
-  + In the last lesson, we learned to **c**oncatenate elements into a vector using the `c` function, e.g. `x <- c("A", "B", "C")` creates a vector `x` with three elements.
-  Furthermore, we can extend that vector again using `c`, e.g. `y <- c(x, "D")` creates a vector `y` with four elements.
-  Write a function called `fence` that takes two vectors as arguments, called `original` and `wrapper`, and returns a new vector that has the wrapper vector at the beginning and end of the original:
+  + 마지막 학습에서 `c` 함수를 사용해서 요소(element)를 결합(**c**oncatenate)하는지 배웠다. 예로,`x <- c("A", "B", "C")` 문장은 3 요소를 가진 벡터 `x`를 생성한다. 좀더 나아가, `c`를 사용해서 상기 벡터를 확장할 수 있다. 예로, `y <- c(x, "D")` 문장은 4개 요소를 가진 벡터 `y`를 생성한다.
+  인자로 `original`과 `wrapper` 벡터 두개를 받는 `fence` 함수를 작성하세요. `fence` 함수는 `original` 앞과 뒤를 감싸는 새로운 벡터를 반환한다.
   
-
-  
-
 <pre class='in'><code>best_practice <- c("Write", "programs", "for", "people", "not", "computers")
 asterisk <- "***"  # R interprets a variable with a single value as a vector
                    # with one element.
@@ -127,11 +106,8 @@ fence(best_practice, asterisk)</code></pre>
 [7] "computers" "***"      
 </code></pre></div>
 
-  + If the variable `v` refers to a vector, then `v[1]` is the vector's first element and `v[length(v)]` is its last (the function `length` returns the number of elements in a vector).
-    Write a function called `outer` that returns a vector made up of just the first and last elements of its input:
-    
-
-
+  + 변수 `v`가 벡터를 참조한다면, `v[1]`은 벡터의 첫번째 요소이고 `v[length(v)]`은 벡터의 마지막 요소가 된다. 함수 `length`는 벡터의 요소 갯수를 반환한다.
+  입력값의 첫번째와 마지막 요소로만 구성된 벡터를 반환하는 `outer` 함수를 작성하세요.
 
 <pre class='in'><code>dry_principle <- c("Don't", "repeat", "yourself", "or", "others")
 outer(dry_principle)</code></pre>
@@ -141,38 +117,36 @@ outer(dry_principle)</code></pre>
 <div class='out'><pre class='out'><code>[1] "Don't"  "others"
 </code></pre></div>
 
-### The Call Stack
+### 콜 스택(Call Stack)
 
-Let's take a closer look at what happens when we call `fahr_to_celsius(32)`. To make things clearer, we'll start by putting the initial value 32 in a variable and store the final result in one as well:
-
+`fahr_to_celsius(32)`을 호출할 때 무엇이 생기는지 좀더 자세히 살펴보자. 좀더 명확하기 하기 위해서, 변수에 초기값을 32로 설정하고 결과를 `final`에 저장해서 출발해봅시다.
 
 <pre class='in'><code>original <- 32
 final <- fahr_to_celsius(original)</code></pre>
 
-The diagram below shows what memory looks like after the first line has been executed:
+다음 다이어그램은 첫번째 행이 실행된 다음에 메모리가 어떻게 되지는 보여준다.
 
 <img src="../python/img/python-call-stack-01.svg" alt="Call Stack (Initial State)" />
 
-When we call `fahr_to_celsius`, R *doesn't* create the variable `temp` right away.
-Instead, it creates something called a [stack frame](../../gloss.html#stack-frame) to keep track of the variables defined by `fahr_to_kelvin`.
-Initially, this stack frame only holds the value of `temp`:
+함수 `fahr_to_celsius`을 호출할 때, R은 변수 `temp`를 바로 생성하지는 *않는다.* 대신에 [스택 프레임(stack frame)](../../gloss.html#stack-frame)을 생성해서 `fahr_to_kelvin`함수가 정의한 변수를 추적한다. 초기에 스택은 `temp` 값만을 가지고 있다.
 
 <img src="../python/img/python-call-stack-02.svg" alt="Call Stack Immediately After First Function Call" />
 
-When we call `fahr_to_kelvin` inside `fahr_to_celsius`, R creates another stack frame to hold `fahr_to_kelvin`'s variables:
+`fahr_to_celsius` 함수 내부에 `fahr_to_kelvin` 함수를 호출할 때, R은 또 다른 스택 프레임을 생성해서 `fahr_to_kelvin`의 변수를 저장한다.
 
 <img src="../python/img/python-call-stack-03.svg" alt="Call Stack During First Nested Function Call" />
 
-It does this because there are now two variables in play called `temp`: the argument to `fahr_to_celsius`, and the argument to `fahr_to_kelvin`.
-Having two variables with the same name in the same part of the program would be ambiguous, so R (and every other modern programming language) creates a new stack frame for each function call to keep that function's variables separate from those defined by other functions.
+이제 `temp`로 불리는 동작하는 두개의 변수가 있다. 하나는 `fahr_to_celsius` 함수의 인수이고, 다른 하나는 `fahr_to_kelvin` 함수의 인수다. 프로그램의 같은 부분에 동일한 이름을 가진 변수 두개가 있는 것이 애매모호해서, R(그리고 다른 최신 프로그래밍 언어)은 각 함수 호출에 대해서 새로운 스택 프레임을 생성해서 다른 함수에서 정의된 변수와 구별되게 함수의 변수를 보관한다. 
 
-When the call to `fahr_to_kelvin` returns a value, R throws away `fahr_to_kelvin`'s stack frame and creates a new variable in the stack frame for `fahr_to_celsius` to hold the temperature in Kelvin:
+`fahr_to_kelvin` 함수 호출이 값을 반환할 때, R은 `fahr_to_kelvin` 함수의 스택 프레임을 사용한 후 버리고 절대 온도 정보를 보관하기 위해서 `fahr_to_celsius`에 대한 스택 프레임에 새로운 변수를 생성한다. 
 
 <img src="../python/img/python-call-stack-04.svg" alt="Call Stack After Return From First Nested Function Call" />
 
-It then calls `kelvin_to_celsius`, which means it creates a stack frame to hold that function's variables:
+그리고 나서 `kelvin_to_celsius`을 호출하는데 함수의 변수를 저장할 스택 프레임을 생성한다는 의미다.
 
 <img src="../python/img/python-call-stack-05.svg" alt="Call Stack During Call to Second Nested Function" />
+
+다시 한번, R은 
 
 Once again, R throws away that stack frame when `kelvin_to_celsius` is done
 and creates the variable `result` in the stack frame for `fahr_to_celsius`:
