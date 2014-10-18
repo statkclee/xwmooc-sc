@@ -208,21 +208,16 @@ span(diff)</code></pre>
 outside <- "+"
 result <- outer(fence(inside, outside))</code></pre>
 
-### Testing and Documenting
+### 테스팅과 문서화
 
-Once we start putting things in functions so that we can re-use them, we need to start testing that those functions are working correctly.
-To see how to do this, let's write a function to center a dataset around a particular value:
-
+함수에 명령어들을 넣어서 재사용할 수 있자마자, 작성한 함수가 제대로 동작하는지를 테스트할 필요가 있다. 어떻게 수행하는지 알아보기 위해서, 특정한 값 주위에 데이터를 중앙에 위치하게 하는 함수를 작성하자.
 
 <pre class='in'><code>center <- function(data, desired) {
   new_data <- (data - mean(data)) + desired
   return(new_data)
 }</code></pre>
 
-We could test this on our actual data, but since we don't know what the values ought to be, it will be hard to tell if the result was correct.
-Instead, let's create a vector of 0s and then center that around 3.
-This will make it simple to see if our function is working as expected:
-
+작성한 함수를 실제 데이터에 테스트할 수도 있으나, 값이 무엇이 되어야하는지 모르기 때문에 결과가 맞는지 구분하기가 어렵다. 대신에, 0으로 구성된 벡터를 생성하고 3 주위가 중심이 되게 하자. 매우 간단하게 만들어서 함수가 기대한 대로 동작하는지 살펴보자.
 
 <pre class='in'><code>z <- c(0, 0, 0, 0)
 z</code></pre>
@@ -241,7 +236,7 @@ z</code></pre>
 <div class='out'><pre class='out'><code>[1] 3 3 3 3
 </code></pre></div>
 
-That looks right, so let's try center on our real data. We'll center the inflammation data from day 4 around 0:
+맞는 것처럼 보여서 실제 데이터에 중심을 잡도록 하자. 염증 데이터의 4번째 날을 0 주위에 중심을 잡게 한다.
 
 
 <pre class='in'><code>dat <- read.csv(file = "inflammation-01.csv", header = FALSE)
@@ -253,8 +248,7 @@ head(centered)</code></pre>
 <div class='out'><pre class='out'><code>[1]  1.25 -0.75  1.25 -1.75  1.25  0.25
 </code></pre></div>
 
-It's hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:
-
+상기 출력으로부터 결과가 맞는지 구분하기 어렵다. 하지만, 확인을 할 수 있는 몇가지 테스트가 있다.
 
 <pre class='in'><code># original min
 min(dat[, 4])</code></pre>
@@ -314,10 +308,7 @@ max(centered)</code></pre>
 <div class='out'><pre class='out'><code>[1] 1.25
 </code></pre></div>
 
-That seems almost right: the original mean was about 1.75, so the lower bound from zero is now about -1.75.
-The mean of the centered data is 0.
-We can even go further and check that the standard deviation hasn't changed:
-
+거의 맞는 것처럼 보인다. 원 평균은 약 1.75였다. 그래서 0에서 하한은 약 -1.75이다. 중앙값이 바뀐 데이터의 평균은 0이다. 좀더 나아가 표준편차가 바뀌었는지 확인하자.
 
 <pre class='in'><code># original standard deviation
 sd(dat[, 4])</code></pre>
@@ -337,9 +328,7 @@ sd(centered)</code></pre>
 <div class='out'><pre class='out'><code>[1] 1.068
 </code></pre></div>
 
-Those values look the same, but we probably wouldn't notice if they were different in the sixth decimal place.
-Let's do this instead:
-
+두 값이 동일하다. 하지만 6번째 소수점에서 차이가 있다면 알아채지 못할 것이다. 대신에 다음을 수행하자.
 
 <pre class='in'><code># difference in standard deviations before and after
 sd(dat[, 4]) - sd(centered)</code></pre>
@@ -349,9 +338,7 @@ sd(dat[, 4]) - sd(centered)</code></pre>
 <div class='out'><pre class='out'><code>[1] 0
 </code></pre></div>
 
-Sometimes, a very small difference can be detected due to rounding at very low decimal places.
-R has a useful function for comparing two objects allowing for rounding errors, `all.equal`:
-
+때때로, 매우 작은 차이를 소수점 아래에서 반올림때문에 탐지할 수 있다. R에는 반올림 오류에 대해서 두 객체를 비교하는 유용한 함수(`all.equal`)가 있다. 
 
 <pre class='in'><code>all.equal(sd(dat[, 4]), sd(centered))</code></pre>
 
@@ -360,11 +347,9 @@ R has a useful function for comparing two objects allowing for rounding errors, 
 <div class='out'><pre class='out'><code>[1] TRUE
 </code></pre></div>
 
-It's still possible that our function is wrong, but it seems unlikely enough that we should probably get back to doing our analysis.
-We have one more task first, though: we should write some [documentation](../../gloss.html#documentation) for our function to remind ourselves later what it's for and how to use it.
+함수가 잘못될 가능성은 여전히 있다. 하지만, 분석으로 되돌릴 정도는 아닐 듯 하다. 하지만, 한 가지 더 작업이 있다. 후에 작성한 함수가 무엇을 위한 것이고 어떻게 사용하는지에 대해서 우리 자신에게 되새김되도록 함수의 [문서화(documentation)](../../gloss.html#documentation)를 위해서 문서를 작성해야 한다.
 
-A common way to put documentation in software is to add [comments](../../gloss.html#comment) like this:
-
+소프트웨어에 문서를 넣는 일반적인 방법은 다음과 같은 [주석(comments)](../../gloss.html#comment)을 추가하는 것이다.
 
 <pre class='in'><code>center <- function(data, desired) {
   # return a new vector containing the original data centered around the
@@ -374,43 +359,28 @@ A common way to put documentation in software is to add [comments](../../gloss.h
   return(new_data)
 }</code></pre>
 
-> **Tip:** Formal documentation for R functions is written in separate `.Rd` using a markup language similar to [LaTeX][].
-You see the result of this documentation when you look at the help file for a given function, e.g. `?read.csv`.
-The [roxygen2][] package allows R coders to write documentation alongside the function code and then process it into the appropriate `.Rd` files.
-You will want to switch to this more formal method of writing documentation when you start writing more complicated R projects.
+> **Tip:** R함수의 공식 문서는 [LaTeX][]과 유사한 마크업 언어를 사용해서 별도의 `.Rd` 파일로 작성된다. `?read.csv` 처럼 주어진 함수의 도움말을 살펴볼 때, 문서화 결과를 보게 된다. [roxygen2][] 패키지는 R 코드 작성자가 함수와 문서를 작성할 수 있게 해서 적당한 `.Rd` 파일를 생성한다. 좀더 복잡한 R 프로젝트를 작성할 때, 좀더 공식적인 문서 작성법으로 전환하고 싶을지도 모른다.
 
 [LaTeX]: http://www.latex-project.org/
 [roxygen2]: http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html
 
-#### Challenges
+#### 도전 과제
 
-  + Write a function called `analyze` that takes a filename as a argument and displays the three graphs produced in the [previous lesson][01] (average, min and max inflammation over time).
-  `analyze("inflammation-01.csv")` should produce the graphs already shown, while `analyze("inflammation-02.csv")` should produce corresponding graphs for the second data set. Be sure to document your function with comments.
+  + `analyze` 함수를 작성해서 인자로 파일 이름을 받아서 [앞선 학습][01] 결과(시간에 따른 염증의 평균값, 최소값, 최대값)를 그래프로 화면에 출력하도록 하세요. analyze("inflammation-01.csv") 결과는 이미 보여진 그래프를 생성해야 하지만, `analyze("inflammation-02.csv")` 결과는 두번째 데이터셋에 상응하는 그래프를 생성해야 한다. 주석으로 함수를 문서화하도록 확인하세요.
 
 [01]: 01-starting-with-data.html
 
+  + `rescale`함수를 작성해서 입력값으로 벡터를 받고, 0에서 1사이의 범위로 조정되게 해당 벡터를 반환하게 하세요. 만약 $L$과 $H$이 원 벡터이 하한과 상한이라면, $v$의 치환값은 $(v-L) / (H-L)$이 되어야 한다. 주석으로 함수를 문서화하도록 확인하세요.
 
+  + `min`, `max`, `plot` 함수를 사용해서 `rescale` 함수가 정상적으로 동작하는지 시험하세요.
 
-  + Write a function `rescale` that takes a vector as input and returns a corresponding vector of values scaled to lie in the range 0 to 1.
-  (If $L$ and $H$ are the lowest and highest values in the original vector, then the replacement for a value $v$ should be $(v-L) / (H-L)$.)
-  Be sure to document your function with comments.
+### 초기 설정(Default) 정의
 
-
-
-  + Test that your `rescale` function is working properly using `min`, `max`, and `plot`.
-
-
-
-### Defining Defaults
-
-We have passed arguments to functions in two ways: directly, as in `dim(dat)`, and by name, as in `read.csv(file = "inflammation-01.csv", header = FALSE)`.
-In fact, we can pass the arguments to `read.csv` without naming them:
-
+두가지 방식으로 함수에 인자를 넘겨줬다. `dim(dat)`처럼 직접적으로, `read.csv(file = "inflammation-01.csv", header = FALSE)`과 같이 이름으로 넘겨줬다. 사실 인자를 이름없이 `read.csv` 함수에 넘길 수 있다.
 
 <pre class='in'><code>dat <- read.csv("inflammation-01.csv", FALSE)</code></pre>
 
-However, the position of the arguments matters if they are not named.
-
+하지만, 인자가 이름이 매칭되지 않는다면 인자의 위치가 문제가 된다.
 
 <pre class='in'><code>dat <- read.csv(header = FALSE, file = "inflammation-01.csv")
 dat <- read.csv(FALSE, "inflammation-01.csv")</code></pre>
@@ -420,8 +390,7 @@ dat <- read.csv(FALSE, "inflammation-01.csv")</code></pre>
 <div class='out'><pre class='out'><code>Error: 'file' must be a character string or connection
 </code></pre></div>
 
-To understand what's going on, and make our own functions easier to use, let's re-define our `center` function like this:
-
+무엇이 진행되는지 이해하고 작성한 함수를 사용하기 좀더 쉽게 하기 위해서, 다음과 같이 `center` 함수를 다시 정의하자.
 
 <pre class='in'><code>center <- function(data, desired = 0) {
   # return a new vector containing the original data centered around the
@@ -431,9 +400,7 @@ To understand what's going on, and make our own functions easier to use, let's r
   return(new_data)
 }</code></pre>
 
-The key change is that the second argument is now written `desired = 0` instead of just `desired`.
-If we call the function with two arguments, it works as it did before:
-
+중요 변경사항은 두번째 인자가 이제 `desired` 대신에 `desired = 0`이 되었다. 인자 두개로 가진 함수를 호출하면, 전과 동일한 방식으로 동작한다.
 
 <pre class='in'><code>test_data <- c(0, 0, 0, 0)
 center(test_data, 3)</code></pre>
@@ -443,8 +410,7 @@ center(test_data, 3)</code></pre>
 <div class='out'><pre class='out'><code>[1] 3 3 3 3
 </code></pre></div>
 
-But we can also now call `center()` with just one argument, in which case `desired` is automatically assigned the default value of `0`:
-
+하지만, 단지 하나의 인자로 `center()` 함수를 호출할 수도 있다. 이 경우에 `desired`는 자동적으로 초기 설정값 `0`이 할당된다.
 
 <pre class='in'><code>more_data <- 5 + test_data
 more_data</code></pre>
@@ -463,10 +429,9 @@ more_data</code></pre>
 <div class='out'><pre class='out'><code>[1] 0 0 0 0
 </code></pre></div>
 
-This is handy: if we usually want a function to work one way, but occasionally need it to do something else, we can allow people to pass an argument when they need to but provide a default to make the normal case easier.
+매우 편리하다. 만약 한 방식으로 동작하는 함수를 원하지만 때때로 다르게 동작할 필요가 있다면, 필요할 때만 인자를 넘기게 하고 정상적인 경우는 좀더 쉽게 하려고 초기 설정값을 넣는다.
 
-The example below shows how R matches values to arguments
-
+다음 예제는 어떻게 R이 값을 인자에 매칭하는지 보여준다.
 
 <pre class='in'><code>display <- function(a = 1, b = 2, c = 3) {
   result <- c(a, b, c)
@@ -516,9 +481,7 @@ display (55, 66, 77)</code></pre>
 55 66 77 
 </code></pre></div>
 
-As this example shows, arguments are matched from left to right, and any that haven't been given a value explicitly get their default value.
-We can override this behavior by naming the value as we pass it in:
-
+예제가 보여주듯이, 인자는 왼쪽에서 오른쪽으로 매칭된다. 그리고 명시적으로 값이 주어지지 않는 것은 초기 설정값을 갖는다. 인자를 넘길 때 값에 이름을 줌으로써 이런 행동을 오버라이드(override)할 수 있다.
 
 <pre class='in'><code># only setting the value of c
 display(c = 77)</code></pre>
@@ -529,28 +492,24 @@ display(c = 77)</code></pre>
  1  2 77 
 </code></pre></div>
 
-> **Tip:** To be precise, R has three ways that arguments supplied by you are matched to the *formal arguments* of the function definition
+> **Tip:** 좀더 정확하게 R은 세가지 방식으로 사용자가 넘긴 인자를 함수 정의에 있는 공식 인자와 매칭한다.
 >
-> 1. by complete name, 
-> 2. by partial name (matching on initial *n* characters of the argument name), and
-> 3. by position.
+> 1. 완전한 이름으로 매칭
+> 2. 부분 이름으로 매칭 (인자 이름의 첫 *n*개 문자)
+> 3. 위치로 매칭
 >
-> Arguments are matched in the manner outlined above in *that order*: by complete name, then by partial matching of names, and finally by position.
+> 상기 언급된 *순서*의 방식으로 인자가 매칭된다. 완전한 이름으로 매칭하고, 부분 이름으로 매칭하고, 마지막으로 위치로 매칭한다.
 
-With that in hand, let's look at the help for `read.csv()`:
-
+상기 내용을 가지고, `read.csv()` 함수의 도움말을 살펴 보자.
 
 <pre class='in'><code>?read.csv</code></pre>
 
-There's a lot of information there, but the most important part is the first couple of lines:
-
+많은 정보가 있지만, 가장 중요하는 부분은 처음 몇줄이다.
 
 <pre class='in'><code>read.csv(file, header = TRUE, sep = ",", quote = "\"",
          dec = ".", fill = TRUE, comment.char = "", ...)</code></pre>
 
-This tells us that `read.csv()` has one argument, `file`, that doesn't have a default value, and six others that do.
-Now we understand why the following gives an error:
-
+`read.csv()`는 하나의 인자 `file`만 초기 설정을 갖지 않고, 다른 6개는 초기 설정을 가지는 것을 보여준다. 이제 왜 다음 명령문이 오류를 생성하는지 이해한다.
 
 <pre class='in'><code>dat <- read.csv(FALSE, "inflammation-01.csv")</code></pre>
 
@@ -559,38 +518,32 @@ Now we understand why the following gives an error:
 <div class='out'><pre class='out'><code>Error: 'file' must be a character string or connection
 </code></pre></div>
 
-It fails because `FALSE` is assigned to `file` and the filename is assigned to the argument `header`.
+`FALSE`가 `file`에 할당되고, 파일 이름이 `header` 인자에 할당되어 실패한다.
 
-#### Challenges
+#### 도전 과제
 
-  + Rewrite the `rescale` function so that it scales a vector to lie between 0 and 1 by default, but will allow the caller to specify lower and upper bounds if they want.
-  Compare your implementation to your neighbor's: do the two functions always behave the same way?
+  + `rescale` 함수를 재작성해서 초기 설정으로 벡터를 0에서 1 사이에 놓게 하세요. 하지만 호출자가 원한다면, 하한과 상한을 지정할 수 있게 하세요. 옆 사람과 구현한 것을 비교하세요. 두 함수가 항상 같은 방식으로 동작하나요?
 
+#### 주요점
 
+* `name <- function(...args...)`을 사용해서 함수를 작성하라.
+* 함수의 몸통부분은 중괄호(`{}`)로 싸여진다.
+* `name(...values...)`을 사용해서 함수를 호출하라.
+* 함수가 매번 호출될 때마다, 신규 스택 프레임이 [콜 스택(call stack)](../../gloss.html#call-stack)에 생성되어 인자와 로컬 변수를 가진한다.
+* R은 상위 수준에서 변수를 찾기 전에 현재 스택 프레임에서 변수를 찾는다.
+* 무언가의 도움말을 보기 위해서 `help(thing)`을 사용한다.
+* 함수에 도움말을 제공하려면 함수 시작에 주석을 달아라.
+* 코드에 주석을 달아라.
+* 인자 목록에 `name = value`을 사용해서 함수를 정의할 때, 인자에 대해서 초기 설정값을 명기하라.
+* 인자는 이름, 위치, 혹은 생략하고 넘길 수 있다. 생략하는 경우 초기설정값이 사용된다. 
 
-#### Key Points
+#### 다음 단계
 
-* Define a function using `name <- function(...args...)`.
-* The body of a function should be surrounded by curly braces (`{}`).
-* Call a function using `name(...values...)`.
-* Each time a function is called, a new stack frame is created on the [call stack](../../gloss.html#call-stack) to hold its arguments and local variables.
-* R looks for variables in the current stack frame before looking for them at the top level.
-* Use `help(thing)` to view help for something.
-* Put comments at the beginning of functions to provide help for that function.
-* Annotate your code!
-* Specify default values for arguments when defining a function using `name = value` in the argument list.
-* Arguments can be passed by matching based on name, by position, or by omitting them (in which case the default value is used).
-
-#### Next Steps
-
-We now have a function called analyze to visualize a single data set.
-We could use it to explore all 12 of our current data sets like this:
-
+`analyze` 함수를 가지고 하나의 데이터셋을 시각화할 수 있다. 다음과 같이 12개 데이터넷 모두를 탐색하려고 사용할 수 있다.
 
 <pre class='in'><code>analyze("inflammation-01.csv")
 analyze("inflammation-02.csv")
 #...
 analyze("inflammation-12.csv")</code></pre>
 
-but the chances of us typing all 12 filenames correctly aren't great, and we'll be even worse off if we get another hundred files.
-What we need is a way to tell R to do something once for each file, and that will be the subject of the next lesson.
+하지만, 12개 파일이름을 모두 정확하게 타이핑할 가능성은 크지 않다. 그리고 만약 백개 파일이 더 있다면 더 난감하게 될 것이다. 필요한 것은 R이 각 파일에 대해서 한번씩 무엇을 수행하게 하는 것이다. 이것이 다음 학습주제다.
