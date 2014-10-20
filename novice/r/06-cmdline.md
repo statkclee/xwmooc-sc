@@ -82,20 +82,13 @@ attached base packages:
 
 > **Tip:** 만약 정상적으로 동작하지 않는다면, 옳은 디렉토리에 있어야된다는 것을 기억하라. `pwd` 명령어를 사용하여 현재 어느 디렉토리에 있는지 확인할 수 있고, `cd` 명령어를 사용하여 다른 디렉토리로 변경할 수 있다. 다시 회고하기 위해서 [쉘 학습](../shell/01-filedir.html) 혹은 [Unix Shell Reference](../ref/01-shell.html)를 참고바란다.
 
-
-Now let's create another script that does something more interesting. Write the following lines in a file named `print-args.R`:
-
+좀더 흥리로운 작업을 수행하는 또다른 스크립트를 생성하자. `print-args.R` 파일에 다음 행을 작성하고 저장한다.
 
 <div class='out'><pre class='out'><code>args <- commandArgs()
 cat(args, sep = "\n")
 </code></pre></div>
 
-The function `commandArgs` extracts all the command line arguments and returns them as a vector.
-The function `cat`, similar to the `cat` of the Unix Shell, outputs the contents of the variable.
-Since we did not specify a filename for writing, `cat` sends the output to [standard output](../../gloss.html#standard-output), which we can then pipe to other Unix functions.
-Because we set the argument `sep` to `"\n"`, which is the symbol to start a new line, each element of the vector is printed on its own line.
-Let's see what happens when we run this program in the Unix Shell:
-
+`commandArgs` 함수는 모든 명령어 라인 인자를 뽑아내서 벡터로 반환한다. 유닉스 쉘의 `cat`와 유사한 함수 `cat`는 변수의 내용을 출력한다. 출력결과를 쓸 파일이름을 명기하지 않아서 `cat`는 출력결과를 [표준 출력(standard output)](../../gloss.html#standard-output)으로 보낸다. 그렇게 해서 다른 유닉스 함수에 출력결과를 보낼 수 있다. `sep` 인자를 개행(new line) 기호인 `"\n"`을 설정했기 때문에, 벡터의 각 요소는 새로운 행에 출력된다. 유닉스 쉘에서 이 프로그램을 실행할 때, 무슨 일이 생기는지 살펴보자.
 
 <pre class='in'><code>Rscript print-args.R</code></pre>
 
@@ -109,18 +102,14 @@ Let's see what happens when we run this program in the Unix Shell:
 --args
 </code></pre></div>
 
-From this output, we learn that `Rscript` is just a convenience command for running R scripts.
-The first argument in the vector is the path to the `R` executable.
-The following are all command-line arguments that affect the behavior of R.
-From the R help file:
+상기 출력결과로부터 `Rscript`는 R 스크립트를 실행하는 단지 편의 명령문이라는 것을 배웠다. 벡터의 첫 인자는 `R` 실행파일의 경로다. R 행동에 영향을 주는 모든 명령어-라인 인자는 다음과 같다. R 도움말 파일로부터...
 
-*  `--slave`: Make R run as quietly as possible
-*  `--no-restore`:  Don't restore anything that was created during the R session
-*  `--file`: Run this file
-*  `--args`: Pass these arguments to the file being run
+*  `--slave`: R을 가능하면 조용하게 실행하게 한다.
+*  `--no-restore`: R 세션에서 생성된 어떤 것도 복원하지 않는다.
+*  `--file`: 이 파일을 실행한다.
+*  `--args`: 다음 인자를 실행될 파일에 전달한다.
 
-Thus running a file with Rscript is an easier way to run the following:
-
+Rscript로 파일을 실행하는 것이 다음을 실행하는 좀더 쉬운 방법이다.
 
 <pre class='in'><code>R --slave --no-restore --file=print-args.R --args</code></pre>
 
@@ -134,8 +123,7 @@ Thus running a file with Rscript is an easier way to run the following:
 --args
 </code></pre></div>
 
-If we run it with a few arguments, however:
-
+하지만, 만약 몇개 인자로 실행한다면,
 
 <pre class='in'><code>Rscript print-args.R first second third</code></pre>
 
@@ -152,17 +140,13 @@ second
 third
 </code></pre></div>
 
-then `commandArgs` adds each of those arguments to the vector it returns.
-Since the first elements of the vector are always the same, we can tell `commandArgs` to only return the arguments that come after `--args`.
-Let's update `print-args.R` and save it as `print-args-trailing.R`:
-
+`commandArgs`는 반환하는 벡터에 각각의 인자를 추가한다. 벡터의 첫 요소는 항상 동일하기 때문에, `--args` 뒤에만 오는 인자를 반환하도록 `commandArgs`에 분부할 수 있다. `print-args.R`을 갱신하고 `print-args-trailing.R`으로 저장하자.
 
 <div class='out'><pre class='out'><code>args <- commandArgs(trailingOnly = TRUE)
 cat(args, sep = "\n")
 </code></pre></div>
 
-And then run `print-args-trailing` from the Unix Shell:
-
+그리고 나서 유닉스 쉘에서 `print-args-trailing`을 실행하자.
 
 <pre class='in'><code>Rscript print-args-trailing.R first second third</code></pre>
 
@@ -174,13 +158,9 @@ second
 third
 </code></pre></div>
 
-Now `commandArgs` returns only the arguments that we listed after `print-args-trailing.R`.
+이제 `commandArgs`는  `print-args-trailing.R` 다음에 목록으로 나열한 인자만을 반환한다.
 
-With this in hand, let's build a version of `readings.R` that always prints the per-patient (per-row) mean of a single data file.
-The first step is to write a function that outlines our implementation, and a placeholder for the function that does the actual work.
-By convention this function is usually called `main`, though we can call it whatever we want.
-Write the following code in a file called `readings-01.R`:
-
+이것을 가지고, `readings.R` 버젼을 작성해서 하나의 데이터 파일의 환자별(행별) 평균을 항상 출력하게 하자. 첫번째 단계는 구현의 개요를 잡는 함수와 실제 작업을 하는 함수에 대한 자리 표시자(placeholder)를 작성하는 것이다. 관례로 함수를 통상 `main`으로 부른다. 하지만 원하는 임의의 이름지을 수도 있다. 신규로 readings-01.R` 파일을 생성하여 다음 코드를 작성하세요.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -191,16 +171,11 @@ Write the following code in a file called `readings-01.R`:
 }
 </code></pre></div>
 
-
-This function gets the name of the file to process from the first element returned by `commandArgs`.
-Here's a simple test to run from the Unix Shell:
-
+상기 함수는 처리할 파일의 이름을 `commandArgs`에서 반환되는 첫 요소로 받는다. 유닉스 쉘에서 수행하는 간단한 시험이 다음에 있다.
 
 <pre class='in'><code>Rscript readings-01.R inflammation-01.csv</code></pre>
 
-There is no output because we have defined a function, but haven't actually called it.
-Let's add a call to `main` and save it as `readings-02.R`:
-
+출력되는 것은 아무것도 없는데 이유는 함수를 정의했지만, 실제로 호출하지는 않았다. `main`에 호출을 추가하고 `readings-02.R`로 파일을 저장하자.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -281,12 +256,9 @@ main()
 5.9
 </code></pre></div>
 
-#### Challenges
+#### 도전 과제
 
-  + Write a command-line program that does addition and subtraction.
-  **Hint:** Everything argument read from the command-line is interpreted as a character [string](../../gloss.html#string).
-  You can convert from a string to a number using the function `as.numeric`.
-
+  + 덧셈과 뺄셈을 수행하는 명령어-라인 프로그램을 작성하세요. **힌트:** 명령어-라인에서 읽혀지는 모든 인자는 [문자열(string)](../../gloss.html#string)로 해석된다. `as.numeric` 함수를 사용해서 문자열을 숫자로 변환한다.
 
 <pre class='in'><code>Rscript arith.R 1 + 2</code></pre>
 
@@ -307,12 +279,11 @@ main()
 
 
 
-  + What goes wrong if you try to add multiplication using `*` to the program?
+  + 만약 프로그램에 `*`을 사용해서 곱하기를 추가한다면 무엇이 잘못될까요?
   
 
 
-  + Using the function `list.files` introduced in a previous [lesson](03-loops-R.html), write a command-line program that lists all the files in the current directory that contain a specific pattern:
-
+  + 이전 [루프 학습](03-loops-R.html)에서 소개된 `list.files` 함수를 사용해서 특정한 패턴을 가진 모든 파일을 현재 디렉토리에서 목록으로 나열하는 명령문-라인 프로그램을 작성하세요.
 
 <pre class='in'><code>Rscript find-pattern.R inflammation</code></pre>
 
@@ -347,12 +318,9 @@ inflammation-12.pdf
 
 
 
-### Handling Multiple Files
+### 다수 파일 처리하기
 
-The next step is to teach our program how to handle multiple files.
-Since 60 lines of output per file is a lot to page through, we'll start by using three smaller files, each of which has three days of data for two patients.
-Let's investigate them from the Unix Shell:
-
+다음 단계는 프로그램에게 파일 다수를 어떻게 처리하는지 가르치는 것이다. 파일당 60줄의 출력결과는 페이지를 넘기며 살펴보기에는 많은 불량이여서 3개의 작은 파일로 시작한다. 작은 파일 각각은 두 환자에 대한 3일치 데이터가 있다. 유닉스 쉘에서 작은 파일을 살펴보자.
 
 <pre class='in'><code>ls small-*.csv</code></pre>
 
@@ -384,16 +352,11 @@ small-03.csv
 1
 </code></pre></div>
 
-Using small data files as input also allows us to check our results more easily: here, for example, we can see that our program is calculating the mean correctly for each line, whereas we were really taking it on faith before.
-This is yet another rule of programming: "[test the simple things first](../../rules.html#test-simple-first)".
+작은 파일을 입력값으로 사용하는 것은 좀더 쉽게 결과를 확인할 수 있게 한다. 예를 들어, 프로그램이 각 행마다 올바르게 평균을 계산하는지 살펴볼 수 있다. 반면에 전에는 정말 믿음으로만 가지고 있었다. 이것은 또 다른 프로그래밍 규칙이다. ("[간단한 것을 먼저 시험하라(test the simple things first)](../../rules.html#test-simple-first)")
 
-We want our program to process each file separately, so we need a loop that executes once for each filename.
-If we specify the files on the command line, the filenames will be returned by `commandArgs(trailingOnly = TRUE)`.
-We'll need to handle an unknown number of filenames, since our program could be run for any number of files.
+작성한 프로그램이 각각의 파일을 개별로 처리하길 원해서 각 파일 이름마다 한번씩 실행되는 루프가 필요하다. 명령어 라인에 파일 이름을 지정한다면, 파일 이름은 `commandArgs(trailingOnly = TRUE)` 명령문으로 반환될 것이다. 작성한 프로그램이 임의 갯수의 파일에 대해서 실행될 수 있기 때문에 알수 없는 갯수의 파일이름을 처리할 필요가 있다.
 
-The solution is to loop over the vector returned by `commandArgs(trailingOnly = TRUE)`.
-Here's our changed program, which we'll save as `readings-03.R`:
-
+해결책은 `commandArgs(trailingOnly = TRUE)`에서 반환되는 벡터에 루프를 돌리는 것이다. 변경된 프로그램이 다음에 있는데 `readings-03.R` 이름으로 저장한다.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -407,8 +370,7 @@ Here's our changed program, which we'll save as `readings-03.R`:
 main()
 </code></pre></div>
 
-and here it is in action:
-
+그리고 실행 결과가 다음에 있다.
 
 <pre class='in'><code>Rscript readings-03.R small-01.csv small-02.csv</code></pre>
 
@@ -421,24 +383,16 @@ and here it is in action:
 11
 </code></pre></div>
 
-**Note**: at this point, we have created three versions of our script called `readings-01.R`, `readings-02.R`, and `readings-03.R`.
-We wouldn't do this in real life: instead, we would have one file called `readings.R` that we committed to version control every time we got an enhancement working.
-For teaching, though, we need all the successive versions side by side.
+**Note**: 이 지점에서, 스크립트 버젼 3개(`readings-01.R`, `readings-02.R`, `readings-03.R`)를 생성했다. 실무에서는 이렇게 하지는 않을 것이다. 대신에 `readings.R` 파일만 보관하고 기능향상 작업을 할 때마다 버젼 관리 시스템에 커밋한다. 하지만, 교육 목적으로 나란히 연속된 버젼이 필요하다.
 
-#### Challenges
+#### 도전 과제
 
-  + Write a program called `check.R` that takes the names of one or more inflammation data files as arguments and checks that all the files have the same number of rows and columns.
-  What is the best way to test your program?
+  + `check.R` 프로그램을 작성해서 인자로 하나 혹은 그 이상의 염증 데이터 파일 이름을 가지고 모든 파일이 동일한 행과 열을 가지는지 검증하게 하세요. 프로그램을 시험하는 가장 최선의 방법은 무엇인가요?
 
 
+### 명령어-라인 플래그(Command-Line Flags) 처리하기
 
-
-
-### Handling Command-Line Flags
-
-The next step is to teach our program to pay attention to the `--min`, `--mean`, and `--max` flags.
-These always appear before the names of the files, so let's save the following in `readings-04.R`:
-
+다음 단계는 프로그램이 `--min`, `--mean`, `--max` 플래그에 관심을 두게 한다. 플래그는 항상 파일 이름 앞에 위치한다. `readings-04.R` 파일에 다음 사항을 저장하자.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -462,8 +416,7 @@ These always appear before the names of the files, so let's save the following i
 main()
 </code></pre></div>
 
-And we can confirm this works by running it from the Unix Shell:
-
+유닉스 쉘에서 다음을 실행해서 상기 작성한 것이 정상적으로 동작하는지 확인한다.
 
 <pre class='in'><code>Rscript readings-04.R --max small-01.csv</code></pre>
 
@@ -474,16 +427,13 @@ And we can confirm this works by running it from the Unix Shell:
 2
 </code></pre></div>
 
-but there are several things wrong with it:
+하지만, 몇가지 잘못된 것이 있다.
 
-1.  `main` is too large to read comfortably.
+1.  `main` 함수가 너무 커서 편안하게 읽기가 쉽지 않다.
 
-2.  If `action` isn't one of the three recognized flags, the program loads each file but does nothing with it (because none of the branches in the conditional match).
-    [Silent failures](../../gloss.html#silent-failure) like this are always hard to debug.
+2.  `action` 인자가 인지된 3개의 플래그 중에 하나가 아니라면, 프로그램을 각각의 파일 로딩(loading)하지만 아무것도 수행하기 않는다. 왜냐하면, 조건을 매칭하는 곳에서 어느 분기에도 해당되지 않기 때문이다. 이와 같이 [침묵하는 실패(Silent failures)](../../gloss.html#silent-failure)가 항상 디버그하기가 어렵다.
 
-This version pulls the processing of each file out of the loop into a function of its own.
-It also checks that `action` is one of the allowed flags before doing any processing, so that the program fails fast. We'll save it as `readings-05.R`:
-
+새로 작성한 버젼은 각 파일의 처리를 루프에서 빼내서 자신만의 처리 함수를 만들었다. 처리를 수행하기 전에 `action`이 사전에 정의된 플래그중의 하나인지를 검사해서 프로그램이 빨리 종료한다. `readings-05.R` 이름으로 프로그램을 저장한다.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -512,30 +462,23 @@ process <- function(filename, action) {
 main()
 </code></pre></div>
 
-This is four lines longer than its predecessor, but broken into more digestible chunks of 8 and 12 lines.
+상기 프로그램은 앞서 작성한 프로그램보다 4줄 더 길다. 하지만, 좀더 완전히 이해하기 쉬운 8줄과 12줄 프로그램 덩어리로 쪼갰다.
 
-> **Tip:** R has a package named [argparse][argparse-r] that helps handle complex command-line flags (it utilizes a [Python module][argparse-py] of the same name).
-We will not cover this package in this lesson but when you start writing programs with multiple parameters you'll want to read through the package's [vignette][].
+> **Tip:** [argparse][argparse-r] R 패키지가 복잡한 명령어-라인 플래그를 처리하는데 도움이 된다. [argparse][argparse-r] 패키지는 동일한 이름의 [파이썬 모듈][argparse-py]을 활용한다. 이번 학습에서는 [argparse][argparse-r] 패키지를 다루지 않을 것이다. 하지만, 다수의 매개변수를 가진 프로그램을 작성할 때, 패키지 [소품문(비네트, vignette)][]을 읽으면 도움이 된다.
 
 [argparse-r]: http://cran.r-project.org/web/packages/argparse/index.html
 [argparse-py]: http://docs.python.org/dev/library/argparse.html
 [vignette]: http://cran.r-project.org/web/packages/argparse/vignettes/argparse.pdf
 
-#### Challenges
+#### 도전 과제
 
-  + Rewrite this program so that it uses `-n`, `-m`, and `-x` instead of `--min`, `--mean`, and `--max` respectively.
-    Is the code easier to read?
-    Is the program easier to understand?
+  + 상기 프로그래을 다시 작성해서 `--min`, `--mean`, `--max` 대신에 `-n`, `-m`, `-x`을 각각 사용하게 하세요. 코드가 가독성이 좋습니까? 프로그램이 더 이해하기 좋습니까?
 
-  + Separately, modify the program so that if no action is specified (or an incorrect action is given), it prints a message explaining how it should be used.
+  + 이와는 별도로 프로그램을 변경해서 만약 어떤 행동(action)이 명기되지 않거나 혹은 잘못된 동작이 주어지면, 어떻게 사용되어야 하는지 설명하는 메시지를 출력하게 하세요.
 
+### 표준 입력(Standard Input) 처리하기
 
-
-### Handling Standard Input
-
-The next thing our program has to do is read data from standard input if no filenames are given so that we can put it in a pipeline, redirect input to it, and so on.
-Let's experiment in another script, which we'll save as `count-stdin.R`:
-
+프로그램이 다음으로 할 작업은 파일 이름이 주어지지 않았다면 표준 입력에서 데이터를 읽는 것이다. 파일이름을 파이프라인에 넣고 입력값으로 되돌려 사용하는 것이 예이다. 또 다른 스크립트 `count-stdin.R`로 저장하고 실험을 해보자.
 
 <div class='out'><pre class='out'><code>lines <- readLines(con = file("stdin"))
 count <- length(lines)
@@ -543,38 +486,24 @@ cat("lines in standard input: ")
 cat(count, sep = "\n")
 </code></pre></div>
 
-This little program reads lines from the program's standard input using `file("stdin")`.
-This allows us to do almost anything with it that we could do to a regular file.
-In this example, we passed it as an argument to the function `readLines`, which stores each line as an element in a vector.
-Let's try running it from the Unix Shell as if it were a regular command-line program:
-
+상기 작은 프로그램은 `file("stdin")`을 사용해서 표준 입력에서 라인(행)을 읽어온다. 이것은 정규 파일에서 할 수 있었던 거의 모든 것을 할 수 있게 한다. 상기 예제에서 인자를 `readLines` 함수에 전달하는데 각 라인을 벡터의 요소로 저장한다. 마치 정규 명령어-라인 프로그램인 것처럼 유닉스 쉘에서 실행을 시도해 보자.
 
 <pre class='in'><code>Rscript count-stdin.R < small-01.csv</code></pre>
-
-
-
 
 <div class='out'><pre class='out'><code>lines in standard input: 2
 </code></pre></div>
 
-Note that because we did not specify `sep = "\n"` when calling `cat`, the output is written on the same line.
+주목할 점은 `cat`을 호출할 때, `sep = "\n"`을 명기하지 않아서 출력이 동일한 줄에 쓰여진다.
 
-A common mistake is to try to run something that reads from standard input like this:
-
+흔한 실수는 다음과 같이 표준입력에서 읽어서 무언가 실행하려고 하는 것이다.
 
 <pre class='in'><code>Rscript count-stdin.R small-01.csv</code></pre>
 
-i.e., to forget the `<` character that redirect the file to standard input.
-In this case, there's nothing in standard input, so the program waits at the start of the loop for someone to type something on the keyboard.
-We can type some input, but R keeps running because it doesn't know when the standard input has ended.
-If you ran this, you can pause R by typing `ctrl`+`z` (technically it is still paused in the background; if you want to fully kill the process follow these [instructions][ps-kill]).
+즉, 표준입력에서 파일로 되돌리는 문자(`<`)를 생략한 것이다. 이 경우에 표준 입력에는 아무 것도 없어서 프로그램은 누군가 키보드로 무엇인가를 입력하는 루프 시작에서 기다리기만 한다. 무언가를 타이핑하지만 R은 멈추지 않는데 이유는 언제 표준 입력이 끝나는지 모르기 때문이다. 이와 같은 상황이라면, `ctrl`+`z`를 눌러 R을 잠시 멈출 수 있다. 하지만 기술적으로 백그라운드에서 잠시 멈춰있는 것이다. 만약 프로세스를 죽이려면, 링크된 [지시][ps-kill])를 따르세요.
 
 [ps-kill]: http://linux.about.com/library/cmd/blcmdl_kill.htm
 
-We now need to rewrite the program so that it loads data from `file("stdin")` if no filenames are provided.
-Luckily, `read.csv` can handle either a filename or an open file as its first parameter, so we don't actually need to change `process`.
-That leaves `main`, which we'll update and save as `readings-06.R`:
-
+프로그램을 다시 작성해서 만약 어떤 파일이름도 제공된게 없다면 `file("stdin")`에서 데이터를 로딩한다. 운좋게도, `read.csv`는 파일이름 혹은 첫번째 매개변수로 열린 파일을 처리할 수 있다. 그래서 실질적으로 `process`를 변경할 필요는 없다. `main`을 갱신하여 `readings-06.R` 파일로 저장한다.
 
 <div class='out'><pre class='out'><code>main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
@@ -607,14 +536,9 @@ process <- function(filename, action) {
 main()
 </code></pre></div>
 
-Let's try it out.
-Instead of calculating the mean inflammation of every patient, we'll only calculate the mean for the first 10 patients (rows):
-
+작성한 프로그램을 시도해 보자. 모든 환자의 평균 염증값을 계산하는 대신에, 첫 10명의 환자(행)에 대한 평균값만을 계산할 수 있다.
 
 <pre class='in'><code>head inflammation-01.csv | Rscript readings-06.R --mean</code></pre>
-
-
-
 
 <div class='out'><pre class='out'><code>5.45
 5.425
@@ -628,21 +552,19 @@ Instead of calculating the mean inflammation of every patient, we'll only calcul
 6.525
 </code></pre></div>
 
-And now we're done: the program now does everything we set out to do.
+이제 완료했다. 프로그램이 처음 기획했던 모든 것을 수행한다.
 
-#### Challenges
+#### 도전 과제
 
-  + Write a program called `line-count.R` that works like the Unix `wc` command:
-    *   If no filenames are given, it reports the number of lines in standard input.
-    *   If one or more filenames are given, it reports the number of lines in each, followed by the total number of lines.
-
-
+  + `line-count.R` 프로그램을 작성해서 유닉스 `wc` 명령어처럼 동작하게 하세요.
+    *   만약 어떤 파일이름도 주어지지 않는다면, 표준 입력에 행 숫자만을 보고한다.
+    *   만약 하나 혹은 그 이상의 파일이름이 주어지면, 각 파일의 행 숫자와 전체 행 숫자를 보고한다.
 
 <div class="keypoints" markdown="1">
-#### Key Points
+#### 주요점
 
-*   Use `commandArgs(trailingOnly = TRUE)` to obtain a vector of the command-line arguments that a program was run with.
-*   Avoid silent failures.
-*   Use `file("stdin")` to connect to a program's standard input.
-*   Use `cat(vec, sep = "\n")` to write the elements of `vec` to standard output, one per line.
+*   `commandArgs(trailingOnly = TRUE)`을 사용해서 프로그램이 실행시에 필요한 명령어-라인 인자 벡터를 얻는다.
+*   침묵하는 실패(Silent failures)를 피한다.
+*   `file("stdin")`을 사용해서 프로그램의 표준 입력에 연결한다.
+*   `cat(vec, sep = "\n")`을 사용하여 `vec` 요소를 한줄에 하나씩 표준 출력으로 쓴다.
 </div>
