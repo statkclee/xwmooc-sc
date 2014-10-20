@@ -201,7 +201,7 @@ letter</code></pre>
 
 #### 도전 과제
 
-1. R에는 숫자 리스트를 생성하는 `seq` 내장 함수가 있다.
+1. R에는 숫자 리스트를 생성하는 `seq` 내장 함수가 있다. 
 
 <pre class='in'><code>seq(3)</code></pre>
 
