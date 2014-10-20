@@ -5,11 +5,9 @@ root: ../..
 
 
 
-## Command-Line Programs
+## 명령어-라인(Command-Line) 프로그램
 
-The R Console and other interactive tools like RStudio are great for prototyping code and exploring data, but sooner or later we will want to use our program in a pipeline or run it in a shell script to process thousands of data files.
-In order to do that, we need to make our programs work like other Unix command-line tools.
-For example, we may want a program that reads a data set and prints the average inflammation per patient:
+R콘솔이나 RStudio 같은 인터랙티브 개발 툴은 코드 프로토타이핑(Prototyping)이나 데이터 탐색에는 훌륭하다. 하지만 조만간 파이프라인(pipeline)에 프로그램을 사용하고 수천개의 데이터 파일을 처리하려고 쉘 스크립트를 실행하고 싶을 때가 있다. 이를 위해서 유닉스 명령어-라인 도구와 함께 작업하도록 프로그램을 만들 필요가 있다. 예를 들어, 데이터셋을 읽어들이고 환자마다 평균 염증을 출력하는 프로그램을 작성할 필요가 있다.
 
 ~~~
 $ Rscript readings.R --mean inflammation-01.csv
@@ -22,48 +20,45 @@ $ Rscript readings.R --mean inflammation-01.csv
 5.9
 ~~~
 
-but we might also want to look at the minimum of the first four lines
+하지만, 첫 4개 줄의 최소값만을 보고 싶을지도 모른다.
 
 ~~~
 $ head -4 inflammation-01.csv | Rscript readings.R --min
 ~~~
 
-or the maximum inflammations in several files one after another:
+혹은 몇개 파일에서 하나씩 최대 염증값을 보고 싶다.
 
 ~~~
 $ Rscript readings.R --max inflammation-*.csv
 ~~~
 
-Our overall requirements are:
+요구사항은 대략 다음과 같다.
 
-1. If no filename is given on the command line, read data from [standard input](../../gloss.html#standard-input).
-2. If one or more filenames are given, read data from them and report statistics for each file separately.
-3. Use the `--min`, `--mean`, or `--max` flag to determine what statistic to print.
+1. 명령-라인에 파일 이름이 주어지지 않는다면, 데이터를 [표준입력(standard input)](../../gloss.html#standard-input)에서 불러온다.
+2. 하나 혹은 그 이상의 파일 이름이 주어진다면, 파일 이름에서 데이터를 읽고, 각 파일별로 통계량을 보고한다.
+3. 무슨 통계량을 출력할지를 `--min`, `--mean`, `--max` 플래그를 사용해서 결정한다.
 
-To make this work, we need to know how to handle command-line arguments in a program, and how to get at standard input.
-We'll tackle these questions in turn below.
+상기 요구사항을 만족시키기 위해서, 프로그램에서 어떻게 명령어-라인 인자를 처리하는지와 표준 입력에서 어떻게 받아들이지 알 필요가 있다. 이런 질문을 아래에서 차례로 다룬다.
 
 <div class="objectives" markdown="1">
-#### Objectives
+#### 목표
 
-*   Use the values of command-line arguments in a program.
-*   Handle flags and files separately in a command-line program.
-*   Read data from standard input in a program so that it can be used in a pipeline.
+*   프로그램의 명령어-라인 인자값을 사용한다.
+*   명령어-라인 프로그램에서 별도로 플래그와 파일을 처리한다.
+*   프로그램의 표준 입력에서 데이터를 읽어들여 파이프라인에서 사용될 수 있게 한다.
 </div>
 
-### Command-Line Arguments
+### 명령어-라인(Command-Line) 인자
 
-Using the text editor of your choice, save the following line of code in a text file called `session-info.R`:
-
+여러분이 선택한 텍스트 편집기를 사용하여 `session-info.R` 텍스트 파일에 다음 코드를 저장하세요.
 
 <div class='out'><pre class='out'><code>sessionInfo()
 </code></pre></div>
 
-The function, `sessionInfo`, outputs the version of R you are running as well as the type of computer you are using (as well as the versions of the packages that have been loaded).
-This is very useful information to include when asking others for help with your R code.
+`sessionInfo` 함수는 실행되는 R 버젼과 사용하고 있는 컴퓨터 형식, 그리고 적재된 패키지 버젼을 화면에 출력한다.
+`sessionInfo` 출력정보는 다른 사람들에게 여러분이 작성한 R 코드에 대한 도움을 요청할 때 매우 유용한 정보를 포함하고 있다.
 
-Now we can run the code in the file we created from the Unix Shell using `Rscript`:
-
+이제 `Rscript`를 사용하여 유닉스 쉘에서 생성한 파일 코드를 실행할 수 있다.
 
 <pre class='in'><code>Rscript session-info.R</code></pre>
 
@@ -85,9 +80,8 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  base     
 </code></pre></div>
 
-> **Tip:** If that did not work, remember that you must be in the correct directory.
-You can determine which directory you are currently in using `pwd` and change to a different directory using `cd`.
-For a review, see this [lesson](../shell/01-filedir.html) or the [Unix Shell Reference](../ref/01-shell.html).
+> **Tip:** 만약 정상적으로 동작하지 않는다면, 옳은 디렉토리에 있어야된다는 것을 기억하라. `pwd` 명령어를 사용하여 현재 어느 디렉토리에 있는지 확인할 수 있고, `cd` 명령어를 사용하여 다른 디렉토리로 변경할 수 있다. 다시 회고하기 위해서 [쉘 학습](../shell/01-filedir.html) 혹은 [Unix Shell Reference](../ref/01-shell.html)를 참고바란다.
+
 
 Now let's create another script that does something more interesting. Write the following lines in a file named `print-args.R`:
 
