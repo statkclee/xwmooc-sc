@@ -1,34 +1,29 @@
 ---
 layout: lesson
 root: ../..
-title: Programming with Python
+title: 파이썬 프로그래밍
 ---
-The best way to learn how to program is to do something useful,
-so this introduction to Python is built around a common scientific task:
-data analysis.
+프로그램을 어떻게 작성하는지 배우는 가장 좋은 방법은 의미있는 무언가를 작성하는 것이다. 그래서 이번 파이썬(python) 소개는 흔한 과학 작업(즉 데이터 분석)에 맞춰있다.
 
-Our real goal isn't to teach you Python,
-but to teach you the basic concepts that all programming depends on.
-We use Python in our lessons because:
+진정한 목적은 파이썬을 가르치는 것이 아니라 모든 프로그래밍에 달려있는 기본 개념을 전달한다. 파이썬을 사용해서 학습을 진행한다. 왜냐하면, 
 
-1.  we have to use *something* for examples;
-2.  it's free, well-documented, and runs almost everywhere;
-3.  it has a large (and growing) user base among scientists; and
-4.  experience shows that it's easier for novices to pick up than most other languages.
+    
+1. 예제로 어떤 언어든지 사용해야한다.
+2. 무료이고, 문서화가 잘 되어 있고, 거의 모든 곳에서 실행된다.
+3. 과학자들 사이에서 크고 (그리고 점증하는) 사용자 기반이 있다.
+4. 경험에서 초보자가 대부분의 다른 언어들보다 익히기 쉽다는 것을 알고 있다.
 
-But the two most important things are
-to use whatever language your colleagues are using,
-so that you can share you work with them easily,
-and to use that language *well*.
+하지만, 두 가지 가장 중요한 것은 무슨 언어에 상관없이 동료가 사용하는 것을 사용해서 작업 결과를 쉽게 공유할 수 있어야 하고, 언어를 *잘* 사용해야 한다.
+
 
 <div class="toc" markdown="1">
 
-1.  [Analyzing Patient Data](01-numpy.html)
-2.  [Creating Functions](02-func.html)
-3.  [Analyzing Multiple Data Sets](03-loop.html)
-4.  [Making Choices](04-cond.html)
-5.  [Defensive Programming](05-defensive.html)
-6.  [Command-Line Programs](06-cmdline.html)
+1.  [환자 데이터(Patient Data) 분석](01-numpy.html)
+2.  [함수 생성](02-func.html)
+3.  [다수의 데이터셋 분석](03-loop.html)
+4.  [조건 선택](04-cond.html)
+5.  [방어적 프로그래밍(Defensive Programming)](05-defensive.html)
+6.  [명령-라인(Command-Line) 프로그램](06-cmdline.html)
 
 [Reference](../ref/03-python.html)
 

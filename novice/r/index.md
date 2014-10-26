@@ -18,7 +18,7 @@ title: R 프로그래밍
 
 1.  [환자 데이터(Patient Data) 분석](01-starting-with-data.html)
 2.  [함수 생성](02-func-R.html)
-3.  [다수의 데이터 집합 문석](03-loops-R.html)
+3.  [다수의 데이터셋 분석](03-loops-R.html)
 4.  [조건 선택](04-cond.html)
 5.  [명령-라인(Command-Line) 프로그램](06-cmdline.html)
 
