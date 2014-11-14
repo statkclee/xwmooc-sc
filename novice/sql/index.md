@@ -1,36 +1,29 @@
 ---
 layout: lesson
 root: ../..
-title: Using Databases and SQL
+title: 데이터베이스와 SQL 사용하기
 ---
-Almost everyone has used spreadsheets,
-and almost everyone has eventually run up against their limitations.
-The more complicated a data set is,
-the harder it is to filter data,
-express relationships between different rows and columns,
-or handle missing values.
+거의 모든 사람이 스프레드쉬트(spreadsheet) 사용했고, 거의 모든 사람이 종국에는 한계에 맞닥뜨렸다.
+데이터셋이 더욱 복잡할수록, 데이터를 걸러내고, 다른 행과 열 사이에 관계를 표현하거나, 결측값을 다루기가 점점 어려워진다.
 
-Databases pick up where spreadsheets leave off.
-While they are not as simple to use if all we want is the sum of a dozen numbers,
-they can do a lot of things that spreadsheets can't,
-on much larger data sets,
-faster.
-And even if we never need to create a database ourselves,
-knowing how they work will help us understand why so many of the systems we use
-behave the way we do,
-and why they insist on structuring data in certain ways.
+데이터베이스는 스프레드쉬트가 멈춘 곳에서 다시 시작한다.
+만약 사용하고자 하는 것이 10여개의 숫자의 합이라면 데이터베이스는 사용하기가 간단하지는 않지만, 훨씬 큰 데이터셋에 훨씬 더 빨리 스프레드쉬트가 할 수없는 
+많은 것을 수행할 수 있다.
+그리고, 설사 데이터베이스를 스스로 생성할 필요는 없지만, 
+데이터베이스가 어떻게 동작하는지 파악하는 것은 우리가 사용하는 수 많은 시스템이 왜 그와 같은 방식으로 동작하는지 그리고 왜 특정한 방식으로
+데이터를 구조화하려고 하는지도 이해를 준다.
 
 <div class="toc" markdown="1">
 
-1.  [Selecting Data](01-select.html)
-2.  [Sorting and Removing Duplicates](02-sort-dup.html)
-3.  [Filtering](03-filter.html)
-4.  [Calculating New Values](04-calc.html)
-5.  [Missing Data](05-null.html)
-6.  [Aggregation](06-agg.html)
-7.  [Combining Data](07-join.html)
-8.  [Creating and Modifying Data](08-create.html)
-9.  [Programming with Databases](09-prog.html)
+1.  [데이터 선택하기](01-select.html)
+2.  [정렬과 중복 제거하기](02-sort-dup.html)
+3.  [필터링(filtering)](03-filter.html)
+4.  [새로운 값 계산하기](04-calc.html)
+5.  [결측 데이터 (Missing Data)](05-null.html)
+6.  [집합 (Aggregation)](06-agg.html)
+7.  [데이터 조합하기 (Combining Data)](07-join.html)
+8.  [데이터 생성과 변형](08-create.html)
+9.  [데이터베이스로 프로그래밍](09-prog.html)
 
 [Reference](../ref/04-sql.html)
 
