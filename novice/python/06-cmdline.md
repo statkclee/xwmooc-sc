@@ -3,17 +3,13 @@ layout: lesson
 root: ../..
 ---
 
-## Command-Line Programs
+## 명령-라인 프로그램 (Command-Line Programs)
 
 
-The IPython Notebook and other interactive tools are great for prototyping code and exploring data,
-but sooner or later we will want to use our program in a pipeline
-or run it in a shell script to process thousands of data files.
-In order to do that,
-we need to make our programs work like other Unix command-line tools.
-For example,
-we may want a program that reads a data set
-and prints the average inflammation per patient:
+IPython Notebook과 다른 인터랙티브 도구는 데이터를 탐색하고 프로토타입 코드를 작성하는데는 훌륭하지만 조만간 파이프라인에서 프로그램을 사용하거나
+수천개의 파일을 처리하는데 쉘 스크립트를 실행할 것이다.
+이를 위해서 작성한 프로그램이 다른 유닉스 명령-라인 도구와 함께 동작하도록 만들 필요가 있다.
+예를 들어, 데이터 셋을 읽고 환자당 평균 염증값을 출력하는 프로그램을 만들고 싶다.
 
 ~~~
 $ python readings.py --mean inflammation-01.csv
@@ -26,43 +22,40 @@ $ python readings.py --mean inflammation-01.csv
 5.9
 ~~~
 
-but we might also want to look at the minimum of the first four lines
+하지만, 첫 4번째 라인의 최소값을 보고자 할지 모른다.
 
 ~~~
 $ head -4 inflammation-01.csv | python readings.py --min
 ~~~
 
-or the maximum inflammations in several files one after another:
+혹은 여러개 파일을 순서대로 하나씩 최대 염증값을 보고자 할지 모른다.
 
 ~~~
 $ python readings.py --max inflammation-*.csv
 ~~~
 
-Our overall requirements are:
+전반적인 요구사항은 다음과 같다.
 
-1. If no filename is given on the command line, read data from [standard input](../../gloss.html#standard-input).
-2. If one or more filenames are given, read data from them and report statistics for each file separately.
-3. Use the `--min`, `--mean`, or `--max` flag to determine what statistic to print.
+1. 만약 파일 이름이 명령 라인에 주어지지 않는다면, [표준 입력(standard input)](../../gloss.html#standard-input)에서 데이터를 읽는다.
+2. 만약 하나 혹은 그 이상의 파일이름이 주어진다면, 데이터를 파일이름에서 읽고 각 파일에 대해서 별도로 통계자료를 보고한다.
+3. 무슨 통계치를 출력할 것인지 결정하기 위해서 `--min`, `--mean`, `--max` 옵션 플래그를 사용한다.
 
-To make this work,
-we need to know how to handle command-line arguments in a program,
-and how to get at standard input.
-We'll tackle these questions in turn below.
+상기 요구사항을 만족하는 프로그램을 작성하기 위해서, 프로그램에서 어떻게 명령-라인 인자를 다루는지 그리고 어떻게 표준 입력을 받는지 파악할 필요가 있다.
+이러한 질문을 다음에서 순차적으로 다룬다.
 
 
 <div class="objectives" markdown="1">
-#### Objectives
+#### 목표
 
-*   Use the values of command-line arguments in a program.
-*   Handle flags and files separately in a command-line program.
-*   Read data from standard input in a program so that it can be used in a pipeline.
+*   명령-라인 인자 값을 프로그램에 사용한다.
+*   명령-라인 프로그램에 옵션 플래그와 파일을 별도로 다룬다.
+*   프로그램에서 표준 입력값을 데이터에서 읽어서 파이프라인에서 사용될 수 있게 한다.
 </div>
 
-### Command-Line Arguments
+### 명령-라인 인자 (Command-Line Arguments)
 
 
-Using the text editor of your choice,
-save the following in a text file:
+여러분이 선택한 텍스트 편집기를 사용하여, 텍스트 파일에 다음을 저장하세요.
 
 
 <pre class="in"><code>!cat sys-version.py</code></pre>
@@ -72,11 +65,9 @@ print &#39;version is&#39;, sys.version
 </code></pre></div>
 
 
-The first line imports a library called `sys`,
-which is short for "system".
-It defines values such as `sys.version`,
-which describes which version of Python we are running.
-We can run this script from within the IPython Notebook like this:
+첫번째 행은 "system"을 간략하게 줄인 `sys`라는 라이브러리를 가져온다.
+가져온 라이브러리는 `sys.version` 같은 값을 정의하는데 Pythong 버젼이 무엇인지 기술한다.
+IPython Notebook 내부에서 다음과 같이 스크립트를 실행할 수 있다.
 
 
 <pre class="in"><code>%run sys-version.py</code></pre>
@@ -86,7 +77,7 @@ We can run this script from within the IPython Notebook like this:
 </code></pre></div>
 
 
-or like this:
+혹은 다음과 같이도 가능하다.
 
 
 <pre class="in"><code>!ipython sys-version.py</code></pre>
@@ -96,14 +87,11 @@ or like this:
 </code></pre></div>
 
 
-The first method, `%run`,
-uses a special command in the IPython Notebook to run a program in a `.py` file.
-The second method is more general:
-the exclamation mark `!` tells the Notebook to run a shell command,
-and it just so happens that the command we run is `ipython` with the name of the script.
+첫번째 방법(`%run`)은 `.py` 파일에 담긴 프로그램을 실행하는데 IPython Notebook에 있는 특수 명령어를 사용한다.
+두번째 방법이 좀더 일반적이다. 느낌표(`!`)가 Notebook에 쉘 명령어를 실행한다고 지시한다. 그래서 실행하는 명령어는 스크립트 이름과 `ipython`이 된다.
 
 
-Here's another script that does something more interesting:
+좀더 흥미로운 것을 수행하는 또다른 스크립트가 다음에 있다.
 
 
 <pre class="in"><code>!cat argv-list.py</code></pre>
@@ -113,12 +101,10 @@ print &#39;sys.argv is&#39;, sys.argv
 </code></pre></div>
 
 
-The strange name `argv` stands for "argument values".
-Whenever Python runs a program,
-it takes all of the values given on the command line
-and puts them in the list `sys.argv`
-so that the program can determine what they were.
-If we run this program with no arguments:
+이상한 이름 `argv`는 "argument values"(인자값)을 줄여 표현한 것이다.
+파이썬이 프로그램을 실행할 때마다, 명령 라인에 주어진 모든 값을 받아서 
+`sys.argv` 리스트에 넣는다. 그렇게 해서 프로그램이 인자값이 무엇인지를 판단할 수 있다.
+만약 어떤 인자도 없이 프로그램을 실행한다면,
 
 
 <pre class="in"><code>!ipython argv-list.py</code></pre>
@@ -127,9 +113,8 @@ If we run this program with no arguments:
 </code></pre></div>
 
 
-the only thing in the list is the full path to our script,
-which is always `sys.argv[0]`.
-If we run it with a few arguments, however:
+리스트의 유일한 것은 스트립트의 전체 경로정보가 되고 항상 `sys.argv[0]`을 차지한다.
+하지만, 만약 몇개의 인자를 넣어 실행한다면, 
 
 
 <pre class="in"><code>!ipython argv-list.py first second third</code></pre>
@@ -138,15 +123,12 @@ If we run it with a few arguments, however:
 </code></pre></div>
 
 
-then Python adds each of those arguments to that magic list.
+그러면 파이썬은 각각의 인자를 마술같은 리스트에 추가한다.
 
 
-With this in hand,
-let's build a version of `readings.py` that always prints the per-patient mean of a single data file.
-The first step is to write a function that outlines our implementation,
-and a placeholder for the function that does the actual work.
-By convention this function is usually called `main`,
-though we can call it whatever we want:
+지금까지 학습한 것을 가지고, 단독 데이터 파일에 환자 마다 평균값을 출력하는 `readings.py`를 작성해 보자.
+첫번째 단계는 구현에 대한 윤곽을 잡는 함수와 실제 동작하는 함수에 대한 자리를 잡는 코드를 작성한다.
+함수 이름을 원하는 무엇이든지 정할 수 있지만, 관례로 함수는 통상 `main`으로 부른다.
 
 
 <pre class="in"><code>!cat readings-01.py</code></pre>
@@ -163,18 +145,14 @@ def main():
 </code></pre></div>
 
 
-This function gets the name of the script from `sys.argv[0]`,
-because that's where it's always put,
-and the name of the file to process from `sys.argv[1]`.
-Here's a simple test:
+이 함수는 스크립트 이름을 `sys.argv[0]`에서 얻는데 이유는 그곳이 항상 이름이 놓여지는 장소이기 때문이다.
+처리할 파일 이름은 `sys.argv[1]`에서 얻는다. 다음에 간단한 테스트가 있다.
 
 
 <pre class="in"><code>%run readings-01.py inflammation-01.csv</code></pre>
 
 
-There is no output because we have defined a function,
-but haven't actually called it.
-Let's add a call to `main`:
+어떠한 출력도 없는데 이유는 함수를 정의했지만, 실질적으로 호출을 하지 않았기 때문이다. `main`에 호출을 추가하자.
 
 
 <pre class="in"><code>!cat readings-02.py</code></pre>
@@ -193,7 +171,7 @@ main()
 </code></pre></div>
 
 
-and run that:
+그리고 실행하자.
 
 
 <pre class="in"><code>%run readings-02.py inflammation-01.csv</code></pre>
@@ -261,20 +239,17 @@ and run that:
 </code></pre></div>
 
 
-> #### The Right Way to Do It
+> #### 올바른 방법
 >
-> If our programs can take complex parameters or multiple filenames,
-> we shouldn't handle `sys.argv` directly.
-> Instead,
-> we should use Python's `argparse` library,
-> which handles common cases in a systematic way,
-> and also makes it easy for us to provide sensible error messages for our users.
+> 만약 작성중인 프로그램이 복잡한 매개변수나 복수의 파일이름을 가진다면, `sys.argv`를 직접적으로 다루지 말아야 한다.
+> 대신에 파이썬 `argparse` 라이브러리를 사용한다.
+> `argparse` 라이브러리는 체계적으로 일반적인 경우를 처리하고, 또한 사용자를 위해서 프로그래머가 실용적인 오류 메시지를 제공하기 쉽게 만들었다.
 
 
 <div class="challenges" markdown="1">
-#### Challenges
+#### 도전 과제
 
-1.  Write a command-line program that does addition and subtraction:
+1.  덧셈과 뺄셈을 수행하는 명령-라인 프로그램을 작성하세요.
 
     ~~~
     $ python arith.py 1 + 2
@@ -283,10 +258,9 @@ and run that:
     -1
     ~~~
 
-    What goes wrong if you try to add multiplication using '*' to the program?
+    만약 프로그램에 `*`을 사용해서 곱셈을 추가하려고 한다면 무슨 잘못이 있을까요?
 
-2.  Using the `glob` module introduced [03-loop.ipynb](earlier),
-    write a simple version of `ls` that shows files in the current directory with a particular suffix:
+2.  [03-loop.ipynb](earlier)에서 소개된 `glob` 모듈을 사용해서, 특정 확장자를 가진 파일을 현재 디렉토리에서 출력하는 `ls` 의 간단한 버젼을 작성하세요.
     
     ~~~
     $ python my_ls.py py
@@ -296,13 +270,10 @@ and run that:
     ~~~
 </div>
 
-### Handling Multiple Files
+### 다수 파일 처리하기
 
 
-The next step is to teach our program how to handle multiple files.
-Since 60 lines of output per file is a lot to page through,
-we'll start by creating three smaller files,
-each of which has three days of data for two patients:
+다음 단계는 프로그램에게 파일 다수를 어떻게 처리하는지 가르치는 것이다. 파일당 60줄의 출력결과는 페이지를 넘기며 살펴보기에는 많은 불량이여서 3개의 작은 파일로 시작한다. 작은 파일 각각은 두 환자에 대한 3일치 데이터가 있다
 
 
 <pre class="in"><code>!ls small-*.csv</code></pre>
@@ -325,31 +296,18 @@ each of which has three days of data for two patients:
 </code></pre></div>
 
 
-Using small data files as input also allows us to check our results more easily:
-here,
-for example,
-we can see that our program is calculating the mean correctly for each line,
-whereas we were really taking it on faith before.
-This is yet another rule of programming:
-"[test the simple things first](../../rules.html#test-simple-first)".
+작은 파일을 입력값으로 사용하는 것은 좀더 쉽게 결과를 확인할 수 있게 한다. 예를 들어, 프로그램이 각 행마다 올바르게 평균을 계산하는지 살펴볼 수 있다. 반면에 전에는 정말 믿음으로만 가지고 있었다. 이것은 또 다른 프로그래밍 규칙이다.
+"[간단한 것을 먼저 시험하라(test the simple things first)](../../rules.html#test-simple-first)"
 
-We want our program to process each file separately,
-so we need a loop that executes once for each filename.
-If we specify the files on the command line,
-the filenames will be in `sys.argv`,
-but we need to be careful:
-`sys.argv[0]` will always be the name of our script,
-rather than the name of a file.
-We also need to handle an unknown number of filenames,
-since our program could be run for any number of files.
+작성한 프로그램이 각각의 파일을 개별로 처리하길 원해서 각 파일 이름마다 한번씩 실행되는 루프가 필요하다.
+명령 라인에 파일 이름을 지정한다면, 파일 이름은 `sys.argv`에 저장되지만, 주의가 필요하다.
+`sys.argv[0]`는 항상 파일이름이 아니고 스크립트 이름이다.
+작성한 프로그램이 임의 갯수의 파일에 대해서 실행될 수 있기 때문에 알수 없는 갯수의 파일이름을 처리할 필요가 있다.
 
-The solution to both problems is to loop over the contents of `sys.argv[1:]`.
-The '1' tells Python to start the slice at location 1,
-so the program's name isn't included;
-since we've left off the upper bound,
-the slice runs to the end of the list,
-and includes all the filenames.
-Here's our changed program:
+해결책은 `sys.argv[1:]` 내용에 루프를 돌리는 것이다. 
+'1'은 파이썬이 1번 위치에서 슬라이스를 시작해서 프로그램 이름이 포함되지 않도록 한다.
+상한을 비워두었기 때문에 스라이스 인덱스가 리스트의 끝까지 가서 모든 파일 이름이 포함된다.
+다음에 수정된 프로그램이 있다.
 
 
 <pre class="in"><code>!cat readings-03.py</code></pre>
@@ -368,7 +326,7 @@ main()
 </code></pre></div>
 
 
-and here it is in action:
+그리고 실행 결과가 다음에 있다.
 
 
 <pre class="in"><code>%run readings-03.py small-01.csv small-02.csv</code></pre>
@@ -381,32 +339,21 @@ and here it is in action:
 
 
 Note:
-at this point,
-we have created three versions of our script called `readings-01.py`,
-`readings-02.py`, and `readings-03.py`.
-We wouldn't do this in real life:
-instead,
-we would have one file called `readings.py` that we committed to version control
-every time we got an enhancement working.
-For teaching,
-though,
-we need all the successive versions side by side.
+이 지점에서, 스크립트 버젼 3개(`readings-01.py`, `readings-02.py`, `readings-03.py`)를 생성했다. 실무에서는 이렇게 하지는 않을 것이다. 대신에 readings.R 파일만 보관하고 기능향상 작업을 할 때마다 버젼 관리 시스템에 커밋한다. 하지만, 교육 목적으로 나란히 연속된 버젼이
 
 
 <div class="challenges" markdown="1">
-#### Challenges
+#### 도전 과제
 
-1.  Write a program called `check.py` that takes the names of one or more inflammation data files as arguments
-    and checks that all the files have the same number of rows and columns.
-    What is the best way to test your program?
+1.  `check.R` 프로그램을 작성해서 인자로 하나 혹은 그 이상의 염증 데이터 파일 이름을 가지고 모든 파일이 동일한 행과 열을 가지는지 검증하게 하세요. 
+프로그램을 시험하는 가장 최선의 방법은 무엇인가요?
 </div>
 
-### Handling Command-Line Flags
+### 명령어-라인 플래그(Command-Line Flags) 처리하기
 
 
-The next step is to teach our program to pay attention to the `--min`, `--mean`, and `--max` flags.
-These always appear before the names of the files,
-so we could just do this:
+다음 단계는 프로그램이 `--min`, `--mean`, `--max` 옵션 플래그에 관심을 두게 한다. 
+플래그는 항상 파일 이름 앞에 위치해서 다음과 같이 수행할 수 있다.
 
 
 <pre class="in"><code>!cat readings-04.py</code></pre>
@@ -436,7 +383,7 @@ main()
 </code></pre></div>
 
 
-This works:
+작성한 것이 잘 동작한다.
 
 
 <pre class="in"><code>%run readings-04.py --max small-01.csv</code></pre>
@@ -446,20 +393,16 @@ This works:
 </code></pre></div>
 
 
-but there are seveal things wrong with it:
+하지만, 몇가지 잘못된 것이 있다.
 
-1.  `main` is too large to read comfortably.
+1.   main 함수가 너무 커서 편안하게 읽기가 쉽지 않다.
 
-2.  If `action` isn't one of the three recognized flags,
-    the program loads each file but does nothing with it
-    (because none of the branches in the conditional match).
-    [Silent failures](../../gloss.html#silent-failure) like this
-    are always hard to debug.
-
-This version pulls the processing of each file out of the loop into a function of its own.
-It also checks that `action` is one of the allowed flags
-before doing any processing,
-so that the program fails fast:
+2.   `action` 인자가 인정된 3개의 플래그 중에 하나가 아니라면, 프로그램을 각각의 
+     파일 로딩(loading)하지만 아무것도 수행하기 않는다. 
+     왜냐하면, 조건을 매칭하는 곳에서 어느 분기에도 해당되지 않기 때문이다. 
+     이와 같이 [침묵하는 실패(Silent failures)](../../gloss.html#silent-failure)가 항상 디버그하기가 어렵다.
+     
+새로 작성한 버젼은 각 파일의 처리를 루프에서 빼내서 처리하는 자신만의 함수를 만들었다. 처리를 수행하기 전에 `action`이 사전에 정의된 플래그중의 하나인지를 검사해서 프로그램이 빨리 종료한다.
 
 
 <pre class="in"><code>!cat readings-05.py</code></pre>
@@ -493,41 +436,34 @@ main()
 </code></pre></div>
 
 
-This is four lines longer than its predecessor,
-but broken into more digestible chunks of 8 and 12 lines.
+상기 프로그램은 앞서 작성한 프로그램보다 더 길다. 
+하지만, 좀더 완전히 이해하기 쉬운 8줄과 12줄 프로그램 덩어리로 쪼갰다.
 
 
-Python has a module named [argparse](http://docs.python.org/dev/library/argparse.html)
-that helps handle complex command-line flags. We will not cover this module in this lesson
-but you can go to Tshepang Lekhonkhobe's [Argparse tutorial](http://docs.python.org/dev/howto/argparse.html)
-that is part of Python's Official Documentation.
+파이썬은 [argparse](http://docs.python.org/dev/library/argparse.html) 라이브러리가 있어서
+복잡한 명령어-라인 플래그를 처리하는데 도움이 된다. 
+이번 학습에서는 [argparse](http://docs.python.org/dev/library/argparse.html) 라이브러리를 다루지 않을 것이다. 
+하지만, 좀더 자세한 사항은 파이썬 공식 문서의 일부인 Tshepang Lekhonkhobe 의 [Argparse tutorial](http://docs.python.org/dev/howto/argparse.html)을 참고바란다.
 
 
 <div class="challenges" markdown="1">
-#### Challenges
+#### 도전 과제
 
-1.  Rewrite this program so that it uses `-n`, `-m`, and `-x` instead of `--min`, `--mean`, and `--max` respectively.
-    Is the code easier to read?
-    Is the program easier to understand?
+1. 상기 프로그래을 다시 작성해서 `--min`, `--mean`, `--max` 대신에 `-n`, `-m`, `-x`을 각각 사용하게 하세요. 
+    코드가 가독성이 좋습니까? 
+    프로그램이 더 이해하기 좋습니까? 
 
-2.  Separately,
-    modify the program so that if no parameters are given
-    (i.e., no action is specified and no filenames are given),
-    it prints a message explaining how it should be used.
+2.  이와는 별도로, 프로그램을 변경해서 만약 어떤 행동(action)이 명기되지 않거나 혹은 잘못된 동작이 주어지면, 어떻게 사용되어야 하는지 설명하는 메시지를 출력하게 하세요.
 
-3.  Separately,
-    modify the program so that if no action is given
-    it displays the means of the data.
+3.  이와는 별도로, 프로그램을 수정해서 만약 어떤 행동(action)도 명기되지 않으면,
+    데이터의 평균을 화면에 출력하게 코드를 작성하세요.
 </div>
 
-### Handling Standard Input
+### 표준 입력 (Standard Input) 처리하기
 
 
-The next thing our program has to do is read data from standard input if no filenames are given
-so that we can put it in a pipeline,
-redirect input to it,
-and so on.
-Let's experiment in another script:
+프로그램이 다음으로 할 작업은 파일 이름이 주어지지 않았다면 표준 입력에서 데이터를 읽는 것이다. 파일이름을 파이프라인에 넣고 입력값으로 되돌려 사용하는 것이 예이다.
+또 다른 스크립트를 작성해서 실험을 해보자.
 
 
 <pre class="in"><code>!cat count-stdin.py</code></pre>
@@ -542,12 +478,11 @@ print count, &#39;lines in standard input&#39;
 </code></pre></div>
 
 
-This little program reads lines from a special "file" called `sys.stdin`,
-which is automatically connected to the program's standard input.
-We don't have to open it&mdash;Python and the operating system
-take care of that when the program starts up&mdash;
-but we can do almost anything with it that we could do to a regular file.
-Let's try running it as if it were a regular command-line program:
+상기 작은 프로그램은 자동으로 프로그램의 표준 입력에 연결되는 `sys.stdin`으로 불리는 
+특수 "파일"에서 라인(행)을 읽어들인다.
+파일을 별도로 열 필요는 없다. 즉, 프로그램이 시작할 때 파이썬과 운영시스템이 처리해준다.
+하지만 정규 파일에서 할 수 있었던 거의 모든 것을 할 수 있게 한다. 
+마치 정규 명령어-라인 프로그램인 것처럼 유닉스 쉘에서 실행을 시도해 보자.
 
 
 <pre class="in"><code>!ipython count-stdin.py &lt; small-01.csv</code></pre>
@@ -556,7 +491,7 @@ Let's try running it as if it were a regular command-line program:
 </code></pre></div>
 
 
-What if we run it using `%run`?
+`%run`을 사용해서 실행하면 어떨까요?
 
 
 <pre class="in"><code>%run count-stdin.py &lt; small-01.csv</code></pre>
@@ -565,29 +500,22 @@ What if we run it using `%run`?
 </code></pre></div>
 
 
-As you can see,
-`%run` doesn't understand file redirection:
-that's a shell thing.
+결과에서 알 수 있듯이, `%run` 명령어는 파일 되돌리기(redirection)을 이해하지 못한다. 단지 쉘의 무엇으로 이해한다.
 
-A common mistake is to try to run something that reads from standard input like this:
+흔한 실수는 다음과 같이 표준입력에서 읽어서 무언가 실행하려고 하는 것이다.
 
 ~~~
 !ipython count_stdin.py small-01.csv
 ~~~
 
-i.e., to forget the `<` character that redirect the file to standard input.
-In this case,
-there's nothing in standard input,
-so the program waits at the start of the loop for someone to type something on the keyboard.
-Since there's no way for us to do this,
-our program is stuck,
-and we have to halt it using the `Interrupt` option from the `Kernel` menu in the Notebook.
+즉, 표준입력에서 파일로 되돌리는 문자(`<`)를 생략한 것이다. 
+이 경우에 표준 입력에는 아무 것도 없어서 프로그램은 누군가 키보드로 무엇인가를 입력하기를 루프 시작에서 기다리기만 한다.
+사람이 할 수 있는 것이 아무것도 없기 때문에 작성한 프로그램은 수렁에 빠진 듯 동작할 수 없게 된다.
+노트북 `Kernel` 메뉴에서 `Interrupt` 옵션을 사용해서 정지시켜야 한다.
 
-We now need to rewrite the program so that it loads data from `sys.stdin` if no filenames are provided.
-Luckily,
-`numpy.loadtxt` can handle either a filename or an open file as its first parameter,
-so we don't actually need to change `process`.
-That leaves `main`:
+프로그램을 다시 작성해서 만약 어떤 파일이름도 제공된게 없다면 `sys.stdin`에서 데이터를 로딩한다. 
+운좋게도, `numpy.loadtxt`는 파일이름 혹은 첫번째 매개변수로 열린 파일을 처리할 수 있다. 
+그래서 실질적으로 `process`를 변경할 필요는 없다. `main`을 약간 수정한다.
 
 
 ~~~
@@ -605,8 +533,7 @@ def main():
 ~~~
 
 
-Let's try it out
-(we'll see in a moment why we send the output through `head`):
+작성한 프로그램을 시도해 보자. (잠시 후에 왜 `head`로 출력결과를 보냈는지 파악하게 된다.)
 
 
 <pre class="in"><code>!ipython readings-06.py --mean &lt; small-01.csv | head -10</code></pre>
@@ -626,14 +553,10 @@ Tools for Interactive Computing in Python
 </code></pre></div>
 
 
-Whoops:
-why are we getting IPython's help rather than the line-by-line average of our data?
-The answer is that IPython has a hard time telling
-which command-line arguments are meant for it,
-and which are meant for the program it's running.
-To make our meaning clear,
-we have to use `--` (a double dash)
-to separate the two:
+이럴 수가 있나:
+데이터의 행별로 평균값 대신에 IPython 도움말이 왜 나왔을까?
+IPython이 실행하는 프로그램에 대한 것과 명령-라인 인자에 대한 것을 분간이 어렵다.
+의미를 명확히 하기 위하고 둘을 구분하기 위해서 `--`(이중 대휘)를 사용한다.
 
 
 <pre class="in"><code>!ipython readings-06.py -- --mean &lt; small-01.csv</code></pre>
@@ -643,27 +566,27 @@ to separate the two:
 </code></pre></div>
 
 
-That's better.
-In fact,
-that's done:
-the program now does everything we set out to do.
+더 나아졌다. 이제 완료했다. 프로그램이 처음 기획했던 모든 것을 수행한다.
 
 
 <div class="challenges" markdown="1">
-#### Challenges
+#### 도전 과제
 
-1.  Write a program called `line-count.py` that works like the Unix `wc` command:
-    *   If no filenames are given, it reports the number of lines in standard input.
-    *   If one or more filenames are given, it reports the number of lines in each, followed by the total number of lines.
+1.  `line-count.py` 프로그램을 작성해서 유닉스 `wc` 명령어처럼 동작하게 하세요.
+    *   만약 어떤 파일이름도 주어지지 않는다면, 표준 입력에 행 숫자만을 보고한다.
+    *   만약 하나 혹은 그 이상의 파일이름이 주어지면, 각 파일의 행 숫자와 전체 행 숫자를 보고한다.
 </div>
 
 
 <div class="keypoints" markdown="1">
-#### Key Points
+#### 주요점
 
-*   The `sys` library connects a Python program to the system it is running on.
-*   The list `sys.argv` contains the command-line arguments that a program was run with.
-*   Avoid silent failures.
-*   The "file" `sys.stdin` connects to a program's standard input.
-*   The "file" `sys.stdout` connects to a program's standard output.
+*   `sys` 라이브러리는 파이썬 프로그램과 프로그램이 실행되는 시스템을 연결한다.
+*   `sys.argv` 리스트는 프로그램이 실행되는데 필요한 명령-라인 인자를 담고 있다.
+*   침묵하는 실패(Silent failures)를 피한다.
+*   "파일" `sys.stdin`을 사용해서 프로그램의 표준 입력에 연결한다.
+*   "파일" `sys.stdout`을 사용해서 프로그램의 표준 출력에 연결한다.
 </div>
+
+
+<pre class="in"><code></code></pre>
