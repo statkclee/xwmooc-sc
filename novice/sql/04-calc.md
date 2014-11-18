@@ -3,22 +3,18 @@ layout: lesson
 root: ../..
 ---
 
-## Calculating New Values
+## 새로운 값 계산하기
 
 
 <div class="objectives" markdown="1">
-#### Objectives
+#### 목표
 
-*   Write queries that calculate new values for each selected record.
+*   각 선택된 레코드에 대해 새로운 값을 계산하는 쿼리를 작성한다.
 </div>
 
 
-After carefully re-reading the expedition logs,
-we realize that the radiation measurements they report
-may need to be corrected upward by 5%.
-Rather than modifying the stored data,
-we can do this calculation on the fly
-as part of our query:
+주의깊이 탐험 기록을 다시 정독한 뒤에, 탐험대가 보고한 방사선 측정치가 5%만큼 상향되어 수정될 필요가 있다는 것을 깨달았다.
+저장된 데이터를 변형하기 보다는 쿼리의 일부분으로서 즉석에서 계산을 수행할 수 있다.
 
 
 <pre class="in"><code>%load_ext sqlitemagic</code></pre>
@@ -39,15 +35,10 @@ select 1.05 * reading from Survey where quant=&#39;rad&#39;;</code></pre>
 </table></div>
 
 
-When we run the query,
-the expression `1.05 * reading` is evaluated for each row.
-Expressions can use any of the fields,
-all of usual arithmetic operators,
-and a variety of common functions.
-(Exactly which ones depends on which database manager is being used.)
-For example,
-we can convert temperature readings from Fahrenheit to Celsius
-and round to two decimal places:
+쿼리를 실행하면, 표현식 `1.05 * reading`이 각 행마다 평가된다.
+표현식에는 임의의 필드, 통상 많이 사용되는 연산자, 그리고 다양한 함수를 사용한다.
+(정확하게는 어느 데이터베이스 관리자를 사용되느냐에 따라 의존성을 띄게된다.)
+예를 들어, 온도 측정치를 화씨에서 섭씨로 소수점 아래 두자리에서 반올림하여 변환할 수 있다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -61,8 +52,7 @@ select taken, round(5*(reading-32)/9, 2) from Survey where quant=&#39;temp&#39;;
 </table></div>
 
 
-We can also combine values from different fields,
-for example by using the string concatenation operator `||`:
+다른 필드의 값을 조합할 수도 있다. 예를 들어, 문자열 접합 연산자 (string concatenation operator, `||`)를 사용한다. 
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -77,40 +67,31 @@ select personal || &#39; &#39; || family from Person;</code></pre>
 </table></div>
 
 
-> It may seem strange to use `personal` and `family` as field names
-> instead of `first` and `last`,
-> but it's a necessary first step toward handling cultural differences.
-> For example,
-> consider the following rules:
+> `first`와 `last` 대신에 필드 이름으로 `personal`과 `family`를 사용하는 것이 이상해 보일지 모른다.
+> 하지만, 문화적 차이를 다루기 위한 필요한 첫번째 단계다. 예를 들어, 다음 규칙을 고려해보자.
 
 <table>
-  <tr> <th>Full Name</th> <th>Alphabetized Under</th> <th>Reason</th> </tr>
-  <tr> <td>Liu Xiaobo</td> <td>Liu</td> <td>Chinese family names come first</td> </tr>
-  <tr> <td> Leonardo da Vinci</td> <td>Leonardo</td> <td>"da Vinci" just means "from Vinci"</td> </tr>
-  <tr> <td> Catherine de Medici</td> <td>Medici</td> <td>family name</td> </tr>
-  <tr> <td> Jean de La Fontaine</td> <td>La Fontaine</td> <td>family name is "La Fontaine"</td> </tr>
-  <tr> <td> Juan Ponce de Leon</td> <td>Ponce de Leon</td> <td>full family name is "Ponce de Leon"</td> </tr>
-  <tr> <td> Gabriel Garcia Marquez</td> <td>Garcia Marquez</td> <td>double-barrelled Spanish surnames</td> </tr>
-  <tr> <td> Wernher von Braun</td> <td>von <em>or</em> Braun</td> <td>depending on whether he was in Germany or the US</td> </tr>
-  <tr> <td> Elizabeth Alexandra May Windsor</td> <td>Elizabeth</td> <td>monarchs alphabetize by the name under which they reigned</td> </tr>
-  <tr> <td> Thomas a Beckett</td> <td>Thomas</td> <td>and saints according to the names by which they were canonized</td> </tr>
+  <tr> <th>성명 전부(Full Name)</th> <th>알파벳 순서</th> <th>이유</th> </tr>
+  <tr> <td>Liu Xiaobo</td> <td>Liu</td> <td>중국 성이 이름보다 먼저 온다.</td> </tr>
+  <tr> <td> Leonardo da Vinci</td> <td>Leonardo</td> <td>"da Vinci" 는 "from Vinci"를 뜻한다.</td> </tr>
+  <tr> <td> Catherine de Medici</td> <td>Medici</td> <td>성(family name)</td> </tr>
+  <tr> <td> Jean de La Fontaine</td> <td>La Fontaine</td> <td>성(family name)이 "La Fontaine"이다.</td> </tr>
+  <tr> <td> Juan Ponce de Leon</td> <td>Ponce de Leon</td> <td>전체 성(full family name)이 "Ponce de Leon"이다.</td> </tr>
+  <tr> <td> Gabriel Garcia Marquez</td> <td>Garcia Marquez</td> <td>이중으로 된 스페인 성(surnames)</td> </tr>
+  <tr> <td> Wernher von Braun</td> <td>von <em>or</em> Braun</td> <td>독일 혹은 미국에 있는냐에 따라 달라짐</td> </tr>
+  <tr> <td> Elizabeth Alexandra May Windsor</td> <td>Elizabeth</td> <td>군주가 통치하는 이름에 따라 알파벳순으로 정렬</td> </tr>
+  <tr> <td> Thomas a Beckett</td> <td>Thomas</td> <td>시성된(canonized) 이름에 따라 성인이름 사용</td> </tr>
 </table>
 
-> Clearly,
-> even a two-part division into "personal" and "family"
-> isn't enough...
+> 분명하게, 심지어 두부분 "personal"과 "family"으로 나누는 것도 충분하지 않다.
 
 
-#### Challenges
+#### 도전 과제
 
-1.  After further reading,
-    we realize that Valentina Roerich
-    was reporting salinity as percentages.
-    Write a query that returns all of her salinity measurements
-    from the `Survey` table
-    with the values divided by 100.
+1.  좀더 조사한 뒤에, Valentina Roerich는 염도를 퍼센티지(%)로 작성한 것을 알게되었다.
+    `Survey` 테이블에서 값을 100으로 나누어서 모든 염도 측정치를 반환하는 쿼리를 작성하세요.
 
-2.  The `union` operator combines the results of two queries:
+2.  `union` 연산자는 두 쿼리의 결과를 조합한다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -122,10 +103,8 @@ select * from Person where ident=&#39;dyer&#39; union select * from Person where
 </table></div>
 
 
-Use `union` to create a consolidated list of salinity measurements
-in which Roerich's, and only Roerich's,
-have been corrected as described in the previous challenge.
-The output should be something like:
+`union`을 사용하여 앞선 도전과제에서 기술되어 수정된 Roerich가 측정한, Roerich만 측정한 염도 측정치의 통합 리스트를 생성하세요.
+출력결과는 다음과 같아야 한다.
 
 <table>
   <tr> <td>619</td> <td>0.13</td> </tr>
@@ -139,9 +118,7 @@ The output should be something like:
 </table>
 
 
-
-3.  The site identifiers in the `Visited` table have two parts
-    separated by a '-':
+3.  `Visited` 테이블에 사이트 식별자는 '-'으로 구분되는 두 부분으로 구성되어 있다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -154,19 +131,19 @@ select distinct site from Visited;</code></pre>
 </table></div>
 
 
-Some major site identifiers are two letters long and some are three.
-The "in string" function `instr(X, Y)`
-returns the 1-based index of the first occurrence of string Y in string X,
-or 0 if Y does not exist in X.
-The substring function `substr(X, I)`
-returns the substring of X starting at index I.
-Use these two functions to produce a list of unique major site identifiers.
-(For this data,
-the list should contain only "DR" and "MSK").
+몇몇 주요 사이트 식별자는 두 문자길이를 가지고 몇몇은 3문자길이를 가진다.
+"in string" 함수 `instr(X, Y)`은 X 문자열에 문자열 Y가 첫번째 출현의 1-기반 인덱스를 반환하거나 
+Y가 X에 존재하지 않으면 0 을 반환한다.
+부분 문자열 함수 `substr(X, I)`은 인덱스 I에서 시작하는 문자열 X의 부분문자열을 반환한다.
+상기 두 함수를 사용해서 유일한 주요 사이트 식별자를 생성하세요. (이 데이터에 대해서 작업된 리스트는 
+"DR"과 "MSK"만 포함해야 한다.)
 
 
 <div class="keypoints" markdown="1">
-#### Key Points
+#### 주요점
 
-*   SQL can perform calculations using the values in a record as part of a query.
+*   SQL은 쿼리의 일부로서 레코드의 값을 사용한 계산을 수행한다.
 </div>
+
+
+<pre class="in"><code></code></pre>

@@ -3,23 +3,19 @@ layout: lesson
 root: ../..
 ---
 
-## Sorting and Removing Duplicates
+## 정렬하고 중복 제거하기
 
 
 <div class="objectives" markdown="1">
-#### Objectives
+#### 목표
 
-*   Write queries that display results in a particular order.
-*   Write queries that eliminate duplicate values from data.
+*   특정 순서로 결과를 표시하는 쿼리를 작성한다.
+*   데이터에서 중복값을 제거하는 쿼리를 작성한다.
 </div>
 
 
-Data is often redundant,
-so queries often return redundant information.
-For example,
-if we select the quantitites that have been measured
-from the `survey` table,
-we get this:
+데이터는 종종 잉여가 있어서, 쿼리도 종종 과잉 정보를 반환한다.
+예를 들어, `survey` 테이블에서 측정된 수량 정보를 선택하면, 다음을 얻게된다.
 
 
 <pre class="in"><code>%load_ext sqlitemagic</code></pre>
@@ -53,10 +49,7 @@ select quant from Survey;</code></pre>
 </table></div>
 
 
-We can eliminate the redundant output
-to make the result more readable
-by adding the `distinct` keyword
-to our query:
+결과를 좀더 읽을 수 있게 만들기 위해서 쿼리에 `distinct` 키워드를 추가해서 중복된 출력을 제거한다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -69,9 +62,7 @@ select distinct quant from Survey;</code></pre>
 </table></div>
 
 
-If we select more than one column&mdash;for example,
-both the survey site ID and the quantity measured&mdash;then
-the distinct pairs of values are returned:
+하나 이상의 칼럼(예를 들어 survey 사이트 ID와 측정된 수량)을 선택한다면, 별개로 구별된 값의 쌍이 반환된다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -100,25 +91,18 @@ select distinct taken, quant from Survey;</code></pre>
 </table></div>
 
 
-Notice in both cases that duplicates are removed
-even if they didn't appear to be adjacent in the database.
-Again,
-it's important to remember that rows aren't actually ordered:
-they're just displayed that way.
+양쪽 경우에 설사 데이터베이스 내에서 서로 인접하지 않더라도 모두 중복이 제거된 것을 주목하세요.
+다시 한번, 행은 실제로 정렬되지는 않았다는 것을 기억하세요. 단지 정렬된 것으로 화면에 출력된다.
 
 
-#### Challenges
+#### 도전 과제
 
-1.  Write a query that selects distinct dates from the `Site` table.
+1.  `Site` 테이블에서 별개로 구별되는 날짜를 선택하는 쿼리를 작성하세요.
 
 
-As we mentioned earlier,
-database records are not stored in any particular order.
-This means that query results aren't necessarily sorted,
-and even if they are,
-we often want to sort them in a different way,
-e.g., by the name of the project instead of by the name of the scientist.
-We can do this in SQL by adding an `order by` clause to our query:
+앞서 언급했듯이, 데이터베이스 레코드는 특별한 순서로 저장되지 않는다. 이것이 의미하는 바는 쿼리 결과가 반드시 정렬되어 있지 않다는 것이다.
+설사 정렬이 되어 있더라도, 종종 다른 방식으로 정렬하고 싶을 것이다.
+예를 들어 과학자의 이름 대신에 프로젝트 이름으로 정렬할 수도 있다. SQL에서 쿼리에 `order by` 절을 추가해서 간단하게 구현할 수 있다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -133,11 +117,8 @@ select * from Person order by ident;</code></pre>
 </table></div>
 
 
-By default,
-results are sorted in ascending order
-(i.e.,
-from least to greatest).
-We can sort in the opposite order using `desc` (for "descending"):
+디폴트로, 결과는 오름차순으로 정렬되어야 한다. (즉, 가장 적은 값에서 가장 큰 값 순으로 정렬된다.) 
+`desc` ("descending")를 사용해서 역순으로도 정렬할 수 있다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -152,14 +133,10 @@ select * from person order by ident desc;</code></pre>
 </table></div>
 
 
-(And if we want to make it clear that we're sorting in ascending order,
-we can use `asc` instead of `desc`.)
-  
-We can also sort on several fields at once.
-For example,
-this query sorts results first in ascending order by `taken`,
-and then in descending order by `person`
-within each group of equal `taken` values:
+(그리고, `desc` 대신에 `asc`를 사용해서 오름차순으로 정렬하고 있다는 것을 명시적으로 표현할 수도 있다.)
+
+한번에 여러 필드를 정렬할 수도 있다. 예를 들어, 다음 쿼리는 `taken` 필드를 오름차순으로 그리고 동일 그룹의 `taken` 값 내에서는 
+`person`으로 내림차순으로 결과를 정렬한다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -190,7 +167,7 @@ select taken, person from Survey order by taken asc, person desc;</code></pre>
 </table></div>
 
 
-This is easier to understand if we also remove duplicates:
+만약 중복을 제거한다면 이해하기가 더 쉽다.
 
 
 <pre class="in"><code>%%sqlite survey.db
@@ -213,20 +190,21 @@ select distinct taken, person from Survey order by taken asc, person desc;</code
 </table></div>
 
 
-#### Challenges
+#### 도전 과제
 
-1.  Write a query that returns the distinct dates in the `Visited` table.
+1.  `Visited` 테이블에서 별개로 구별되는 날짜를 반환하는 쿼리를 작성하세요.
 
-2.  Write a query that displays the full names of the scientists in the `Person` table, ordered by family name.
+2.  성(family name)으로 정렬된 `Person` 테이블에 과학자의 성명 전부를 화면에 출력하는 쿼리를 작성하세요.
 
 
 <div class="keypoints" markdown="1">
-#### Key Points
+#### 주요점
 
-*   The records in a database table are not intrinsically ordered:
-    if we want to display them in some order,
-    we must specify that explicitly.
-*   The values in a database are not guaranteed to be unique:
-    if we want to eliminate duplicates,
-    we must specify that explicitly as well.
+*   데이터베이스 테이블의 레코드는 본질적으로 정렬되지 않는다.
+    만약 특정 순서로 정렬하여 표시하려면, 명시적으로 정렬을 명기하여야 한다.
+*   데이터베이스의 값이 유일(unique)함을 보장하지는 않는다. 
+    만약 중복을 제거하고자 한다면, 명시적으로 유일함을 명기하여야 한다.
 </div>
+
+
+<pre class="in"><code></code></pre>
