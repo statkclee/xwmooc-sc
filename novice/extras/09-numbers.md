@@ -1,54 +1,34 @@
 ---
 layout: lesson
 root: ../..
-title: Numbers
+title: 숫자(Numbers)
 ---
-Let's start by looking at how numbers are stored.
-If we only have the two digits 0 and 1,
-the natural way to store a positive integer is to use base 2,
-so 1001<sub>2</sub> is
-(1&times;2<sup>3</sup>)+(0&times;2<sup>2</sup>)+(0&times;2<sup>1</sup>)+(1&times;2<sup>0</sup>) = 9<sub>10</sub>.
-It's equally natural to extend this scheme to negative numbers by reserving one bit for the sign.
-If, for example, we use 0 for positive numbers and 1 for those that are negative,
-+9<sub>10</sub> would be 01001<sub>2</sub> and -9<sub>10</sub> would be 11001<sub>10</sub>.
 
-There are two problems with this.
-The first is that this scheme gives us two representations for zero (00000<sub>2</sub> and 10000<sub>2</sub>).
-This isn't necessarily fatal,
-but any claims this scheme has to being "natural" disappear when we have to write code like:
+어떻게 숫자가 저장되는지 살펴보면서 시작해봅시다.
+만약 0과 1 두 개의 숫자(digit)만 있다면, 양의 정수를 저장하는 자연스러운 방식은 기수(base)가 2인 이진법을 사용하는 것이다. 그래서 
+이진수 1001<sub>2</sub> 은 십진수로 (1&times;2<sup>3</sup>)+(0&times;2<sup>2</sup>)+(0&times;2<sup>1</sup>)+(1&times;2<sup>0</sup>) = 9<sub>10</sub>이 된다.
+마찬가지 방식으로 기호 표기를 위해서 1 비트를 따로 떼어서 음수에 대해서 이 방식을 확장하는 것도 자연스럽니다.
+예를 들어, 양수로 0을, 음수로 1을 사용한다면, 
++9<sub>10</sub> 은 01001<sub>2</sub>이 될 것이고, -9<sub>10</sub> 은 11001<sub>10</sub>이 될 것이다.
+
+이 표기법에는 두가지 문제가 있다. 첫번째는 이 기법은 0에 대해서 2가지 표현법이 있다. (00000<sub>2</sub> and 10000<sub>2</sub>)
+반듯이 치명적이지는 않지만, 다음과 같이 코드를 작성할 때, 이 기법이 "자연"스럽다고 주장은 사라져버린다.
 
 ~~~
 if (length != +0) and (length != -0)
 ~~~
 {:class="in"}
 
-As for the other problem,
-it turns out that the circuits needed to do addition and other arithmetic on this
-[sign and magnitude representation](../../gloss.html#sign-and-magnitude)
-are more complicated than the hardware needed for another called
-[two's complement](../../gloss.html#twos-complement).
-Instead of mirroring positive values,
-two's complement rolls over when going below zero,
-just like a car's odometer.
-If we're using four bits per number,
-so that 0<sub>10</sub> is 0000<sub>2</sub>,
-then -1<sub>10</sub> is 1111<sub>2</sub>.
--2<sub>10</sub> is 1110<sub>2</sub>,
--3<sub>10</sub> is 1101<sub>2</sub>,
-and so on until we reach the most negative number we can represent,
-1000<sub>2</sub>, which is -8.
-Our representation then wraps around again, so that 0111<sub>2</sub> is 7<sub>10</sub>.
+또 다른 문제는 [부호 크기 표현(sign and magnitude representation)](../../gloss.html#sign-and-magnitude)으로 덧셈과 다른 연산에 필요한 회로는 [2의 보수(two's complement)](../../gloss.html#twos-complement)로 불리는 것에 필요한 하드웨어보다도 더 복잡하다. 양의 정수를 미러링하는 대신에 2의 보수는 자동차의 속도계처럼 0 이하로 내려갈때 다시 이월한다. 
+만약 숫자마다 4 비트를 사용한다면, 0<sub>10</sub> 은 0000<sub>2</sub>, -1<sub>10</sub>은 1111<sub>2</sub>이 된다.
+-2<sub>10</sub>은 1110<sub>2</sub>, -3<sub>10</sub> 은 1101<sub>2</sub>, 등등이 되고, 표현할 수 있는 가장 큰 음수는 1000<sub>2</sub>, 즉 -8이 된다.
+그리고 나서 다시 표현이 다시 돌아가서 0111<sub>2</sub> 은 7<sub>10</sub>이 된다.
 
-This scheme isn't intuitive,
-but it solves sign and magnitude's "double zero" problem,
-and the hardware to handle it is faster and cheaper.
-As a bonus,
-we can still tell whether a number is positive or negative by looking at the first bit:
-negative numbers have a 1, positives have a 0.
-The only odd thing is its asymmetry:
-because 0 counts as a positive number,
-numbers go from -8 to 7, or -16 to 15, and so on.
-As a result, even if `x` is a valid number, `-x` may not be.
+이 기법이 직관적이지는 않지만 부호 크기 표현의 "0이 두개 되는" 문제를 해결하고, 하드웨어가 더 싸고 빠르게 할 수 있다. 보너스로, 첫번째 비트를 살펴보는 것만으로 숫자가 양수인지 음수인지 분간할 수 있다. 음수는 1, 양수는 1이 숫자의 첫번째 비트가 된다. 다만 이상한 것은 비대칭성이다.
+왜냐하면 0 이 양수로 분류가 되어서 숫자가 -8에서 7 혹은 -16에서 15, 등등이 된다.
+결과적으로 `x`가 유효한 숫자일지라도, `-x`는 유효하지 않을 수 있다.
+
+
 
 Finding a good representation for real numbers
 (called [floating point numbers](../../gloss.html#float-point-number),
