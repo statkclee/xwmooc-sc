@@ -28,27 +28,11 @@ if (length != +0) and (length != -0)
 왜냐하면 0 이 양수로 분류가 되어서 숫자가 -8에서 7 혹은 -16에서 15, 등등이 된다.
 결과적으로 `x`가 유효한 숫자일지라도, `-x`는 유효하지 않을 수 있다.
 
+실수([부동 소수점수(floating point numbers)](../../gloss.html#float-point-number)로 불리는데 소수부가 이동할 수 있기 때문이다.))에 대한 좋은 표현방법을 찾는 것은 훨씬 더 어려운 문제다.
+문제의 근본적인 원인은 유한 집합의 비트 패턴으로 실수의 무한수를 표현할 수 없기 때문이다. 그리고 정수와는 달리 어떤 값을 *표현*하더라도 표현할 수 없는 각각 사이에 존재하는 무한수가 있다.
 
-
-Finding a good representation for real numbers
-(called [floating point numbers](../../gloss.html#float-point-number),
-since the decimal point can move around)
-is a much harder problem.
-The root of the problem is that
-we cannot represent an infinite number of real values with a finite set of bit patterns.
-And unlike integers,
-no matter what values we *do* represent,
-there will be an infinite number of values between each of them that we can't.
-
-Floating point numbers are usually represented using sign, magnitude, and an exponent.
-In a 32-bit word,
-the IEEE 754 standard calls for 1 bit of sign,
-23 bits for the magnitude (or *mantissa*),
-and 8 bits for the exponent.
-To illustrate the problems with floating point,
-we'll use a much dumber representation:
-we'll only worry about positive values without fractional parts,
-and we'll only use 3 for the magnitude and 2 for the exponent.
+부동 소수점수는 대체로 기호(sign), 절대값(magnitude), 그리고 지수(exponent)로 구성된다. 32비트체계에서 IEEE 754 표준은 1 비트는 기호, 23 비트는 절대값(혹은 *소수부/가수*), 그리고 8비트는 지수로 정했다. 부동소수점 문제를 시연하기 위해서 
+심하게 단순한 표현을 사용한다. 소수부분 없는 양수 값만 관심을 가질 것이고, 가수에 3비트, 지수에 2비트만 사용한다.
 
 <!--- Remove this style when vertical headers was supported by pandoc:
 https://github.com/jgm/pandoc/issues/1359 -->
@@ -76,63 +60,26 @@ https://github.com/jgm/pandoc/issues/1340 -->
 <tr><td></td>        <td class="table-exponent-header">111</td><td> 7</td><td>14</td><td>28</td><td>56</td></tr>
 </table>
 
-The table above
-shows the values that we can represent this way.
-Each one is the mantissa times two to the exponent.
-For example, the decimal values 48 is binary 110 times 2 to the binary 11 power,
-which is 6 times 2 to the third,
-or 6 times 8.
-(Note that real floating point representations like the IEEE 754 standard
-don't have the redundancy shown in this table,
-but that doesn't affect our argument.)
+상기 테이블은 표현할 수 있는 모든 값을 보여준다. 
+각각은 가수 곱하기 2의 지수2승이다. 예를 들어, 소수점 48은 이진수 111 에 이진법 11승으로, 6 곱하기 2의 이진법 3 승, 즉 6 곱하기 8이 된다.
+(IEEE 754 표준같은 실수 부동소수점 표현은 상기 표에 있는 중복이 없지만 여기서 펼치는 주장에는 영향이 없음을 주목하기 바란다.)
 
-The first thing you should notice is that there are a lot of values we *can't* store.
-We can do 8 and 10, for example, but not 9.
-This is exactly like the problems hand calculators have with fractions like 1/3:
-in decimal, we have to round that to 0.3333 or 0.3334.
+주목할 첫번째 것은 저장할 수 *없는* 많은 값이 있다.
+예를 들어 8 그리고 10은 표현할 수 있지만, 9는 표현할 수 없다. 
+전자 계산기가 1/3같은 소수점 처리에서 갖는 정확하게 동일한 문제다.
+소수부에서 0.3333 혹은 0.3334으로 반올림해야 한다.
 
-But if this scheme has no representation for 9,
-then 8+1 must be stored as either 8 or 10.
-This raises an interesting question:
-if 8+1 is 8, what is 8+1+1?
-If we add from the left, 8+1 is 8, plus another 1 is 8 again.
-If we add from the right, though, 1+1 is 2, and 2+8 is 10.
-Changing the order of operations can make the difference between right and wrong.
-There's no randomness involved&mdash;a particular order of operations
-will always produce the same result&mdash;but
-as the number of steps increases,
-so too does the difficulty of figuring out what the best order is.
+하지만, 이 기법이 9에 대한 표현법이 없다면, 8+1은 8 혹은 10으로 저장되어야 한다. 이것이 흥미로운 문제를 불러 일으킨다. 만약 8+1이 8이라면, 8+1+1은 무엇이 될까? 왼편에서부터 더한다면, 8+1은 8, 더하기 또 다른 1을 더하면 8이 된다. 하지만, 만약 오른편에서부터 더한다면 1+1은 2가 되고 2+8은 10이 된다. 연산 순서를 바꾸는 것이 옳고 그름의 차이를 만들 수 있다. 무작위성(randomness)이 있으면 안된다. 즉, 특정 연산 순서는 항상 동일한 결과를 만들어 내야 한다. 하지만, 연산 단계가 증가하면서 가장 최선의 순서가 무엇인지 파악하는 것도 어려워진다. 
 
-This is the sort of problem that numerical analysts spend their time on.
-In this case, if we sort the values we're adding, then add from smallest to largest,
-it gives us a better chance of getting the best possible answer.
-In other situations,
-like inverting a matrix,
-the rules are much more complicated.
+수치해석 분석가는 이런 종류의 문제 해결에 시간을 보낸다. 상기 경우에 만약 더하고자 하는 값을 정렬하고 나서 가장 작은 값부터 차례로 가장 큰 값을 더한다면, 가능한 최선의 정답에 도달할 확률을 높여준다. 역행렬을 구하는 같은 다른 상황에서는 규칙이 훨씬 더 복잡해진다. 
 
-Here's another observation about our uneven number line:
-the spacing between the values we can represent is uneven,
-but the relative spacing between each set of values stays the same,
-i.e., the first group is separated by 1, then the separation becomes 2, then 4, then 8,
-so that the ratio of the spacing to the values stays roughly constant.
-This happens because we're multiplying the same fixed set of mantissas by ever-larger exponents,
-and it points us at a couple of useful definitions.
+균등하지 않은 숫자 라인(number line)에 대한 또 다른 관찰점이 여기에 있다. 
+표현할 수 있는 값과 값 사이 간격이 균등하지는 않지만, 각 값 사이의 상대적인 간격은 동일한 경우다. 즉, 첫번째 숫자 그룹은 1 씩 떨어져 있고, 구분 간격이 2, 4, 8 그래서 값 사이의 간격 비율은 대략 상수가 된다. 이와 같은 상황이 발생하는 이유는 동일한 고정 집합의 가수를 점점 더 큰 지수로 곱하기 때문이다. 이것이 몇가지 유용한 정의로 유도한다.
 
-The [absolute error](../../gloss.html#absolute-error) in some approximation
-is simply the absolute value of the difference between the actual value and the approximation.
-The [relative error](../../gloss.html#relative-error),
-on the other hand,
-is the ratio of the absolute error to the value we're approximating.
-For example, if we're off by 1 in approximating 8+1 and 56+1,
-the absolute error is the same in both cases,
-but the relative error in the first case is 1/9 = 11%,
-while the relative error in the second case is only 1/57 = 1.7%.
-When we're thinking about floating point numbers,
-relative error is almost always more useful than absolute error.
-After all,
-it makes little sense to say that we're off by a hundredth when the value in question is a billionth.
+근사할 때 [절대 오차(absolute error)](../../gloss.html#absolute-error)는 단순하게 실제 값과 근사 값의 절대 값의 차이다. 반대로, [상대 오차(relative error)](../../gloss.html#relative-error)는 절대 오차와 근사하려고하는 값의 비율이다. 예를 들어, 만약 근사적으로 1만큼 차이가 있어서 8+1과 56+1이 된다면, 절대 오차는 두 경우 모두 동일하지만, 첫번째 경우는 상대 오류는 1/9 = 11%가 되는 반면에 두번째 경우의 상대 오차는 단지 1/57 = 1.7%만 된다. 부동 소수점수에 대해서 생각할 때, 절대 오차보다는 상대 오차가 거의 항상 더 유용하다.
+결국, 문제의 값이 10억일 때 100만큼 오차가 있다는 것은 거의 의미가 없다.
 
-To see why this matters, let's have a look at a little program:
+왜 이것이 중요한지 살펴보기 위해서, 다음의 작은 프로그램을 살펴보자.
 
 ~~~
 nines = []
@@ -149,11 +96,7 @@ for i in range(len(nines)):
 ~~~
 {:class="in"}
 
-The loop runs over the integers from 1 to 9 inclusive.
-Using those values, we create the numbers 0.9, 0.09, 0.009, and so on, and put them in the list `vals`.
-We then calculate the sum of those numbers.
-Clearly, this should be 0.9, 0.99, 0.999, and so on.
-But is it?
+루프를 정수 1에서 9까지 반복한다. 이 값을 이용하여 0.9, 0.09, 0.009 등등의 숫자를 생성하고 `vals` 리스트에 담는다. 그리고 나서 이들 숫자의 합을 계산한다. 명확하게 0.9, 0.99, 0.999 등등이 되어야 한다. 하지만, 정말 그럴까?
 
 <table class="table table-striped">
 <tr><td>1</td><td>0.900000000000000022</td><td>0.900000000000000022</td></tr>
@@ -167,65 +110,17 @@ But is it?
 <tr><td>9</td><td>0.000000009000000000</td><td>0.999999999000000028</td></tr>
 </table>
 
-Here are our answers.
-The first column is the loop index;
-the second, what we actually got when we tried to calculate 0.9, 0.09, and so on,
-and the third is the cumulative sum.
+해답이 여기 있다. 첫번째 칼럼은 루프 인덱스, 두번째 칼럼은 0.9, 0.99 등등 값을 계산할 때 실제 얻은 값, 세번째 칼럼은 누적합이다.
 
-The first thing you should notice is that the very first value contributing to our sum is already slightly off.
-Even with 23 bits for a mantissa,
-we cannot exactly represent 0.9 in base 2,
-any more than we can exactly represent 1/3 in base 10.
-Doubling the size of the mantissa would reduce the error,
-but we can't ever eliminate it.
+주목할 첫번째 것은 누적합에 기여하는 첫번째 값이 이미 약간 오차가 있다. 심지어 가수를 32비트포 표현해도 10진수로 1/3을 정확하게 표현할 수 있는 이상으로 2진수로 0.9를 정확하게는 표현할 수 없다. 가수 크기를 두배로 하는 것이 오차를 줄일 수는 있지만 오차를 완전히 제거할 수는 없다.
 
-The second thing to notice is that our approximation to 0.0009 actually appears accurate,
-as do all of the approximations after that.
-This may be misleading, though:
-after all,
-we've only printed things out to 18 decimal places.
-As for the errors in the last few digits of the sums,
-there doesn't appear to be any regular pattern in the way they increase and decrease.
+주목할 두번째 것은 0.0009에 근사가 그 다음의 모든 근사값도 그렇지만, 실질적으로 정확한 것처럼 보인다. 하지만 이것은 잘못 오도될 수 있다. 결국 소수점 아래 18째 자리까지만 출력했다. 누적합의 마지막 숫자 오차에 대해서 증가하는지 감소하는지에 대한 어떤 규칙적인 패턴이 있어 보이지 않는다. 
 
-This phenomenon is one of the things that makes testing scientific programs hard.
-If a function uses floating point numbers,
-what do we compare its result to
-if we want to check that it's working correctly?
-If we compared the sum of the first few numbers in `vals` to what it's supposed to be,
-the answer could be `False`,
-even if we're initializing the list with the right values,
-and calculating the sum correctly.
-This is a genuinely hard problem,
-and no one has a good generic answer.
-The root of our problem is that we're using approximations,
-and each approximation has to be judged on its own merits.
+이런 현상이 과학 프로그램을 테스트하는 것을 어렵게 만드는 이유중의 하나다. 만약 함수가 부동 소수점수를 사용한다면, 작성한 함수가 제대로 동작하는지 확인하기 위해서 결과를 무엇과 비교하여야 할까? 만약 `vals`에 있는 처음 몇개의 숫자 합계와 당연히 되어야 하는 이론적 합계와 비교한다면, 설사 리스트를 정확한 값으로 초기화한 후에 정확하게 합을 계산할지라도 정답은 거짓(`False`)이 된다. 
+이것은 진정으로 어려운 문제이고, 누구도 일반적인 좋은 답을 제시하지 못했다. 문제의 본질은 근사를 사용한다는 것이고 각각의 근사는 그 자체의 장점에서 판단되어야 한다.
 
-There are things you can do, though.
-The first rule is,
-compare what you get to analytic solutions whenever you can.
-For example,
-if you're looking at the behavior of drops of liquid helium,
-start by checking your program's output on a stationary spherical drop in zero gravity.
-You should be able to calculate the right answer in that case,
-and if your program doesn't work for that,
-it probably won't work for anything else.
+하지만, 여러분이 포기하지 말고 할 수 있는 것이 있다. 첫번째 규칙은 계산할 수만 있다면, 해석적인 해답과 컴퓨터로 얻은 값을 비교하라. 예를 들어, 만약 액체 헬륨 방울 행동을 살펴본다면, 무중력 상태에서 정지된 구형 방울에 대한 프로그램 출력결과를 점검하는 데서 시작한다. 이 경우에 정답을 계산할 수 있어야 하고, 만약 작성한 프로그램의 결과와 맞지 않는다면 아마도 다른 상황에도 작동하지 않을 것이다.
 
-The second rule is to compare more complex versions of your code to simpler ones.
-If you're about to replace a simple algorithm for calculating heat transfer with one that's more complex,
-but hopefully faster,
-don't throw the old code away.
-Instead,
-use its output as a check on the correctness of the new code.
-And if you bump into someone at a conference who has a program that can calculate some of the same results as yours,
-swap data sets:
-it'll help you both.
+두번째 규칙은 좀더 간단한 버젼의 코드와 더 훨씬 복잡한 버젼의 코드와 비교하는 것이다. 연전달을 계산하는 간단한 알고리즘을  더 복잡하지만 희망적으로 좀더 빠른 알고리즘으로 바꾸려고 한다면, 이전 코드를 버리지 마세요. 대신에 새로운 코드의 정합성을 확인하는 용도로 사용하세요. 그리고, 만약 여러분의 것과 동일한 결과를 계산하는 프로그램을 작성한 누군가와 마주친다면, 데이터를 교환하세요. 모두에게 도움이 된다.
 
-The third rule is, never use `==` (or `!=`) on floating point numbers,
-because two numbers calculated in different ways will probably not have exactly the same bits.
-Instead,
-check to see whether two values are within some tolerance,
-and if they are,
-treat them as equal.
-Doing this forces you to make your tolerances explicit,
-which is useful in its own right
-(just as putting error bars on experimental results is useful).
+세번째 규칙은 부동 소수점수에 `==` (혹은 `!=`)을 사용하지 마세요. 다른 방식으로 계산된 두 숫자는 아마도 정확하게 같은 비트를 갖지 않을 것이다. 대신에 두 값이 특정 허용 오차 안에 있는지를 점검하고, 만약 허용 오차 안에 있다면, 같다고 처리하세요. 이와 같은 것이 허용 오차를 명시적으로 설정하게 하고, 그 자체로도 유용한다. (실험 결과에 오차 막대를 설정하는 유용한 것과 마찬가지다.)
