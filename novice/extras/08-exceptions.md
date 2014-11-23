@@ -1,21 +1,14 @@
 ---
 layout: lesson
 root: ../..
-title: Exceptions
+title: 예외 처리 (Exceptions)
 ---
-Assertions help us catch errors in our code,
-but things can go wrong for other reasons,
-like missing or badly-formatted files.
-Most modern programming languages allow programmers to use
-[exceptions](../../gloss.html#exception) to separate
-what the program should do if everything goes right
-from what it should do if something goes wrong.
-Doing this makes both cases easier to read and understand.
 
-For example,
-here's a small piece of code that tries to read parameters and a grid from two
-separate files,
-and reports an error if either goes wrong:
+가정 설정문(assertions)을 이용하여 코드의 오류를 잡는데 도움이 되지만 파일이 사라지거나 잘못된 파일 형식같은 다른 이유로 뭔가 잘못될 수 있다.
+대부분의 최신 프로그래밍 언어는 프로그래머가 [예외 처리(exceptions)](../../gloss.html#exception)를 사용해서 만약 모든 것이 정상이면 프로그램이 무엇을 수행하고, 만약 무엇인가 잘못되면 프로그램이 수행하는 것을 구별한다.
+예외처리를 하는 것은 양쪽 경우 모두 작성한 코드를 읽기 쉽고, 이해하기 쉽게 한다.
+
+예를 들어, 두개의 별개 파일에서 매개변수(parameter)와 그리드(grid)를 읽어들이고, 만약 파일을 읽는데 둘중에 하나라도 뭔가 잘못되면 오류를 보고하는 코드 일부가 다음에 있다.
 
 ~~~
 try:
@@ -27,22 +20,11 @@ except:
 ~~~
 {:class="in"}
 
-We join the normal case and the error-handling code using the keywords `try` and
-`except`.
-These work together like `if` and `else`:
-the statements under the `try` are what should happen if everything works,
-while the statements under `except` are what the program should do if something
-goes wrong.
+`try` 와 `except` 키워드를 사용하여 정상인 경우와 오류 처리 코드를 합쳤다.
+`if` 와 `else` 와 마찬가지로 함께 동작한다. 
+`try` 다음의 문장은 만약 모든 것이 잘 동작한다면 무엇을 해야하는지를 나타내는 반면에 `except` 다음의 문장은 뭔가 잘못된다면 프로그램이 무엇을 해야하는지 나타낸다.
 
-We have actually seen exceptions before without knowing it,
-since by default,
-when an exception occurs,
-Python prints it out and halts our program.
-For example,
-trying to open a nonexistent file triggers a type of exception called an
-`IOError`,
-while trying to access a list element that doesn't exist
-causes an `IndexError`:
+사실 알지 못하게 앞에서 예외처리를 보았습니다. 왜냐하면, 예외사항이 발생했을 때, 파이썬은 예외사항을 출력하고 프로그램을 정지한다. 예를 들어, 존재하지 않는 파일을 열게 될 때, `IOError` 라는 일종의 예외를 발생시킨다. 반면에 존재하지 않는 리스트 항목에 접근할 때는 `IndexError` 를 발생시킨다.
 
 ~~~
 open('nonexistent-file.txt', 'r')
@@ -75,8 +57,7 @@ IndexError: list index out of range
 ~~~
 {:class="err"}
 
-We can use `try` and `except` to deal with these errors ourselves
-if we don't want the program simply to fall over:
+만약 단순히 프로그램이 갑자기 중단되는 것 말고 뭔가 다른 것을 원한다면, `try` 와 `except`를 사용하여 직접 오류를 다룰 수 있다.
 
 ~~~
 try:
@@ -90,23 +71,13 @@ Whoops!
 ~~~
 {:class="err"}
 
-When Python executes this code,
-it runs the statement inside the `try`.
-If that works, it skips over the `except` block without running it.
-If an exception occurs inside the `try` block,
-though,
-Python compares the type of the exception to the type specified by the `except`.
-If they match, it executes the code in the `except` block.
+파이썬이 상기 코드를 실행할 때, `try` 내부의 문장을 실행한다. 만약 정상적으로 동작하면, `except` 블록 문장을 실행하지 않고 건너 뛴다.
+하지만 만약 `try` 블록 내부에 예외사항이 발생하면, 파이썬이 `except`에 명시된 유형과 예외 유형을 비교한다.
+만약 둘 사이가 매칭되면, `except` 블록 내부 코드를 실행한다.
 
-`IOError` is the particular kind of exception Python uses
-when there is a problem related to input and output,
-such as files not existing
-or the program not having the permissions it needs to read them.
-We can put as many lines of code in a `try` block as we want,
-just as we can put many statements under an `if`.
-We can also handle several different kinds of errors afterward.
-For example,
-here's some code to calculate the entropy at each point in a grid:
+존재하지 않는 파일 혹은 읽어들이는데 권한이 없는 프로그램 같은 경우 입출력과 관련된 문제가 발생할 때, 파이썬이 사용하는 예외 유형은 `IOError`이다.
+`if`문에 많은 문장을 쓸 수 있듯이, `try` 블록에 원하는 만큼 코드를 쓸 수 있다.
+또한 몇가지 다른 유형의 오류도 처리할 수 있다. 예를 들어, 그리드 각지점의 엔트로피를 계산하는 코드가 다음에 있다.
 
 ~~~
 try:
@@ -121,24 +92,14 @@ except ArithmeticError:
 ~~~
 {:class="in"}
 
-Python tries to run the four functions inside the `try` as normal.
-If an error occurs in any of them,
-Python immediately jumps down
-and tries to find an `except` of the corresponding type:
-if the exception is an `IOError`,
-Python jumps into the first error handler,
-while if it's an `ArithmeticError`,
-Python jumps into the second handler instead.
-It will only execute one of these,
-just as it will only execute one branch
-of a series of `if`/`elif`/`else` statements.
+`try` 내부 함수 4개를 평소와 마찬가지로 파이썬이 실행한다.
+만약 오류가 함수중에서 발생한다면, 파이썬은 즉시 다음으로 내려가서 
+`except`에서 해당하는 예외 유형을 검색한다. 
+만약 예외 유형이 `IOError`이면, 파이썬은 첫번째 오류 처리(error handler)하는 곳으로 간다. 만약 예외 유형이 `ArithmeticError`이면, 대신에 파이썬은 두번째 오류 처리(error handler)하는 곳으로 간다.
+파이썬이 일련의 `if`/`elif`/`else` 문중에서 하나의 분기만 수행하는 것과 마찬가지로, 여러 예외 유형 중에서 하나만 처리한다.
 
-This layout has made the code easier to read,
-but we've lost something important:
-the message printed out by the `IOError` branch doesn't tell us
-which file caused the problem.
-We can do better if we capture and hang on to the object that Python creates
-to record information about the error:
+이와 같이 코드를 배치하여 가독성은 좋게 만들었지만, 무엇인가 중요한 것을 잃어버렸다. 
+`IOError` 분기점에서 출력되는 메시지가 무슨 파일이 문제를 발생시켰는지 알려주지 않는다. 오류에 대한 정보를 저장하기 위해서 파이썬이 생성하는 개체를 잡아서 꼭 붙들 수만 있다면 더욱 잘 할 수 있다.
 
 ~~~
 try:
@@ -153,28 +114,10 @@ except ArithmeticError as err:
 ~~~
 {:class="in"}
 
-If something goes wrong in the `try`,
-Python creates an exception object,
-fills it with information,
-and assigns it to the variable `err`.
-(There's nothing special about this variable name&mdash;we can use anything we
-want.)
-Exactly what information is recorded depends on what kind of error occurred;
-Python's documentation describes the properties of each type of error in detail,
-but we can always just print the exception object.
-In the case of an I/O error,
-we print out the name of the file that caused the problem.
-And in the case of an arithmetic error,
-printing out the message embedded in the exception object is what Python would
-have done anyway.
+`try`에서 뭔가 잘못되면, 파이썬이 예외 개체를 생성하고, 정보를 채워서 변수 `err`에 할당한다. (변수이름에 관해서 특별한 것은 없다. 원하는 임의의 이름을 사용한다.) 정확하게 무슨 정보가 기록되는지는 어떤 종류의 오류가 발생하느냐에 달려있다. 파이썬 문서에는 자세하게 각 오류 유형별 특징을 기술하고 있지만, 여기서는 예외 개체만 출력한다. 입출력(I/O) 오류의 경우 물제를 일으킨 파일 이름을 출력한다. 연산 오류의 경우에는 예외 개체에 내장된 메세지를 출력하는데 이것은 어쨌든 파이썬이 수행했을 것과 동일하다.
 
-So much for how exceptions work:
-how should they be used?
-Some programmers use `try` and `except` to give their programs default
-behaviors.
-For example,
-if this code can't read the grid file that the user has asked for,
-it creates a default grid instead:
+예외처리가 어떻게 동작하는지 많은 것을 학습했다. 어떻게 사용할 수 있을까요? 몇몇 프로그래머는 `try` 와 `except`를 사용해서 프로그램에 기본 동작으로 사용한다. 예를 들어, 만약 사용자가 요청한 그리드 파일을 코드가 읽을 수 없다면,
+대신에 기본 그리드를 생성한다.
 
 ~~~
 try:
@@ -184,8 +127,8 @@ except IOError:
 ~~~
 {:class="in"}
 
-Other programmers would explicitly test for the grid file,
-and use `if` and `else` for control flow:
+다른 프로그래머는 명시적으로 그리드 파일을 테스트하고 
+제어 흐름에 `if` 와 `else` 를 사용한다.
 
 ~~~
 if file_exists(grid_file):
@@ -195,23 +138,11 @@ else:
 ~~~
 {:class="in"}
 
-It's mostly a matter of taste,
-but we prefer the second style.
-As a rule,
-exceptions should only be used to handle exceptional cases.
-If the program knows how to fall back to a default grid,
-that's not an unexpected event.
-Using `if` and `else`
-instead of `try` and `except`
-sends different signals to anyone reading our code,
-even if they do the same thing.
+거의 취향의 문제이지만, 두번째 스타일을 추천한다. 규칙으로서 
+예외처리는 예외적인 경우를 다루는데만 사용되어야 한다.
+만약 프로그램이 기본 그리드로 어떻게 돌아가는지 알고 있다면, 예상하지 못한 이벤트는 아니다. 설사 동일한 것이라도, `try`와 `except` 대신에 `if` 와 `else`를 사용하는 것은 코드를 읽는 사람에게 다른 신호를 전달한다.
 
-Novices often ask another question about exception handling style,
-but before we address it,
-there's something in our example that you might not have noticed.
-Exceptions can actually be thrown a long way:
-they don't have to be handled immediately.
-Take another look at this code:
+종종 초보자가 예외처리 스타일에 관한 질문을 한다. 이런 질문을 다루기 전에 상기 예제에 여러분들이 간과한 것이 있다. 예외사항은 실질적으로 장기적 관점으로 처리되어야 한다. 즉시 처리하지 말아야 한다. 코드를 다른 관점으로 살펴보자. 
 
 ~~~
 try:
@@ -226,42 +157,20 @@ except ArithmeticError as err:
 ~~~
 {:class="in"}
 
-The four lines in the `try` block are all function calls.
-They might catch and handle exceptions themselves,
-but if an exception occurs in one of them that *isn't* handled internally,
-Python looks in the calling code for a matching `except`.
-If it doesn't find one there,
-it looks in that function's caller,
-and so on.
-If we get all the way back to the main program without finding an exception
-handler,
-Python's default behavior is to print an error message like the ones we've been
-seeing all along.
+`try` 블록의 4 줄은 모두 함수 호출이다.
+4개 함수 모두 예외사항을 잡아서 처리할 수도 있다.
+하지만, 만약 내부적으로 처리되지 *않은* 예외사항이 하나라도 발생한다면,
+파이썬은 `except`와 매칭하려고 호출 코드를 검색한다. 
+만약 거기서 예외처리 코드를 찾지 못한다면, 함수 호출자를 들여다본다. 
+만약 예외처리기를 찾지 못하고 메인 프로그램으로 다시 돌아온다면, 파이썬 기본 동작은 줄곧 보아왔던 오류 메시지를 출력한다.
 
-This rule is the origin of the rule
-[throw low, catch high](../rules.html#throw-low-catch-high).
-There are many places in our program where an error might occur.
-There are only a few, though, where errors can sensibly be handled.
-For example,
-a linear algebra library doesn't know whether it's being called directly from
-the Python interpreter,
-or whether it's being used as a component in a larger program.
-In the latter case,
-the library doesn't know if the program that's calling it is being run from the
-command line or from a GUI.
-The library therefore shouldn't try to handle or report errors itself,
-because it has no way of knowing what the right way to do this is.
-It should instead just [raise](../../gloss.html#raise) an exception,
-and let its caller figure out how best to handle it.
+이러한 규칙이 [throw low, catch high](../rules.html#throw-low-catch-high) 규칙의 기원이다. 작성한 프로그램에는 오류가 발생할 수 있는 장소가 많다.
+하지만 오류를 눈에 띄게 처리할 수 있는 것은 몇개에 불과하다.
+예를 들어, 선형대수 라이브러리는 파이썬 인터프리터에서 직접 호출이 되었는지 혹은 좀더 큰 프로그램의 컴포넌트로 사용되는지 확인할 길이 없다.
+후자의 경우 선형대수 라이브러리가 호출하는 프로그램이 명령-라인 인터페이스에서인지 아니면 GUI 인터페이스에서 실행되는지도 알수가 없다.
+그래서, 라이브러리는 오류를 그 자체로 다루거나 보고하지 말아야 한다. 왜냐하면 예외사항을 처리할 올바른 방법이 무엇인지 알지 못하기 때문이다. 대신에 예외를 [발생(raise)](../../gloss.html#raise)시키고, 호출하는 쪽에서 어떻게 처리하는 것이 가장 좋은 것인지 해결하게 한다.
 
-Finally,
-we can raise exceptions ourselves if we want to.
-In fact,
-we *should* do this,
-since it's the standard way in Python to signal that something has gone wrong.
-Here,
-for example,
-is a function that reads a grid and checks its consistency:
+마지막으로, 만약 할 수만 있다면, 예외사항을 발생시킨다. 사실 이렇게 *해야 한다*. 왜냐하면, 파이썬에서 무언가 잘못되었을 때 신호를 보내는 표준 방법이기 때문이다. 예를 들어, 다음에 그리드를 읽어 들이고, 일관성을 점검하는 함수가 있다.
 
 ~~~
 def read_grid(grid_file):
@@ -273,14 +182,7 @@ def read_grid(grid_file):
 ~~~
 {:class="in"}
 
-The `raise` statement creates a new exception with a meaningful error message.
-Since `read_grid` itself doesn't contain a `try`/`except` block,
-this exception will always be thrown up and out of the function,
-to be caught and handled by whoever is calling `read_grid`.
-We can define new types of exceptions if we want to.
-And we should,
-so that errors in our code can be distinguished from errors in other people's
-code.
-However,
-this involves classes and objects,
-which is outside the scope of these lessons.
+`raise` 문은 의미있는 오류 메시지로 새로운 예외를 생성한다.
+`read_grid` 자체는 `try`/`except` 블록을 포함하고 있지 않기 때문에,
+예외사항은 항상 발생하고 함수 밖에서 `read_grid`을 호출자에 의해서 예외를 잡아서 처리해야 한다.
+만약 할수 만 있다면, 새로운 형식의 예외를 정의할 수 있다. 그리고 그렇게 해야 한다. 그래서 코드의 오류가 다른 사람 코드의 오류와 구별될 수 있다. 하지만, 이렇게 하는 것은 클래스와 객체와 관련되는데 이번 학습 범위 밖이다.
