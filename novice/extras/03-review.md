@@ -1,13 +1,14 @@
 ---
 layout: lesson
 root: ../..
-title: Code Review
+title: 코드 리뷰 (Code Review)
 ---
 
-There are many ways to improve the quality of software,
-and the most effective of them is [code review](../../gloss.html#code-review).
-GitHub uses the [pull request](../../gloss.html#pull-request)
-to facilitate code review within and between projects.
+소프트웨어 품질을 향상하는 방법은 많이 있다. 가장 효과적인 방법이 
+[코드 리뷰(code review)](../../gloss.html#code-review)다.
+GitHub은 프로젝트 내부에서 혹은 프로젝트 사이에 코드 리뷰를 촉진하기 위해서 [풀 요청(pull request)](../../gloss.html#pull-request)을 사용한다.
+
+
 
 Pull requests are a way of proposing a merge,
 from one [branch](../../gloss.html#branch) to another.
