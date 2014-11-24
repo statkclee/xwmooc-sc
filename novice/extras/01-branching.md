@@ -6,8 +6,6 @@ title: Git 브랜치(Branching)
 
 다음이 지금 상태 정보다.
 
-Here's where we are right now:
-
 ~~~
 $ git log
 ~~~
