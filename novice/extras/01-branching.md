@@ -1,8 +1,11 @@
 ---
 layout: lesson
 root: ../..
-title: Branching in Git
+title: Git 브랜치(Branching)
 ---
+
+다음이 지금 상태 정보다.
+
 Here's where we are right now:
 
 ~~~
@@ -35,20 +38,20 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {:class="out"}
 
-We can draw the history of the repository like this
-(we'll see in a second why there's a box called `master`):
+상기 저장소 정보를 다음과 같이 도식화할 수 있다.
+(`master`라는 상자가 왜 있는지 곧 알게된다.)
 
 <img src="img/git-branching-01.svg" alt="Initial State of Repository" />
 
-Let's run this command:
+다음 명령어를 실행하자.
 
 ~~~
 $ git branch moons
 ~~~
 {:class="in"}
 
-It appears to do nothing,
-but behind the scenes it has created a new [branch](../../gloss.html#branch) called `moons`:
+아무것도 하지 않는 것처럼 보인다.
+하지만, 시스템 뒤에서는 `moons`이라는 [브랜치(branch, 분기)](../../gloss.html#branch)를 생성했다.
 
 ~~~
 $ git branch
@@ -62,14 +65,12 @@ $ git branch
 
 <img src="img/git-branching-02.svg" alt="Immediately After Creating Branch" />
 
-Git is now maintaining two named bookmarks in our history:
-`master`,
-which was created automatically when we set up the repository,
-and `moons`,
-which we just made.
-They both point to the same revision right now,
-but we can change that.
-Let's make `moons` the active branch:
+Git는 지금부터 이력에 두개 북마크를 유지관리한다. 
+저장소를 설치할 때 자동적으로 생성되는 `master`,
+방금 전에 생성한 `moons`이다.
+
+지금은 북마크 두개모두 같은 수정기록(revision)을 지정하고 있지만 변경할 수 있다.
+`moons` 브랜치를 활성화하자.
 
 ~~~
 $ git checkout moons
@@ -91,7 +92,7 @@ $ git branch
 
 <img src="img/git-branching-03.svg" alt="After Switching to Branch" />
 
-Our file looks the same:
+파일은 같아 보인다.
 
 ~~~
 $ cat mars.txt
@@ -104,15 +105,14 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {:class="out"}
 
-because it *is* the same:
-Let's add another line to it:
+파일이 *동일하기* 때문에 파일에 라인을 하나 추가하자.
 
 ~~~
 $ echo "Maybe we should put the base on one of the moons instead?" >> mars.txt
 ~~~
 {:class="in"}
 
-and add an entirely new file:
+그리고 나서 완전히 새로운 파일을 추가하자.
 
 ~~~
 $ echo "Phobos is larger than Deimos" > moons.txt
@@ -124,7 +124,7 @@ mars.txt    moons.txt
 ~~~
 {:class="out"}
 
-Git now tells us that we have one changed file and one new file:
+이제 Git를 통해서 변경된 파일이 하나 있고 신규 파일이 하나 더 있음을 확인할 수 있다.
 
 ~~~
 $ git status
@@ -146,8 +146,8 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
 {:class="out"}
 
-Let's add and commit those changes
-(the `-A` flag to `git commit` means "add everything"):
+상기 변경사항을 추가하고 커밋(commit)하자.
+(`git commit`에 `-A` 플래그 옵션은 "모든 것을 추가"를 의미한다.)
 
 ~~~
 $ git add -A
@@ -175,20 +175,20 @@ $ git commit -m "Thinking about the moons"
 ~~~
 {:class="out"}
 
-Our repository is now in the state shown below:
+저장소가 다음에 보여진 상태로 바뀌었다.
 
 <img src="img/git-branching-04.svg" alt="After Committing on Moons Branch" />
 
-The `moons` branch has advanced to record the changes we just made,
-but `master` is still where it was.
-If we switch back to `master`:
+`moons` 브랜치는 방금 전에 변경사항을 기록하고 전진했다.
+하지만, `master`는 여전히 이전 상태 그대로다.
+`master` 브랜치로 다시 돌아가면,
 
 ~~~
 $ git checkout master
 ~~~
 {:class="in"}
 
-our changes seem to disappear:
+변경사항이 사라진 것 처럼 보인다.
 
 ~~~
 $ ls
@@ -209,12 +209,10 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {:class="out"}
 
-They're still in the repository&mdash;they're just not in
-the revision that `master` is currently pointing to.
-In essence,
-we've created a parallel timeline that shares some history with the original one before diverging.
+변경사항은 여전히 저장소에 있다&mdash; 다만, `master`가 현재 가리키고 있는 수정기록(revision)에는 없다.  
+본질적으로, 분기하기 전에 원본과 이력을 공유하는 병렬 타임라인을 생성했다. 
 
-Let's make some changes in the `master` branch to further illustrate this point:
+이러한 점을 좀더 보여주기 위해서 `master` 브랜치에 약간의 변경을 만들자.
 
 ~~~
 $ echo "Should we go with a classical name like Ares Base?" > names.txt
@@ -242,15 +240,14 @@ $ git commit -m "We will need a cool name for our secret base"
 ~~~
 {:class="out"}
 
-Our repository is now in this state:
+현재 저장소의 상태는 다음과 같다.
 
 <img src="img/git-branching-05.svg" alt="After Committing on Master Branch" />
 
-`master` and `moons` have both moved on from their original common state,
-but in different ways.
-They could continue independent existence indefinitely,
-but at some point we'll probably want to [merge](../../gloss.html#merge) our changes.
-Let's do that now:
+`master`와 `moons` 모두 원본 동일한 상태에서 출바하여 이동해갔지만, 다른 방식으로 옮겨갔다.
+두 브랜치 모두 무한하게 독립적 상태를 계속 유지해 나갈 수 있다.
+하지만, 어느 시점에는 아마도 변경 사항을 [병합(merge)](../../gloss.html#merge)할 것이다.
+지금 병합을 수행해보자.
 
 ~~~
 $ git branch
@@ -266,9 +263,8 @@ $ git merge moons
 ~~~
 {:class="in"}
 
-When we run the `git merge` command,
-Git opens an editor to let us write a log entry about what we're doing.
-The editor session initially contains this:
+`git merge` 명령어를 실행하면, Git이 편집기를 열어서 작업하는 것에 대한 로그 항목을 적을 수 있게 한다.
+초기 편집기 세션은 다음을 포함한다.
 
 <div class="file" markdown="1">
 ~~~
@@ -282,14 +278,11 @@ Merge branch 'moons'
 ~~~
 </div>
 
-If we notice that something is wrong and decide not to complete the merge,
-we must delete everything in the file&mdash;Git interprets an empty log message to mean,
-"Don't proceed."
-Otherwise,
-everything that isn't marked as a comment with `#` will be saved to the log.
-In this case,
-we'll stick with the default log message.
-When we save the file and exit the editor, Git displays this:
+만약 무언가 잘못된 것을 인식하고 병합을 하지 않기로 결정한다면, 파일에 모든 것을 삭제해야한다&mdash;
+Git이 빈 로그 메시지를 "진행하지 마세요"로 해석한다. 
+그렇지 않다면, `#`로 주석처리 되지 않는 모든 것이 로그에 저장된다.
+이 경우에, 기본 로그 메시지와 함께 로그에 저장된다. 파일을 저장하고 편집기를 나오게 되면, 
+Git은 다음을 화면에 표시한다.
 
 ~~~
 Merge made by the 'recursive' strategy.
@@ -300,7 +293,7 @@ Merge made by the 'recursive' strategy.
 ~~~
 {:class="out"}
 
-We now have all of our changes in one place:
+이제 한곳에 모든 변경사항이 있다.
 
 ~~~
 $ ls
@@ -311,9 +304,11 @@ mars.txt    moons.txt    names.txt
 ~~~
 {:class="out"}
 
-and our repository looks like this:
+그리고, 저장소는 다음과 같다.
 
 <img src="img/git-branching-06.svg" alt="After Merging" />
+
+다음 Git 명령어를 이용하여 저장소 이력을 그림으로 표현한다.
 
 We can ask Git to draw a diagram of the repository's history with this command:
 
@@ -333,51 +328,35 @@ $ git log --oneline --topo-order --graph
 ~~~
 {:class="out"}
 
-This ASCII art is fine for small sets of changes,
-but for anything significant,
-it's much better to use a GUI
-that can draw graphs using lines instead of characters.
+상기 ASCII 그림은 작은 일련의 변화에는 좋지만, 조금 크고 복잡한 것에 대해서는 
+문자 대신에 선을 이용하여 그래프를 그리는 GUI를 사용하는 것이 훨씬 낫다. 
 
-Branching strikes most newcomers as unnecessary complexity,
-particularly for single-author projects.
-After all,
-if we need to make some changes to a project,
-what do we gain by creating parallel universes?
+분기(브랜칭, branching)가 대부분의 초보자에게는 불필요한 복잡하다는 인상을 준다. 
+특히 저자가 한명인 프로젝트인 경우에는 더욱 그렇다.
+결국, 만약 프록젝트에 변화를 주고자 한다면, 평행 우주를 생성해서 얻는 것은 무엇인가?
 
-The answer is that branching makes it easy for us to concentrate on one thing at a time.
-Suppose we are part-way through rewriting a function that calculates spatial correlations
-when we realize that the task would be easier if our file I/O routines always stored things as complex numbers.
-Most people would put the spatial correlation changes aside,
-change the file I/O,
-then (hopefully) come back to the original task.
+답변은 분기는 한번에 하나의 작업에 집중하기 쉽게 도와준다.
+만약 파일 입출력(I/O)모듈이 항상 복소수 형태로 저장하면 작업이 훨씬 쉬워지는 것을 알아차렸을 때,
+공간 상관관계(spatial correlation)를 계산하는 함수를 다시 작성하는 중간에 있다고 가정하자.
+대부분의 사람은 공간 상관관계 변경사항을 따로 놓고, 파일 입출력(I/O)를 변경하고 나서, 
+(잘 되면) 원래 작업으로 돌아온다.
 
-The problem with this is that we have to remember what we were doing,
-even if we realize halfway through rewriting file I/O that we should also rewrite our error handling.
-It's quite common to wind up with half a dozen tasks stacked on top of one another,
-and quite hard to them all straight.
-Branching allows us to put what we're doing in a safe place,
-solve the new problem,
-then resume our earlier work.
+이러한 접근법의 문제점은 파일 입출력(I/O)을 재작성하는 도중에 오류 처리를 다시 작성해야 한다는 것을 깨달을 때 조차도,
+작업하는 것을 기억해야 한다는 것이다.
+복잡하게 위로 쌓여진 작업으로 끝나는 것이 일반적이고, 다시 올바르게 정돈하기는 더욱 어렵다.
+분기는 안전한 장소에 작업한 것을 두고, 새로운 문제를 해결하고 나서, 다시 선행한 작업을 다시 수행하게 한다.
 
-In practice,
-most developers never make changes directly in the `master` branch.
-Instead,
-they create a new branch from it for every change they want to make,
-then merge those branches back to `master` when the work is complete.
-Returning to our hypothetical example,
-we would:
+실무에서, 대부분의 개발자는 절대 `master` 브랜치에서 직접 수정하지 않는다.
+대신에 변경하고자 하는 모든 수정사항에 대해서 `master` 브랜치에서 새로운 브랜치를 생성하고 나서,
+작업이 완료되었을 때, `master`와 작업한 브랜치를 병합한다.
+앞선 가상의 사례로 돌아가서, 다음과 같이 작업한다.
 
-1.  create a branch called something like `better-spatial-correlation` for those changes;
-2.  go back to master and create another branch called `file-input-produces-complex-values` for *those* changes;
-3.  merge `file-input-produces-complex-values` into `master`;
-4.  merge `master` into `better-spatial-correlation`; and
-5.  finish work on the spatial correlation function and merge it all back into `master`.
+1.  변경 사항에 대해서 `better-spatial-correlation` 같은 브랜치를 생성한다.
+2.  `Master`로 다시 돌아가서 *상기* 변경 사항에 대해서 `file-input-produces-complex-values`라는 또다른 브랜치를 생성한다.
+3.  `file-input-produces-complex-values` 브랜치를 `master`와 병합한다.
+4.  `master`를 `better-spatial-correlation` 브랜치와 병합한다.
+5.  공간 상관관계 함수 작업을 마무리 하고, 모든 것을 다시 `master`와 병합한다.
 
-And if,
-partway through this process,
-our supervisor asked us to change the graph-plotting routines to conform to the university's new style guide,
-we would simply switch back to `master`,
-create a branch for that,
-make the changes,
-produce the desired graphs,
-and leave the changes parked in that branch until we were ready to merge them.
+그리고, 만약 작업 중간에, 지도교수가 대학의 새로운 스타일 지침에 따라 그래프 그리는 루틴을 변경하라고 지시하면, 
+간단하게 `master`로 다시 전환해서, 적당한 브랜치를 생성하고, 변경사항을 기록하고, 원하는 그래프를 그리고, 
+병합을 하기 전까지 변경사항을 브랜치에 저장한다. 
