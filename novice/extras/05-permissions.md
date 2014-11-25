@@ -1,67 +1,39 @@
 ---
 layout: lesson
 root: ../..
-title: Permissions
+title: 권한 (Permissions)
 ---
-Unix controls who can read, modify, and run files using *permissions*.
-We'll discuss how Windows handles permissions at the end of the section:
-the concepts are similar,
-but the rules are different.
 
-Let's start with Nelle.
-She has a unique [user name](../../gloss.html#user-name),
-`nnemo`,
-and a [user ID](../../gloss.html#user-id),
-1404.
+*권한(permissions)*을 사용해서 유닉스는 누가 파일을 읽고, 변경할 수 있고, 실행할 수 있는지 제어한다.
+이번 학습 후반부에 윈도우에서 어떻게 권한을 관리하는지도 살펴볼 것이다. 개념은 비슷하지만, 규칙은 다르다.
 
-> #### Why Integer IDs?
+Nelle과 함께 시작하자. Nelle은 유일한 [사용자명(user name)](../../gloss.html#user-name),
+`nnemo`, [사용자 ID(user ID)](../../gloss.html#user-id),
+1404을 가지고 있다.
+
+> #### 왜 정수형 ID일까?
 >
-> Why integers for IDs?
-> Again, the answer goes back to the early 1970s.
-> Character strings like `alan.turing` are of varying length,
-> and comparing one to another takes many instructions.
-> Integers,
-> on the other hand,
-> use a fairly small amount of storage (typically four characters),
-> and can be compared with a single instruction.
-> To make operations fast and simple,
-> programmers often keep track of things internally using integers,
-> then use a lookup table of some kind
-> to translate those integers into user-friendly text for presentation.
-> Of course,
-> programmers being programmers,
-> they will often skip the user-friendly string part
-> and just use the integers,
-> in the same way that someone working in a lab might talk about Experiment 28
-> instead of "the chronotypical alpha-response trials on anacondas".
+> 왜 정수형 ID일까?
+> 다시 한번 대답은 1970년 초반으로 거슬러 올라간다.
+> `alan.turing` 같은 문자열은 길이가 변하고, 다른 문자열과 비교하는 것은 많은 명령어를 필요로 한다.
+> 반대로, 정수는 매우 적은 저장공간 (일반적으로 문자 4개)만을 사용하고, 하나의 명령어로 비교를 수행할 수 있다.
+> 연산을 빠르고 간단하게 하기 위해서
+> 프로그래머는 종종 내부적으로 정수를 사용해서 기록을 하고 
+> 정수를 표현을 위해서는 사용자가 친근한 텍스트로 변환하는 일종의 조회(lookup) 테이블을 사용한다.
+> 종종 프로그래머는 프로그래머라 사용자 친근한 문자열 부분을 건너뛰고 정수만 사용한다.
+> 마치 연구실에서 작업하는 연구자가 "아나콘다에 대한 알파 반응 실험" 대신에 "28번 실험"이라고 부르는 것과 유사하다.
 
-Users can belong to any number of [groups](../../gloss.html#user-group),
-each of which has a unique [group name](../../gloss.html#user-group-name)
-and numeric [group ID](../../gloss.html#user-group-id).
-The list of who's in what group is usually stored in the file `/etc/group`.
-(If you're in front of a Unix machine right now,
-try running `cat /etc/group` to look at that file.)
+사용자는 [그룹(groups)](../../gloss.html#user-group)에 임의의 숫자만큼 속할 수 있다. 각각의 그룹은 중복되지 않는 [그룹이름(group name)](../../gloss.html#user-group-name)과 숫자형식 [그룹 ID(group ID)](../../gloss.html#user-group-id)를 갖는다.
+어느 사용자가 어떤 그룹에 속해있는가하는 목록 정보는 `/etc/group` 파일에 일반적으로 저장된다.
+(만약 지금 유닉스 컴퓨터 앞에 있다면, 그 파일을 확인하기 위해서 `cat /etc/group` 명령어를 실행해보자.)
 
-Now let's look at files and directories.
-Every file and directory on a Unix computer belongs to one owner and one group.
-Along with each file's content,
-the operating system stores the numeric IDs of the user and group that own it.
+이제 파일과 디렉토를 살펴보자. 유닉스 컴퓨터의 모든 파일과 디렉토리는 하나의 소유자와 하나의 그룹에 속한다. 각 파일의 내용물과 함께 운영시스템은 파일을 소유하는 사용자 숫자 ID와 그룹정보를 저정한다. 
 
-The user-and-group model means that
-for each file
-every user on the system falls into one of three categories:
-the owner of the file,
-someone in the file's group,
-and everyone else.
+사용자-그룹 (user-and-group) 모델은 각 파일마다 시스템의 모든 사용자는 다음 세가지 범주 중에 하나에 속하게 된다: 파일의 소유자, 파일 그룹의 일원, 그리고 그 밖의 모든 사람. 
 
-For each of these three categories,
-the computer keeps track of
-whether people in that category can read the file,
-write to the file,
-or execute the file
-(i.e., run it if it is a program).
+이 세가지 범주 각각에 대해서, 컴퓨터는 범주에 있는 사용자가 파일을 일고, 쓰고, 실행(만약 프로그램이라면 실행)할 수 있는지를 기록한다.
 
-For example, if a file had the following set of permissions:
+예를 들어, 만약 파일이 다음과 같은 권한집합으로 구성된다면,
 
 <table class="table table-striped">
 <tr><td></td><th>user</th><th>group</th><th>all</th></tr>
@@ -70,18 +42,16 @@ For example, if a file had the following set of permissions:
 <tr><th>execute</th><td>no</td><td>no</td><td>no</td></tr>
 </table>
 
-it would mean that:
+의미하는 바는 다음과같다.
 
-*   the file's owner can read and write it, but not run it;
-*   other people in the file's group can read it, but not modify it or run it; and
-*   everybody else can do nothing with it at all.
+*   파일 소유자는 파일을 읽고 쓸 수 있지만, 실행할 수는 없다.
+*   파일 그룹의 다른 사용자는 읽을 수는 있지만, 변경하거나 실행할 수는 없다.
+*   그 밖의 모든 사람은 어떤 것도 할 수 없다.
 
-Let's look at this model in action.
-If we `cd` into the `labs` directory and run `ls -F`,
-it puts a `*` at the end of `setup`'s name.
-This is its way of telling us that `setup` is executable,
-i.e.,
-that it's (probably) something the computer can run.
+실제 동작하는 이 모델을 살펴보자.
+`cd` 명령어로 디렉토리를 `labs`으로 변경하고 `ls -F`를 실행하면, `setup` 이름 끝에 `*`를 놓여진다.
+`setup`이 실행가능하다는 것을 표현하는 방식이다.
+즉, (아마도) 컴퓨터가 실행할 수 있는 무엇이다.
 
 ~~~
 $ cd labs
@@ -93,20 +63,15 @@ safety.txt    setup*     waiver.txt
 ~~~
 {:class="out"}
 
-> #### Necessary But Not Sufficient
+> #### 필요하지만 충분하지는 않다.
 >
-> The fact that something is marked as executable
-> doesn't actually mean it contains a program of some kind.
-> We could easily mark this HTML file as executable
-> using the commands that are introduced below.
-> Depending on the operating system we're using,
-> trying to "run" it will either fail
-> (because it doesn't contain instructions the computer recognizes)
-> or cause the operating system to open the file
-> with whatever application usually handles it
-> (such as a web browser).
+> 실행가틍하다고 표기가 되었다는 사실이 실질적으로 
+> 프로그램의 일종을 담고있다는 의미는 아니다.
+> 다음에 소개되는 명령어를 사용하여 지금 작성하고 있는
+> HTML 파일을 쉽게 실행가능한 파일로 표시할 수 있다.
+> 사용하고 있는 운영시스템에 따라서 "실행(run)"을 하면 실행 실패(왜냐하면, 컴퓨터가 인식할 수 있는 명령집합을 담고 있지 않다.) 혹은 운영시스템이 자동으로 파일을 (웹브라우져) 같은 응용프로그램으로 열게 한다.
 
-Now let's run the command `ls -l`:
+이제 `ls -l` 명령을 실행해보자:
 
 ~~~
 $ ls -l
@@ -119,42 +84,26 @@ $ ls -l
 ~~~
 {:class="out"}
 
-The `-l` flag tells `ls` to give us a long-form listing.
-It's a lot of information, so let's go through the columns in turn.
+`-l` 플래그는 `ls` 명령어가 장문 형식의 리스트 목록을 출력한다. 
+정보가 많아서 차례로 칼럼을 하나씩 살펴보자.
 
-On the right side, we have the files'  names.
-Next to them,
-moving left,
-are the times and dates they were last modified.
-Backup systems and other tools use this information in a variety of ways,
-but you can use it to tell when you (or anyone else with permission)
-last changed a file.
+오른쪽에 파일 이름이 있다. 왼쪽으로 이동하면 그 옆에 가장 최근에 변경된 시간과 날짜 정보가 있다. 백업 시스템과 다른 도구는 이 정보를 다양한 방식으로 이용한다. 하지만, 언제 여러분 (혹은 권한을 가진 다른 사람)이 마지막에 파일을 변경했는지 확인하는데 사용한다.
 
-Next to the modification time is the file's size in bytes
-and the names of the user and group that owns it
-(in this case, `vlad` and `bio` respectively).
-We'll skip over the second column for now
-(the one showing `1` for each file)
-because it's the first column that we care about most.
-This shows the file's permissions, i.e., who can read, write, or execute it.
+변경시간 옆에 바이트로 파일 크기와 파일 소유자와 그룹이름이 있다. (이 경우 `vlad`가 소유자 `bio`가 그룹이 된다)
+지금 두번째 칼럼(각 파일마다 `1`을 표시)은 건너뛴다. 왜냐하면 가장 관심을 가져야 하는 것이 첫번째 칼럼이기 때문이다.
+첫번째 칼럼은 파일 권한을 보여준다. 즉, 누가 읽고, 쓰고, 실행할 수 있는지 권한을 보여준다.
 
-Let's have a closer look at one of those permission strings:
+권한 문자열 중 하나를 좀더 자세히 살펴보자:
 `-rwxr-xr-x`.
-The first character tells us what type of thing this is:
-'-' means it's a regular file,
-while 'd' means it's a directory,
-and other characters mean more esoteric things.
+첫번째 문자는 무슨 타입(type)인지에 대한 정보를 제공한다. '-'은 정규 파일, 'd'은 디렉토리, 다른 문자는 좀더 소수의 사람만 이해할 수 있는 것을 의미한다.
 
-The next three characters tell us what permissions the file's owner has.
-Here, the owner can read, write, and execute the file: `rwx`.
-The middle triplet shows us the group's permissions.
-If the permission is turned off, we see a dash, so `r-x` means "read and execute, but not write".
-The final triplet shows us what everyone who isn't the file's owner, or in the file's group, can do.
-In this case, it's 'r-x' again, so everyone on the system can look at the file's contents and run it.
-
-To change permissions, we use the `chmod` command
-(whose name stands for "change mode").
-Here's a long-form listing showing the permissions on the final grades in the course Vlad is teaching:
+다음 세 문자는 파일 소유자가 무슨 권한을 가지고 있는지 알려준다. 여기서 파일 소유자는 파일을 읽고, 쓰고, 실행도 할 수 있다: `rwx`.
+중간의 세쌍둥이는 그룹 권한을 정보를 보여준다.
+만약 권한이 없다면, 대쉬로 표현된다. 그래서 `r-x`은 "일고, 실행은 하지만, 쓸수는 없다."는 의미를 가진다.
+마지막 세쌍둥이는 파일의 소유자도 파일의 그룹에 있지도 않은 그빡의 누구나 무엇을 할 수 있는지 보여준다.
+이 경우, 다시 `r-x`이여서, 시스템의 그 밖의 모든 사람은 파일의 내용을 볼 수 있고 실행도 할 있지만, 변경할 수는 없다. 
+권한을 변경하기 위해서, `chmod` 명령어를 사용한다. (`chmod`는 "change mode"의 약자)
+Vlad가 강의하는 과정의 최종 점수에 대한 권한을 보여주는 긴 목록 정보가 다음에 있다.
 
 ~~~
 $ ls -l final.grd
@@ -165,23 +114,17 @@ $ ls -l final.grd
 ~~~
 {:class="out"}
 
-Whoops: everyone in the world can read it&mdash;and what's worse,
-modify it!
-(They could also try to run the grades file as a program,
-which would almost certainly not work.)
-
-The command to change the owner's permissions to `rw-` is:
+이럴 수가 있나요: 세상의 모든 사람이 읽을 수 있어요&mdash;그리고, 더욱 상황이 않좋게는 변경도 할 수 있어요.
+(거의 확실하게 동작하지 않겠지만, 프로그램으로 성적 파일을 실행할도 수 있어요.)
+소유자 권한을 `rw-`으로 변경하는 명령어는 다음과 같다.
 
 ~~~
 $ chmod u=rw final.grd
 ~~~
 {:class="in"}
 
-The 'u' signals that we're changing the privileges
-of the user (i.e., the file's owner),
-and `rw` is the new set of permissions.
-A quick `ls -l` shows us that it worked,
-because the owner's permissions are now set to read and write:
+'u'는 사용자(즉, 파일 소유자)의 권한을 변경한다는 신호다. 그리고 `rw`는 새로운 권한집합이다.
+`ls -l` 명령어는 권한 변경이 동작하는 것을 보여준다. 왜냐하면, 소유자 권한이 이제 읽고 쓰는 것으로 설정이 변경되었다.
 
 ~~~
 $ ls -l final.grd
@@ -192,7 +135,7 @@ $ ls -l final.grd
 ~~~
 {:class="out"}
 
-Let's run `chmod` again to give the group read-only permission:
+그룹 권한을 읽을 수만 있도록 변경하기 위해서 `chmod`을 다시 실행하자.
 
 ~~~
 $ chmod g=r final.grd
@@ -204,8 +147,7 @@ $ ls -l final.grd
 ~~~
 {:class="out"}
 
-And finally,
-let's give "all" (everyone on the system who isn't the file's owner or in its group) no permissions at all:
+그리고 최종적으로 그 밖의 모든 사람(파일의 소유자도 그룹원도 아닌 시스템의 모든 사람)에게는 어떠한 권한도 주지 말자. 
 
 ~~~
 $ chmod a= final.grd
@@ -217,14 +159,9 @@ $ ls -l final.grd
 ~~~
 {:class="out"}
 
-Here,
-the 'a' signals that we're changing permissions for "all",
-and since there's nothing on the right of the "=",
-"all"'s new permissions are empty.
+'a'는 그 밖의 모든 사람("all")의 권한을 변경한다는 신호를 준다. "=" 오른쪽에 아무것도 없기 때문에, 그 밖의 모든 사람의 권한은 없다.
 
-We can search by permissions, too.
-Here, for example, we can use `-type f -perm -u=x` to find files
-that the user can execute:
+또한 권한으로 검색도 할 수 있다. 예를 들어, 사용자가 실행할 수 있는 파일을 찾기 위해서 `-type f -perm -u=x`을 사용한다.
 
 ~~~
 $ find . -type f -perm -u=x
@@ -236,9 +173,7 @@ $ find . -type f -perm -u=x
 ~~~
 {:class="out"}
 
-Before we go any further,
-let's run `ls -a -l`
-to get a long-form listing that includes directory entries that are normally hidden:
+더 진도를 나아가기 전에, `ls -a -l`을 실행해서 평상시에 숨겨져있는 디렉토리 항목을 포함하는 긴 형식 목록 정보를 얻어보자.
 
 ~~~
 $ ls -a -l
@@ -252,6 +187,8 @@ drwxr-xr-x 1 vlad bio  8192  2010-08-27 23:11 ..
 -rw-rw-r-- 1 vlad bio  2312  2010-07-11 08:23 waiver.txt
 ~~~
 {:class="out"}
+
+`.` 과 `..` (현재 디렉토리와 부모 디렉토리)에 대한 권한은 'd'로 시작한다.
 
 The permissions for `.` and `..` (this directory and its parent) start with a 'd'.
 But look at the rest of their permissions:
