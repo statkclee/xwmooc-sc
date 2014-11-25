@@ -188,42 +188,31 @@ drwxr-xr-x 1 vlad bio  8192  2010-08-27 23:11 ..
 ~~~
 {:class="out"}
 
-`.` 과 `..` (현재 디렉토리와 부모 디렉토리)에 대한 권한은 'd'로 시작한다.
+`.` 과 `..` (현재 디렉토리와 부모 디렉토리)에 대한 권한은 'd'로 시작한다. 하지만, 뒷쪽 권한부분을 살펴보자: 'x'는 "실행(execute)"기능이 활성화 된다는 의미다. 무슨 의미일까? 디렉토리는 프로그램이 아닌데&mdash; 어떻게 "실행"할 수 있을까?
 
-The permissions for `.` and `..` (this directory and its parent) start with a 'd'.
-But look at the rest of their permissions:
-the 'x' means that "execute" is turned on.
-What does that mean?
-A directory isn't a program&mdash;how can we "run" it?
-
-In fact, 'x' means something different for directories.
-It gives someone the right to *traverse* the directory, but not to look at its contents.
-The distinction is subtle, so let's have a look at an example.
-Vlad's home directory has three subdirectories called `venus`, `mars`, and `pluto`:
+사실 'x'는 디렉토리에 대해서 다른 무언가를 의미한다. 
+디렉토리를 *돌아다닐(traverse)* 수 있는 권리는 있지만, 내용(콘텐츠)은 볼 수는 없다.
+차이가 미묘하다. 그래서 예제를 통해서 살펴보자.
+Vlad 홈 디렉토리는 `venus`, `mars`, `pluto`라는 3개의 하위 디렉토리를 담고 있다.
 
 <img src="img/x-for-directories.svg" alt="Execute Permission for Directories" />
 
-Each of these has a subdirectory in turn called `notes`,
-and those sub-subdirectories contain various files.
-If a user's permissions on `venus` are 'r-x',
-then if she tries to see the contents of `venus` and `venus/notes` using `ls`,
-the computer lets her see both.
-If her permissions on `mars` are just 'r--',
-then she is allowed to read the contents of both `mars` and `mars/notes`.
-But if her permissions on `pluto` are only '--x',
-she cannot see what's in the `pluto` directory:
-`ls pluto` will tell her she doesn't have permission to view its contents.
-If she tries to look in `pluto/notes`, though, the computer will let her do that.
-She's allowed to go through `pluto`, but not to look at what's there.
-This trick gives people a way to make some of their directories visible to the world as a whole
-without opening up everything else.
+디렉토리 각각은 `notes`라는 하위 디렉토리가 있다. 하위의 하위 디렉토리는 다양한 파일을 담고 있다. 만약 `venus` 디렉토리에 대한 사용자 권한이 'r-x'라면, 그러면 만약 사용자가 `ls` 명령어를 사용해서 `venus`와 `venus/notes` 내용(콘텐츠)를 보려고 한다면, 컴퓨터는 양쪽을 모두 사용자가 볼 수 있게 한다.
+만약 `mars` 디렉토리의 권한이 'r--'만 있다면,
+`mars`와 `mars/notes` 디렉토리 내용을 모두 읽을 수 있게 한다.
+하지만 `pluto` 디렉토리에 대한 권한이 '--x'만 있으면,
+`pluto` 디렉토리에 무엇이 있는지 볼 수 없다.
+`ls pluto` 명령어를 실행하면 내용을 볼 수 있는 권한이 없다고 시스템이 응답한다. 하지만, `pluto/notes` 내부를 보고자 한다면, 시스템이 사용자가 볼 수 있게 해준다.  
+`pluto`를 통과해서 갈 수는 있으나 내부에 무엇이 있는지를 볼 수 없다. 이와 같은 기법이 그 밖의 모든 것을 공개하지 않고, 전체적으로 바깥 세상에 디렉토리의 일부만 보여주는 방법이다. 
 
-#### What about Windows?
+#### 윈도우(Windows)는 어떨까?
 
-Those are the basics of permissions on Unix.
-As we said at the outset, though, things work differently on Windows.
-There, permissions are defined by [access control lists](../../gloss.html#access-control-list),
-or ACLs.
+상기 살펴본 것이 유닉스 권한관리의 기본이다. 서두에 언급했듯이, 윈도우에서는 다르게 동작한다. 윈도우에서 권한은 [접근 제어 목록(access control lists)](../../gloss.html#access-control-list), ACLs에서 정의된다.
+ACT은 둘씩 짝지은 목록으로 각각은 "누가(who)"와 "무엇(what)"을 조합한다. 예를 들어, 미이라(Mummy)에게 읽거나 삭제할 수 있는 권한은 주지 않고 파일에 데이터만 추가하는 권한을 줄 수 있고, 프랑켄슈타인에게는 파일이 무엇을 담고 있는지 볼 수 없지만, 파일을 삭제할 수 있는 권한을 줄 수 있다.
+
+유닉스 모델보다 좀더 유연하지만, 작은 시스템에서 이해하고 관리하기는 좀더 복잡하다. (만약 큰 컴퓨터 시스템이 있다면, *어떤것도* 관리하거나 이해하기 쉽지 않다.) 최신 유닉스 일부 모델은 ACL 뿐만 아니라 이전 읽기-쓰기-실행 권한 모델도 지원하지만, 거의 사용자가 잘 사용하지는 않는다.
+
+
 An ACL is a list of pairs, each of which combines a "who" with a "what".
 For example,
 you could give the Mummy permission to append data to a file without giving him permission to read or delete it,
