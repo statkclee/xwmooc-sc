@@ -1,65 +1,35 @@
 ---
 layout: workshop
 root: .
-venue: Euphoric State University
-address: 123 College Street, Euphoria
-country: United-States
-humandate: Feb 17-18, 2020
-humantime: 9:00 am - 4:30 pm
-startdate: 2020-06-17
-enddate: 2020-06-18
-latlng: 41.7901128,-87.6007318
+venue: 한국전파진흥협회(RAPA)
+address: 서울특별시 양천구 목동중앙로 13나길 3
+country: 한국
+humandate: Feb 00-00, 2015
+humantime: 9:00 am - 6:00 pm
+startdate: 2014-02-00
+enddate: 2014-00-00
+latlng: 37.5461345,126.88066530000003
 registration: restricted
-instructor: ["Grace Hopper", "Alan Turing"]
-helper: ["John von Neumann"]
-contact: admin@software-carpentry.org
+instructor: ["xwmooc"]
+helper: ["이광춘"]
+contact: kwangchun.lee.7@gmail.com
 #redirect: http://www.3rd.party.workshop.home.page.com
 #eventbrite: 00000000000
-lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
+lessons: ['컴퓨터 과학 언플러그드', 'R', 'Python', 'SQL', 'Git', 'Bash', 'VM', 'cloud', 'web application']
 ---
 <!--
     Edit the values in the parameter block above to be appropriate for your workshop.
     Please use three-letter month names for the 'humandate' field.
 -->
 
-<!-- Remove the block below. -->
-<div align="center">
-  <p><strong><em>
-      This page is a template for workshop home pages.
-      <br/>
-      Please see
-      <a href="//github.com/swcarpentry/bc">github.com/swcarpentry/bc</a>
-      for instructions on how to create
-      a repository for your workshop.
-  </em></strong></p>
-</div>
+<h2>디지털 콘텐츠 소프트웨어 교육 정보</h2>
 
-<!--
-    This block includes the Eventbrite registration widget if 'eventbrite' has been set in the header.
-
-    Maybe you need to change height value:
-
-    - for one room use 206px,
-    - for one waitlist room use 152px,
-    - for two room use 254px,
-    - for one waitlist room and one room use 253px,
-    - for two waitlist room use 197px.
--->
-{% if page.eventbrite %}
-<iframe
-  src="//www.eventbrite.com/tickets-external?eid={{page.eventbrite}}&ref=etckt" frameborder="0" width="100%" height="206px" scrolling="auto"></iframe>
-{% endif %}
-
-<h2>General Information</h2>
-
-<p>
-  <a href="//software-carpentry.org">Software Carpentry</a>'s mission
-  is to help scientists and engineers become more productive
-  by teaching them basic lab skills for computing
-  like program design, version control, data management, and task automation.
-  This two-day hands-on workshop will cover basic concepts and tools;
-  participants will be encouraged to help one another
-  and to apply what they have learned to their own research problems.
+<p> 국내 스마트콘텐츠 기업들의 신시장 선점, 각종 산업과의 동반성장을 견인할 ICT 융합형 스마트콘텐츠 
+  전문인력 양성을 위해서, 해외 우수 소프트웨어 및 디지털 콘텐츠 교육과정을 발굴하여, 실무중심의 
+  글로벌하게 검증된 교육프로그램을 실시한다.
+  단, 3일간의 워크숍 교육을 통해서 비전산 전공자들이 접하지 못한 컴퓨터적 사고, 프로그래밍과 코딩, 컴퓨터 유창성을 
+  컴퓨터 과학 언플러그드, 프로그램 설계, 버젼 관리, 데이터 관리, 업무 자동화, 클라우드, 웹 어플리케이션 강의 및 실습을 통해서
+  평생의 경쟁력 우위 요소를 습득하여, 실무에 접목해 나간다.
 </p>
 
 <!--
@@ -68,8 +38,8 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
     or if specialized prerequisite knowledge is required, please mention that.
 -->
 <p>
-  <strong>Who:</strong>
-  The course is aimed at graduate students and other researchers.
+  <strong>교육 대상:</strong>
+  예비 창업자, 스타트업 기업인, 방송통신 분야 재직자
 </p>
 
 <!--
@@ -90,10 +60,10 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
     Modify the block below if there are any special requirements.
 -->
 <p>
-  <strong>Requirements:</strong>
-  Participants must bring a laptop with a few specific software packages installed
-  (listed below). They are also required to abide by Software Carpentry's
-  <a href="http://software-carpentry.org/conduct.html">Code of Conduct</a>.
+  <strong>교육 준비물:</strong>
+  <a href="http://software-carpentry.org/conduct.html">Code of Conduct</a> 준수.
+  <a href="http://statkclee.github.io/csunplugged-md/csunplugged/">컴퓨터 과학 언플러그드</a> 예습
+  <a href="http://python.xwmooc.net/">정보교육을 위한 파이썬</a> 예습 
 </p>
 
 <!--
@@ -116,29 +86,39 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
 <!--
     Edit this block to show the schedule for your workshop.
 -->
-<h2>Schedule</h2>
+<h2>교육 스케쥴</h2>
 
 <div class="row-fluid">
   <div class="span6">
-    <h3>Day 1</h3>
+  <div class="span6">
+    <h3>1 일차</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Automating tasks with the Unix shell</td> </tr>
-      <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>12:00</td> <td>Lunch break</td> </tr>
-      <tr> <td>13:00</td> <td>Building programs with Python</td> </tr>
-      <tr> <td><em>14:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>16:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>09:00</td> <td>컴퓨터 과학 언플러그드, 컴퓨터적 사고</td> </tr>
+      <tr> <td><em>10:30</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>12:00</td> <td>점심 시간</td> </tr>
+      <tr> <td>13:00</td> <td>클라우드 VM, 웹 어플리케이션</td> </tr>
+      <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
+    </table>
+    <h3>2 일차</h3>
+    <table class="table table-striped">
+      <tr> <td>09:00</td> <td>작업 자동화 (유닉스 쉘)</td> </tr>
+      <tr> <td><em>10:20</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>12:00</td> <td>점심 시간</td> </tr>
+      <tr> <td>13:00</td> <td>파이썬 프로그래밍</td> </tr>
+      <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
     </table>
   </div>
   <div class="span6">
-    <h3>Day 2</h3>
+    <h3>3 일차</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Version control with Git</td> </tr>
-      <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>12:00</td> <td>Lunch break</td> </tr>
-      <tr> <td>13:00</td> <td>Managing data with SQL</td> </tr>
-      <tr> <td><em>14:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>16:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>09:00</td> <td>버젼관리(Git)</td> </tr>
+      <tr> <td><em>10:30</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>12:00</td> <td>점심 시간</td> </tr>
+      <tr> <td>13:00</td> <td>데이터 관리(SQL)</td> </tr>
+      <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
+      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
     </table>
   </div>
 </div>
@@ -152,70 +132,63 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
 
 <div class="row-fluid">
   <div class="span6">
-    <h3>The Unix Shell</h3>
+    <h3>유닉스 쉘</h3>
     <ul>
-      <li>Files and directories: <code>pwd</code>, <code>cd</code>, <code>ls</code>, <code>mkdir</code>, ...</li>
-      <li>History and tab completion</li>
-      <li>Pipes and redirection</li>
-      <li>Looping over files</li>
-      <li>Creating and running shell scripts</li>
-      <li>Finding things: <code>grep</code>, <code>find</code>, ...</li>
-      <li><a href="novice/ref/01-shell.html">Reference...</a></li>
+    <li>쉘(shell) 소개</li>
+    <li>파일과 디렉토리</li>
+    <li>파일과 디렉토리 생성</li>
+    <li>파이프(pipe)와 필터(filter)</li>
+    <li>루프(Loops)</li>
+    <li>쉘 스크립트(shell script)</li>
+    <li>파일, 문자, 디렉토리  등 찾기</li>
     </ul>
   </div>
   <div class="span6">
-    <h3>Programming in Python</h3>
+    <h3>파이썬 프로그래밍</h3>
     <ul>
-      <li>Using libraries</li>
-      <li>Working with arrays</li>
-      <li>Reading and plotting data</li>
-      <li>Creating and using functions</li>
-      <li>Loops and conditionals: <code>for</code>, <code>if</code>, <code>else</code>, ...</li>
-      <li>Defensive programming</li>
-      <li>Using Python from the command line</li>
-      <li><a href="novice/ref/03-python.html">Reference...</a></li>
+    <li>환자 데이터(Patient Data) 분석</li>
+    <li>함수 생성</li>
+    <li>다수의 데이터셋 분석</li>
+    <li>조건 선택</li>
+    <li>방어적 프로그래밍(Defensive Programming)</li>
+    <li>명령-라인(Command-Line) 프로그램</li>
     </ul>
   </div>
   <div class="span6">
-    <h3>Programming in R</h3>
+    <h3>R 프로그래밍</h3>
     <ul>
-      <li>Working with vectors and data frames</li>
-      <li>Reading and plotting data</li>
-      <li>Creating and using functions</li>
-      <li>Loops and conditionals: <code>for</code>, <code>if</code>, <code>else</code></li>
-      <li>Using R from the command line</li>
-      <li><a href="novice/ref/06-R.html">Reference...</a></li>
+    <li>환자 데이터(Patient Data) 분석</li>
+    <li>함수 생성</li>
+    <li>다수의 데이터셋 분석</li>
+    <li>조건 선택</li>
+    <li>명령-라인(Command-Line) 프로그램</li>
     </ul>
   </div>
 </div>
 
 <div class="row-fluid">
   <div class="span6">
-    <h3>Version Control with Git</h3>
+    <h3>버젼 관리(Git)</h3>
     <ul>
-      <li>Creating a repository</li>
-      <li>Recording changes to files: <code>add</code>, <code>commit</code>, ...</li>
-      <li>Viewing changes: <code>status</code>, <code>diff</code>, ...</li>
-      <li>Ignoring files</li>
-      <li>Working on the web: <code>clone</code>, <code>pull</code>, <code>push</code>, ...</li>
-      <li>Resolving conflicts</li>
-      <li>Open licenses</li>
-      <li>Where to host work, and why</li>
-      <li><a href="novice/ref/02-git.html">Reference...</a></li>
+    <li>버젼 관리 소개</li>
+    <li>더 훌륭한 백업 방법</li>
+    <li>협업(Collaboration)</li>
+    <li>충돌(Conflicts)</li>
+    <li>공개 과학(Open Science)</li>
     </ul>
   </div>
   <div class="span6">
-    <h3>Managing Data with SQL</h3>
+    <h3>데이터 관리(SQL)</h3>
     <ul>
-      <li>Reading and sorting data</li>
-      <li>Filtering with <code>where</code></li>
-      <li>Calculating new values on the fly</li>
-      <li>Handling missing values</li>
-      <li>Combining values using aggregation</li>
-      <li>Combining information from multiple tables using <code>join</code></li>
-      <li>Creating, modifying, and deleting data</li>
-      <li>Programming with databases</li>
-      <li><a href="novice/ref/04-sql.html">Reference...</a></li>
+    <li>데이터 선택하기</li>
+    <li>정렬과 중복 제거하기</li>
+    <li>필터링(filtering)</li>
+    <li>새로운 값 계산하기</li>
+    <li>결측 데이터 (Missing Data)</li>
+    <li>집합 (Aggregation)</li>
+    <li>데이터 조합하기 (Combining Data)</li>
+    <li>데이터 생성과 변형</li>
+    <li>데이터베이스로 프로그래밍</li>
     </ul>
   </div>
 </div>
@@ -227,14 +200,10 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
     (In particular, most workshops teach either Python or R, not both.)
 -->
 
-<h2>Setup</h2>
+<h2>프로그램 설치</h2>
 
 <p>
-  To participate in a Software Carpentry workshop, 
-  you will need working copies of the software described below.
-  Please make sure to install everything
-  (or at least to download the installers)
-  <em>before</em> the start of your workshop.
+  개인 노트북을 지참할 경우 소프트웨어 실습을 위해서 사전에 필요한 소프트웨어를 설치하여 본다.
 </p>
 
 {% include setup.html %}
