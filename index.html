@@ -49,10 +49,10 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', 'Python', 'SQL', 'Git', 'Bash
 <p>
   <strong>Where:</strong>
   {{ page.address }}.
-  Get directions with
+  찾아오시는 길
   <a href="//www.openstreetmap.org/?mlat={{ page.latlng | replace:',','&mlon=' }}&zoom=16">OpenStreetMap</a>
-  or
-  <a href="//maps.google.com/maps?q={{ page.latlng }}">Google Maps</a>.
+  혹은,
+  <a href="//maps.google.com/maps?q={{ page.latlng }}">구글 지도</a>.
 </p>
 {% endif %}
 
@@ -71,14 +71,13 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', 'Python', 'SQL', 'Git', 'Bash
     If one hasn't, this block inserts the generic contact address for Software Carpentry.
 -->
 <p>
-  <strong>Contact</strong>:
-  Please mail
+  <strong>연락처</strong>:
+  궁금한 점 문의 전자우편으로 연락주세요.
   {% if page.contact %}
     <a href='mailto:{{page.contact}}'>{{page.contact}}</a>
   {% else %}
     <a href='mailto:{{site.contact}}'>{{site.contact}}</a>
   {% endif %}
-  for more information.
 </p>
 
 <hr/>
@@ -109,8 +108,6 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', 'Python', 'SQL', 'Git', 'Bash
       <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
       <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
     </table>
-  </div>
-  <div class="span6">
     <h3>3 일차</h3>
     <table class="table table-striped">
       <tr> <td>09:00</td> <td>버젼관리(Git)</td> </tr>
@@ -128,7 +125,7 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', 'Python', 'SQL', 'Git', 'Bash
 <!--
     Edit this block to show what topics will be covered.
 -->
-<h2>Syllabus</h2>
+<h2>교육 과정</h2>
 
 <div class="row-fluid">
   <div class="span6">
