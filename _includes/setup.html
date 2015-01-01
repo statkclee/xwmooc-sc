@@ -1,360 +1,328 @@
-<h3>Overview</h3>
+<h3>개요</h3>
 
 <div class="row-fluid">
   <div class="span6">
-    <h4>Editor</h4>
+    <h4>편집기 (Editor)</h4>
     <p>
-      When you're writing code, it's nice to have a text
-      editor that is optimized for writing code, with features
-      like automatic color-coding of key words.
-      The default text editor on Mac OS X and Linux is usually set to Vim,
-      which is not famous for being intuitive.
-      if you accidentally find yourself stuck in it,
-      try typing the escape key,
-      followed by ':q!' (colon, lower-case 'q', exclamation mark),
-      then hitting Return
-      to return to the shell.
+      프로그램 코드를 작성할 때, 코드 작성에 최적화된 나만의 편집기를 가는 것이 좋다.
+      일반적으로 코딩에 최적화된 편집기는 작성하는 프로그래밍 언어에 맞춰 
+      키워드를 자동으로 색상을 달리하는 기능같은 것을 갖췄다.
+      맥 OS X나 리눅스 운영체제에는 전혀 직관적이지 않은 것으로 유명한 Vim이 기본 텍스트 편집기로 설정되어 있다.
+      만약 Vim 안에서 뭔가 잘못되어 꼼짝하지 못하게 된다면, 
+      당황하지 말고 'ESC 키'를 누르고 ':q!' (콜론, 소문자 'q', 느낌표)를 타이핑하고 Enter 혹은 Return 키를 치게 되면
+      쉘로 다시 돌아오게 된다.
     </p>
 {% if page.lessons contains 'Bash' %}
-    <h4>The Bash Shell</h4>
+    <h4>Bash 쉘 (Bash Shell) </h4>
     <p>
-      Bash is a commonly-used shell. Using a shell gives you
-      more power to do more tasks more quickly with your
-      computer.
+      Bash는 가장 일반적으로 사용되는 쉘 중의 하나다.
+      쉘을 사용하면 컴퓨터로 더 많은 작업을 더 빠르게 할 수 있는 동력을 제공받을 수 있다.
     </p>
 {% endif %}
 {% if page.lessons contains 'Git' %}
-    <h4>Git</h4>
+    <h4>깃 (Git)</h4>
     <p>
-      Git is a state-of-the-art version control system. It
-      lets you track who made changes to what when and has
-      options for easily updating a shared or public version of
-      your code on <a href="https://github.com/">github.com</a>.
+      Git은 현존하는 최강의 버젼 제어 시스템(version control system)이다.
+      Git을 사용해서 누가(who) 무엇(what)에 언제(when) 변경을 했는지 추적할 수 있다.
+      또한 <a href="https://github.com/">github.com</a>에 공유 혹은 공개 버젼의 코드를 쉽게 갱신할 수도 있다.
     </p>
 {% endif %}
   </div>
   <div class="span6">
 {% if page.lessons contains 'Python' %}
-    <h4>Python</h4>
+    <h4>파이썬 (Python)</h4>
     <p>
-      Python is becoming very popular in scientific computing,
-      and it's a great language for teaching general programming concepts due to its easy-to-read syntax.
-      We teach with Python version 2.7,
-      since it is still the most widely used.
-      Installing all the scientific packages for Python individually can be a bit difficult,
-      so we recommend an all-in-one installer.
+      파이썬은 과학 컴퓨팅에서 점점 대중화되어 가고 있다. 
+      그리고 읽기 쉬운 구문 때문에 일반적인 프로그래밍 개념을 가르치는데 매우 훌륭한 언어다.
+      파이썬 버젼 2.7로 워크샵에 사용하는데 여전히 가장 대중적으로 사용되고 있기 때문이다.
+      파이썬용 과학 패키지를 개별적으로 설치하는 것은 조금 어렵기 때문에, 한번에 설치(all-in-on installer)를 권장한다.
     </p>
 {% endif %}
 {% if page.lessons contains 'R' %}
     <h4>R</h4>
     <p>
-      <a href="http://www.r-project.org">R</a> is a programming language that is especially powerful for
-      data exploration, visualization, and statistical analysis. To interact with R, we will
-      use <a href="http://www.rstudio.com/">RStudio</a>, an interactive
-      development environment (IDE).
+      <a href="http://www.r-project.org">R</a>은 데이터 탐색, 시각화, 통계 분석에 특기가 있는 강력한 프로그래밍 언어다. R과 소통하기 위해서 <a href="http://www.rstudio.com/">RStudio</a>를 개발환경(interactive
+      development environment, IDE)으로 사용한다.
     </p>
 {% endif %}
 {% if page.lessons contains 'SQL' %}
     <h4>SQL</h4>
     <p>
-      SQL is a specialized programming language used with databases.
-      We use a simple database manager called <a href="http://www.sqlite.org/">SQLite</a>,
-      either directly or through a browser plugin.
+      SQL은 데이터베이스에 사용하는 되는 특별한 프로그래밍 언어다.
+      <a href="http://www.sqlite.org/">SQLite</a>로 불리는 간단한 데이터베이스 관리자를 웹 브라우져 플러그인 통하거나 직접 사용한다.
     </p>
 {% endif %}
   </div>
 </div>
 
-<h3>Windows</h3>
+<h3>윈도우 (Windows)</h3>
 
 <div class="row-fluid">
   <div class="span6">
 {% if page.lessons contains 'Python' %}
-    <h4>Python</h4>
+    <h4>파이썬 (Python)</h4>
     <ul>
       <li>
-        Download and install  <a href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>.
+        <a href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>를 다운로드해서 설치한다.
       </li>
       <li>
-        Use all of the defaults for installation
-        <em>except</em>
-        make sure to check <strong>Make Anaconda the default Python</strong>.
+        설치할 때 <em>한가지만 빼고</em>, 모두 기본 설정으로 된 것을 사용한다. 
+        한가지 필수 선택 사항은 <strong>Make Anaconda the default Python</strong>를 체크하고 선택한다.        
       </li>
     </ul>
 {% endif %}
 {% if page.lessons contains 'Git' %}
     <h4>Git Bash</h4>
     <p>
-      Install Git for Windows by download and running
-      <a href="http://msysgit.github.io/">the installer</a>.
-      This will provide you with both Git and Bash in the Git Bash program.
+      <a href="http://msysgit.github.io/">the installer</a>을 다운로드 받아 실행해서 
+      Git for Windows를 설치한다.
+      Git과 Bash를 모두 사용할 수 있게 한다.
     </p>
-    <h4>Software Carpentry Installer</h4>
-    <p>This installer requires an active internet connection</p>
-    <p>After installing Python and Git Bash:</p>
+    <h4>소프트웨어 카펜트리 인스톨러 (Software Carpentry Installer)</h4>
+    <p>소프트웨어 카펜트리 인스톨러를 설치하기 위해서는 인터넷에 연결되어 있어야 한다.</p>
+    <p>파이썬과 Git Bash를 설치한 다음에 </p>
     <ul>
       <li>
-        Download the <a href="{{site.windows_installer_path}}">installer</a>.
+        <a href="{{site.windows_installer_path}}">installer</a>를 다운로드한다.
+      </li>
+      <li> 로컬 컴퓨터에 다운로드 받으려면 마우스 우클릭하여 <strong>다른이름으로 저장</strong>한다.
       </li>
       <li>
-        If the file opens directly in the browser select <strong>File&rarr;Save Page As</strong>
-        to download it to your computer.
-      </li>
-      <li>
-        Double click on the file to run it.
+        다운로드 받은 파일을 더블 클릭하여 실행한다.
       </li>
     </ul>
 {% endif %}
   </div>
   <div class="span6">
-    <h4>Editor</h4>
+    <h4>편집기 (Editor)</h4>
     <p>
-      <code>nano</code> is the editor installed by the Software Carpentry Installer,
-      it is a basic editor integrated into the lesson material.
+      <code>nano</code>는 소프트웨어 카펜트리 인스톨러가 설치한 편집기다.
+      워크샵 수업에 활용되는 기본 편집기다.       
     </p>
     <p>
-      <a href="http://notepad-plus-plus.org/">Notepad++</a> is a
-      popular free code editor for Windows.
-      Be aware that you must add its installation directory to your system path
-      in order to launch it from the command line
-      (or have other tools like Git launch it for you).
-      Please ask your instructor to help you do this.
+      <a href="http://notepad-plus-plus.org/">Notepad++</a>는 윈도우 시스템에서 
+      가장 대중적으로 사용되는 무료 프로그램 코드 편집기중의 하나다.
+      명령 라인 인터페이스(CLI, Command line Interface) Notepadd++를 싱행하기 위해서 
+      시스템 경로에 설치 디렉토리가 추가되어 있어야 한다. 도움이 필요하면 강사에게 문의한다.
     </p>
 {% if page.lessons contains 'R' %}
     <h4>R</h4>
     <p>
-      Install R by downloading and running
-      <a href="http://cran.r-project.org/bin/windows/base/release.htm">this .exe file</a>
-      from <a href="http://cran.r-project.org/index.html">CRAN</a>.
-      Also, please install the
-      <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+      <a href="http://cran.r-project.org/index.html">CRAN</a>에서 
+      <a href="http://cran.r-project.org/bin/windows/base/release.htm"> .exe 파일</a>을 다운로드 받아 실행한다.
+      또한, <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>도 설치한다.
     </p>
+
 {% endif %}
 {% if page.lessons contains 'SQL' %}
     <h4>SQLite</h4>
     <p>
-      Download the <a href="http://files.software-carpentry.org/sqlite3.exe">sqlite3 program</a>
-      and put it in the directory where you are running examples.
-      Alternatively,
-      you may install the Firefox SQLite browser plugin described <a href="#firefox-sqlite">below</a>.
+      <a href="http://files.software-carpentry.org/sqlite3.exe">sqlite3 프로그램</a>을 다운로드받아 
+      예제를 실행하는 디렉토리에 함께 놓는다. 
+      혹은, <a href="#firefox-sqlite">아래</a>에 파이어폭스 SQLite 브라우져 플러그인을 설치한다.
     </p>
 {% endif %}
   </div>
 </div>
 
-<h3>Mac OS X</h3>
+<h3>맥 OS X</h3>
 
 <div class="row-fluid">
   <div class="span6">
 {% if page.lessons contains 'Bash' %}
     <h4>Bash</h4>
     <p>
-      The default shell in all versions of Mac OS X is bash,
-      so no need to install anything.  You access bash from
-      the Terminal (found
-      in <code>/Applications/Utilities</code>).  You may want
-      to keep Terminal in your dock for this workshop.
+      모든 맥 OS에서 기본 쉘은 bash라서 별도로 설치할 필요가 없다.
+      터미널(<code>/Applications/Utilities</code>)에서 bash를 사용할 수 있다.
+      워크샵에서 터미널을 바로가기로 고정한다.
     </p>
 {% endif %}
-    <h4>Editor</h4>
+    <h4>편집기 (Editor)</h4>
     <p>
-      We recommend
-      <a href="http://www.barebones.com/products/textwrangler/">Text Wrangler</a> or
-      <a href="http://www.sublimetext.com/">Sublime Text</a>.
-      In a pinch, you can use <code>nano</code>,
-      which should be pre-installed.
+      <a href="http://www.barebones.com/products/textwrangler/">Text Wrangler</a> 나 
+      <a href="http://www.sublimetext.com/">Sublime Text</a>를 추천한다.
+      만약의 경우에, 설치해야 하지만 <code>nano</code>를 사용할 수도 있다.      
     </p>
 {% if page.lessons contains 'Git' %}
-    <h4>Git</h4>
+    <h4>깃 (Git)</h4>
     <p>
 
-      <strong>For OS X 10.8 and higher</strong>, install Git for Mac by downloading and running
-	  <a href="http://git-scm.com/downloads">the installer</a>.
-      <strong>For older versions of OS X (10.5-10.7)</strong> use the most recent available
-      installer for your OS <a href="https://code.google.com/p/git-osx-installer/downloads/list">available
-      here</a>. Use the Leopard installer for 10.5 and the Snow Leopard
-      installer for 10.6-10.7.
+      <strong>OS X 10.8 이상 </strong> 버젼에서는 'Git for Mac' <a href="http://git-scm.com/downloads">인스톨러</a>를 다운로드 받아 실행한다.
+      <strong>OS X (10.5-10.7) 이전 </strong> 버젼에서는 <a href="https://code.google.com/p/git-osx-installer/downloads/list"> 여기</a>에서 OS 버젼에 맞는 가장 최신 인스톨러를 사용한다.
+      10.5 버젼에서는 Leopard 인스톨러, 10.6-10.7 버젼에서는 Snow Leopard 인스톨러를 사용한다.
     </p>
 {% endif %}
   </div>
   <div class="span6">
 {% if page.lessons contains 'Python' %}
-    <h4>Python</h4>
+    <h4>파이썬 (Python)</h4>
     <ul>
-      <li>
-        Download and install  <a href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>.
+     <li>
+          <a href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>를 다운로드해서 설치한다.
       </li>
       <li>
-        Use all of the defaults for installation
-        <em>except</em>
-        make sure to check <strong>Make Anaconda the default Python</strong>.
+        설치할 때 <em>한가지만 빼고</em>, 모두 기본 설정으로 된 것을 사용한다. 
+        한가지 필수 선택 사항은 <strong>Make Anaconda the default Python</strong>를 체크하고 선택한다.        
+      </li>
+      <li>
+        <strong>Troubleshooting:</strong> 만약 다음 오류 메시지와 조우한다면,
+          "<code>ValueError unknown locale: UTF-8</code>", 
+          어떻게 문제를 해결하는지 <a href="http://conda.pydata.org/docs/troubleshooting.html#issue-valueerror-unknown-locale-utf-8-on-mac-os-x">다음</a>을 눌러 지침에 따라 처리한다.
       </li>
     </ul>
 {% endif %}
 {% if page.lessons contains 'R' %}
     <h4>R</h4>
     <p>
-      Install R by downloading and running
-      <a href="http://cran.r-project.org/bin/macosx/R-latest.pkg">this .pkg file</a>
-      from <a href="http://cran.r-project.org/index.html">CRAN</a>.
-      Also, please install the
-      <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+      <a href="http://cran.r-project.org/index.html">CRAN</a> 사이트에서 
+      <a href="http://cran.r-project.org/bin/macosx/R-latest.pkg"> .pkg 파일</a>을
+      다운로드 받아 실행한다.
+      또한, <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>도 설치한다.
     </p>
 {% endif %}
 {% if page.lessons contains 'SQL' %}
     <h4>SQLite</h4>
     <p>
-      <code>sqlite3</code> comes pre-installed on Mac OS X.
-      Alternatively,
-      you may install the Firefox SQLite browser plugin described <a href="#firefox-sqlite">below</a>.
+      <code>sqlite3</code>는 맥 OS X에 기본으로 설치되어 추가 설치가 불필요하다.
+      혹은, <a href="#firefox-sqlite">아래</a>에 파이어폭스 SQLite 브라우져 플러그인을 설치한다.
     </p>
 {% endif %}
   </div>
 </div>
 
-<h3>Linux</h3>
+<h3>리눅스 (Linux)</h3>
 
 <div class="row-fluid">
   <div class="span6">
 {% if page.lessons contains 'Bash' %}
     <h4>Bash</h4>
     <p>
-      The default shell is usually <code>bash</code>,
-      but if your machine is set up differently
-      you can run it by opening a terminal and typing <code>bash</code>.
-      There is no need to install anything.
+      기본 쉘이 <code>bash</code>다. 
+      하지만 만약 컴퓨터 설정이 다르게 되어 있다면, 
+      터미널을 열어 <code>bash</code>를 타이핑한다. 
+      별도의 추가 설치가 불필요하다.
     </p>
 {% endif %}
 {% if page.lessons contains 'Git' %}
-    <h4>Git</h4>
+    <h4>깃 (Git)</h4>
     <p>
-      If Git is not already available on your machine you can try
-      to install it via your distro's package manager
-      (e.g. <code>apt-get</code> or <code>yum</code>).
+      만약 Git이 컴퓨터에서 사용할 수 없다면,
+      예를 들어, <code>apt-get</code> 혹은 <code>yum</code>) 같은
+      리눅스 배포판의 패키지 관리자를 통해서 설치한다.
     </p>
 {% endif %}
-    <h4>Editor</h4>
+    <h4>편집기 (Editor)</h4>
     <p>
-      <a href="http://kate-editor.org/">Kate</a> is one option for Linux users.
-      In a pinch, you can use <code>nano</code>,
-      which should be pre-installed.
+      <a href="http://kate-editor.org/">Kate</a>가 리눅스 사용자를 위한 한가지 선택지가 된다.
+      만약의 경우에, 설치해야 하지만 <code>nano</code>를 사용할 수도 있다.            
     </p>
 {% if page.lessons contains 'R' %}
     <h4>R</h4>
     <p>
-      You can download the binary files for your distribution
-      from <a href="http://cran.r-project.org/index.html">CRAN</a>. Or
-      you can use your package manager, e.g. for Debian/Ubuntu
-      run <code>apt-get install r-base</code> or <code>yum install R</code>.
-      Also, please install the
-      <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+      <a href="http://cran.r-project.org/index.html">CRAN</a> 사이트에서 바이너리 파일을 다운로드 한다.
+      혹은 데비안/우분투 리눅스 배포판의 패키지 관리자를 통해 <code>apt-get install r-base</code> 혹은 <code>yum install R</code> 명령어로 설치한다.
+      <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>도 설치한다.
     </p>
 {% endif %}
 {% if page.lessons contains 'SQL' %}
     <h4>SQLite</h4>
     <p>
-      <code>sqlite3</code> comes pre-installed on Linux.
-      Alternatively,
-      you may install the Firefox SQLite browser plugin described <a href="#firefox-sqlite">below</a>.
+      <code>sqlite3</code>는 리눅스에 기본으로 설치되어 추가 설치가 불필요하다.
+      혹은, <a href="#firefox-sqlite">아래</a>에 파이어폭스 SQLite 브라우져 플러그인을 설치한다.
     </p>
 {% endif %}
   </div>
   <div class="span6">
 {% if page.lessons contains 'Python' %}
-    <h4>Python</h4>
+    <h4>파이썬 (Python)</h4>
     <p>
-      We recommend the all-in-one scientific Python installer
-      <a href="http://continuum.io/downloads.html">Anaconda</a>.
-      (Installation requires using the shell and if you aren't
-      comfortable doing the installation yourself just
-      download the installer and we'll help you at the boot
-      camp.)
+      모두 설치되어 있는 과학용 파이썬 인스톨러 <a href="http://continuum.io/downloads.html">Anaconda</a>를 추천한다. (설치할 때 쉘을 사용해한다. 만약 혼자서 설치하는 것이 어렵다고 느껴진다면, 인스톨러를 다운로드 받아서 
+      가져오면 워크샵에서 강사가 설치를 도와줄 것이다.)
     </p>
     <ol>
       <li>
-        Download the installer that matches your operating
-        system and save it in your home folder.
+        운영 체제에 맞는 인스톨러를 다운로드하고 home 폴더에 저장한다.
       </li>
       <li>
-        Open a terminal window.
+        터미널 윈도우를 연다.
       </li>
       <li>
-        Type <pre>bash Anaconda-</pre> and then press
-        tab. The name of the file you just downloaded should
-        appear.
+        <pre>bash Anaconda-</pre> 
+        타이핑하고 탭(tab)을 누른다. 방금 전에 다운로드한 전체 파일명이 나타나야 한다.
       </li>
       <li>
-        Press enter. You will follow the text-only
-        prompts. When there is a colon at the bottom of the
-        screen press the down arrow to move down through the
-        text. Type <code>yes</code> and press enter to approve
-        the license. Press enter to approve the default
-        location for the files. Type <code>yes</code> and
-        press enter to prepend Anaconda to
-        your <code>PATH</code> (this makes the Anaconda
-        distribution the default Python).
+        엔터 키를 누른다. 텍스트 프롬프트로 설치한다.
+        화면 하단에 콜론이 있다면, 아래 화살표를 눌러 텍스트를 따라 내려간다.
+        <code>yes</code>를 타이핑하고 엔터를 눌러 라이선스에 동의한다.
+        엔터를 다시 눌러 파일이 설치되는 초기 설치 장소에 동의한다.
+        <code>yes</code>를 타이핑하고 엔터를 눌러 <code>PATH</code> 경로에 Anaconda 를 추가한다.
+        (이렇게 함으로써 Anaconda가 기본 파이썬 IDE가 되었다.)  
       </li>
     </ol>
 {% endif %}
   </div>
 </div>
 
-<h3>Miscellaneous</h3>
+<h3>모든 운영체제 공통 사항</h3>
 
 <div class="row-fluid">
   <div class="span6">
 {% if page.lessons contains 'SQL' %}
-    <h4 id="firefox-sqlite">Firefox SQLite Plugin</h4>
+    <h4 id="firefox-sqlite">파이어폭스 SQLite 플러그인</h4>
     <p>
-      Instead of using <code>sqlite3</code> from the command line,
-      you may use <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">this plugin</a>
-      for Firefox instead.
-      To install it:
+      명령어 라인 인터페이스 (CLI, Command Line Interface)에서 <code>sqlite3</code>를 사용하는 대신에
+      파이어폭스 <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">플러그인</a>을 사용할 수 있다.
+      플러그인 설치는 다음과 같다.
     </p>
     <ul>
       <li>
-	Start Firefox.
+	      파이어폭스 웹 브라우져를 시작한다.
       </li>
       <li>
-	Go to the <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">plugin homepage</a>.
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">플러그인 홈페이지</a>로 이동한다.
       </li>
       <li>
-	Click the "Add Now" button.
+        "Add Now" 버튼을 클릭한다.
       </li>
       <li>
-	Click "Install Now" on the dialog that appears after the download completes.
+        다운로드가 끝난 다음에 나타나는 대화창에 "Install Now"를 클릭한다.
       </li>
       <li>
-	Restart Firefox when prompted.
+        메시지가 표시되면, 파이어폭스를 재시작한다.
       </li>
       <li>
-	Select "SQLite Manager" from the "Tools" menu.
+        플러그인이 올바르게 설치되었는지 점검하기 위해서, "Tools" 메뉴에서 "SQLite Manager"를 선택한다.
       </li>
     </ul>
+
+    <p>
+    새로나온 파이어폭스 버젼에서는 메뉴바(menu bar)가 항상 표시되지는 않는다.
+    메뉴바를 보려면, 키보드에서 스페이스 바 옆에 있는 <code>Alt</code>키를 사용한다. 
+    혹은 추가적인 도움은  
+    <a href="https://support.mozilla.org/en-US/kb/what-happened-to-the-file-edit-and-view-menus"> 지원 페이지</a>
+    를 참조한다.
+    </p>
+
 {% endif %}
   </div>
   <div class="span6">
 {% if page.lessons contains 'VM' %}
-    <h4>Virtual Machine</h4>
+    <h4>가상 컴퓨터 (Virtual Machine)</h4>
     <p>
-      Some instructors prefer to have learners use a virtual machine (VM)
-      rather than install software on their own computers.
-      If your instructors have chosen to do this,
-      please:
+      일부 강사분들은 컴퓨터에 소프트웨어를 설치하기 보다 가상 컴퓨터 (virtual machine, VM)을 학습 참가자가 사용하길 권장한다.
+      만약 강사분이 가상 컴퓨터를 선택해서 워크샵을 진행한다면, 다음 절차로 진행하세요.
     </p>
     <ol>
       <li>
-	Install <a href="https://www.virtualbox.org/">VirtualBox</a>.
+	      <a href="https://www.virtualbox.org/">VirtualBox</a>를 설치한다.
       </li>
       <li>
-	Download our <a href="{{site.vm_url}}">VM image</a>.
-	<strong>Warning:</strong>
-	this file is 1.7 GByte,
-	so please download it <em>before</em> coming to your workshop.
+	      소프트웨어 카펜트리 <a href="{{site.vm_url}}">VM image</a>를 다운로드 한다.
+	      <strong>경고:</strong> 파일 크기가 1.7 GByte로 매우 크다.
+        워크샵에 오기 <em>전에</em> 다운로드 하세요.
       </li>
       <li>
-	Load the VM into VirtualBox by selecting "Import Appliance"
-	and loading the <code>.ova</code> file.
+        "Import Appliance"를 선택하고, <code>.ova</code> 파일을 VirtualBox에 VM을 로딩하세요.
       </li>
     </ol>
 {% endif %}
