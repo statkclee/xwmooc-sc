@@ -18,7 +18,7 @@ title: 클라우드로 가는 길
 1.  [소프트웨어 이해하기](00-software.html)
 2.  [클라우드 소개](01-cloud.html)
 3.  [클라우드 사업 배경](02-cloud-biz.html)
-4.  [클라우드 사업 배경](03-cloud-arch.html)
+4.  [클라우드 개발 아키텍쳐](03-cloud-arch.html)
 5.  [가상 컴퓨터](04-vm.html)
 6.  [웹 응용프로그램](05-lamp.html)
 
