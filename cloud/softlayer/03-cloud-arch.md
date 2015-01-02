@@ -41,7 +41,7 @@ title: 클라우드 개발 아키텍쳐
 
 고객으로부터 요구사항이 글자와 그림으로 표현된 문서로부터 출발하여 시스템 요구사항서, 서브시스템 요구사항서, 컴포넌트 요구사항서로 표현되어 전달이 되고, 각각의 시스템 수준에 맞추어 고객의 요구사항이 제대로 반영되어 제품이나 서비스에 반영되었는지는 승인테스트(Acceptance Test), 시스템 요구사항은 시스템테스트(System Test), 서브시스템 요구사항은 통합테스트(Integration Test), 컴포넌트 요구사항은 컴포넌트 테스트(Component Test)를 통해서 검증작업이 수행되고 이의 결과값은 다시 고객으로 전달되는 과정을 거치게 된다.
 
-<img src="img/01-cloud-04-req-v-model.png" alt="requirement v model" />
+<img src="img/01-cloud-05-req-v-model.png" alt="requirement v model" />
 
 #### 요구사항 검증
 
@@ -53,12 +53,14 @@ title: 클라우드 개발 아키텍쳐
 
 요구사항을 고객요구단계에서 Problem 도메인 고객의 관점에서 소프트웨어 서비스/제품의 원하는 것(What)을 정확히 기술하고, 시스템 요구사항 단계에서는 고객의 요구사항을 시스템에 어떻게(How) 담을 것인지를 분석가 관점에서 기술하고, 아키텍쳐 설계 단계에서 설계자 관점에서 각각의 아키텍쳐 설계가 시스템 요구사항을 어떻게(How) 만족해야 하는지를 작성한다.  
 
-    <table class="table table-striped">
-      <tr> <td>요구사항 단계</td> <td>도메인(Domain)</td> <td>뷰(View)</td> <td>역할</td> </tr>
-      <tr> <td>고객 요구사항</td> <td>Problem 도메인</td> <td>고객 뷰</td> <td>소프트웨어 서비스/제품을 통해서 고객이 원하는 것(How)을 작성</td> </tr>
-      <tr> <td>시스템 요구사항</td> <td>Solution 도메인</td> <td>분석자 뷰</td> <td>고객의 요구사항을 만족하기 위해서 어떻게 소프트웨어 시스템/제품이 작동(How)되어야 하는지 작성</td> </tr>
-      <tr> <td>아키텍쳐 설계</td> <td>Solution 도메인</td> <td>설계자 뷰</td> <td>각각의 아키텍쳐 설계가 시스템 요구사항을 어떻게 만족(How)해야 하는지를 작성</td> </tr>
-    </table>  
+
+<table class="table table-striped">
+   <tr> <td>요구사항 단계</td> <td>도메인(Domain)</td> <td>뷰(View)</td> <td>역할</td> </tr>
+   <tr> <td>고객 요구사항</td> <td>Problem 도메인</td> <td>고객 뷰</td> <td>소프트웨어 서비스/제품을 통해서 고객이 원하는 것(How)을 작성</td> </tr>
+   <tr> <td>시스템 요구사항</td> <td>Solution 도메인</td> <td>분석자 뷰</td> <td>고객의 요구사항을 만족하기 위해서 어떻게 소프트웨어 시스템/제품이 작동(How)되어야 하는지 작성</td> </tr>
+   <tr> <td>아키텍쳐 설계</td> <td>Solution 도메인</td> <td>설계자 뷰</td> <td>각각의 아키텍쳐 설계가 시스템 요구사항을 어떻게 만족(How)해야 하는지를 작성</td> </tr>
+</table>  
+
 
 이와 같이 요구사항을 문제도메인(Problem Domain)과 해결책도메인(Solution Domain)으로 구분하는 것은 상대적으로 다음의 문제점을 보완하는데 도움을 준다.  
 
