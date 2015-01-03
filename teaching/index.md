@@ -1,37 +1,18 @@
 ---
 layout: lesson
 root: ..
-title: Teaching Software Carpentry
+title: 소프트웨어 카펜트리 교육
 ---
-As a species,
-we know a lot about how brains learn,
-how effective various teaching practices are,
-and how society's needs and expectations shape how and how well we learn.
-As individuals,
-though,
-most people who teach at college and university either don't know this knowledge exists,
-or haven't incorporated it into their teaching.
 
-The goal of this short training course is
-to introduce people to the basics of educational psychology and instructional design,
-and show them how to use those ideas to teach programming to free-range adult learners.
-We can only touch a few scattered highlights,
-but we hope that will be enough to convince you that it's worth learning more.
+한 생물종으로서, 두뇌가 어떻게 학습하고, 다양한 교육 방법이 얼마나 효과적이고, 
+사회적인 필요와 기대가 여러분들이 학습하는 것을 어떻게 바꾸는지에 대해서도 많이 알려져 있다. 하지만, 개인적인 자격으로 대학교에서 강의하는 대부분의 사람들은 이러한 지식이 존재하는지도 모르고, 강의에 접목하지도 않는다.  
 
-Throughout,
-it's important to remember what H.L. Mencken wrote almost a century ago:
-"For every complex problem there is an answer that is clear, simple, and wrong."
-People are complicated,
-and no general rule applies to everyone and all the time.
-You should always use your own best judgment
-when applying the ideas discussed below to your learners.
+단기 교육 과정의 목표는 교육 심리학(educational psychology)과 교수설계 기초를 소개하는 것이다. 또한, 자유분방한 성인 학습자에게 프로그래밍을 가르치기 위해서 어떻게 교육심리학과 교수설계 아이디어를 활용할 수 있는지 보여주는데 있다. 단지 몇가지 핵심내용만 간추려 다룰 것이지만 여러분에게 심화학습을 통해서 좀더 많은 내용을 배울 가치가 있다는 확신을 주기에 충분하길 기대한다.  
 
-If you find this course useful,
-please also have a look at [the teaching guide]({{page.root}}/novice/teaching/index.html)
-for Software Carpentry itself.
-And if you discover something you think others would want to know,
-please send it to us:
-we are always grateful for contributions and corrections.
+처음부터 끝까지, H.L. Mencken이 거의 백년전에 저술한 것을 꼭 기억하자.
+"모든 복잡한 문제에는 명확하고, 단순하고, 잘못된 정답이 있다." 사람들은 복잡하다. 그래서 예외없이 모든 사람에게 항상 적용되는 일반적인 규칙은 없다. 다음에 토의되는 아이디어를 학습자에게 적용할 때는 항상 최선으로 자신만의 판단기준을 적용해야만 한다.  
+
+만약 본 교육과정이 유용하다고 생각된다면, 소프트웨어 카펜트리 [교수 지도]({{page.root}}/novice/teaching/index.html)를 살펴보세요. 만약 다른 사람들이 꼭 알면 좋다고 생각되는 무언가를 발견하게 된다면, 저희에게 보내주세요. 항상 여러분들이 보내주신 공헌(contribution)과 교정(correction)에 대해 감사드립니다.  
 
 1. [Introduction](01-intro.html)
 2. [Cognitive Development and Concept Mapping](02-concepts.html)
@@ -43,15 +24,17 @@ we are always grateful for contributions and corrections.
 8. [Next Steps](08-onward.html)
 9. [Readings](09-reading.html)
 
-## Links
+## 링크 (Links)
 
-* differences between novice, competent practitioner, and expert understanding
-* cognitive limits to learning (seven plus or minus two, attention fatigue, sleep deprivation)
-* cognitive load theory and faded examples
-* fixed vs. growth mindset
+* 초보자, 유능한 실무자, 전문가 간에 이해 및 해석의 차이 
+* 학습에 대한 인지적 한계 (7 플러스/마이너스 2, 집중력 저하, 수면 부족)
+* 인지부하이론(cognitive load theory ), 인지 쇠퇴 사례 
+* 고정된 마인드 vs 성장 마인드
 
-Dunning-Kruger Effect:
-http://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect
+더닝 크루거 효과(Dunning-Kruger Effect):  
+[영문](http://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)  
+[국문](http://ko.wikipedia.org/wiki/%EB%8D%94%EB%8B%9D_%ED%81%AC%EB%A3%A8%EA%B1%B0_%ED%9A%A8%EA%B3%BC)
+
 
 Guzdial blog post about teaching computing when people are ready:
 http://computinged.wordpress.com/2012/09/07/teaching-cs-in-schools-with-meaning-contexts-and-problems-come-first/
@@ -93,7 +76,7 @@ Guzdial on Victor
 http://worrydream.com/LearnableProgramming/
 http://computinged.wordpress.com/2012/09/28/learnable-programming-thinking-about-programming-languages-and-systems-in-a-new-way/
 
-## My Posts
+## 그렉 윌스(Greg Wilson) 포스트
 
 Organizing Knowledge: http://teaching.software-carpentry.org/2012/09/03/week-1-organizing-knowledge/
 
