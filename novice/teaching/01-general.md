@@ -1,23 +1,18 @@
 ---
 layout: lesson
 root: ../..
-title: General Advice
+title: 일반적인 조언
 level: novice
 ---
-This is a placeholder for general notes about teaching.
-For up-to-date information about software installation and configuration problems,
-and their solutions,
-see [this wiki page](https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions).
 
-#### Teaching Notes
+강의에 관한 일반적인 사항을 적어두는 곳입니다.
+소프트웨어 설치 및 설정 문제에 대한 최신정보는 [위키 페이지](https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions)를 참조바랍니다.
 
-*   For workshops that extend over more than two days
-    (e.g., four afternoons spread over two weeks),
-    it's a good idea to email the learners at the end of each day with a summary of what was taught
-    (with links to the relevant online notes).
-    This allows absent learners to catch up before the next session,
-    and is also a great opporunity to present the lessons of the day
-    in the context of the entire workshop.
+#### 강의 노트
+
+*   예를 들어, 2주에 걸쳐서 오후에 4번 진행되는 2일 이상 진행되는 
+    워크샵을 진행할 때, 이전에 학습한 요약내용을 포함하여 가능하면 연관된 온라인 링크도 함께 학습자에게 워크샵 마지막에 메일을 보내는 것을 권장한다.
+    다음 워크샵 세션 시작전에 불참한 학습자가 수업을 따라잡게할 수 있으며 전체 워크샵 맥락에서도 워크샵 수업내용을 제시할 수는 장을 마련해 준다.
 
 *   Point learners at [http://software-carpentry.org/v5/](http://software-carpentry.org/v5/),
     which is the permanent home of the current learning materials,
