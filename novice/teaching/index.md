@@ -13,7 +13,7 @@ title: 강사 안내서
 
 <div class="toc" markdown="1">
 
-1.  [일반 조언](01-general.html)
+1.  [일반적인 조언](01-general.html)
 2.  [유닉스 쉘(Unix Shell)](02-shell.html)
 3.  [Git을 사용한 버젼 관리](03-git.html)
 4.  [파이썬 프로그래밍](04-python.html)
