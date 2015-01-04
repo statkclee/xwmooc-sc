@@ -14,150 +14,47 @@ level: novice
     워크샵을 진행할 때, 이전에 학습한 요약내용을 포함하여 가능하면 연관된 온라인 링크도 함께 학습자에게 워크샵 마지막에 메일을 보내는 것을 권장한다.
     다음 워크샵 세션 시작전에 불참한 학습자가 수업을 따라잡게할 수 있으며 전체 워크샵 맥락에서도 워크샵 수업내용을 제시할 수는 장을 마련해 준다.
 
-*   Point learners at [http://software-carpentry.org/v5/](http://software-carpentry.org/v5/),
-    which is the permanent home of the current learning materials,
-    and at [http://software-carpentry.org/v4/](http://software-carpentry.org/v4/),
-    which is where our previous materials live.
-    The former corresponds to what they're being taught;
-    the latter covers more ground in video as well as in slides and prose.
-    They should also be direct to
-    [Software Carpentry's FAQ](http://software-carpentry.org/faq.html).
+*   학습자에게 영어 원문으로 된 현재 강의 자료(버젼 5)가 있는 장소 [http://software-carpentry.org/v5/](http://software-carpentry.org/v5/), 
+    그리고 이전 강의 자료(버젼 4)가 있는 장소 [http://software-carpentry.org/v4/](http://software-carpentry.org/v4/) 안내한다. 전자 강의자료는 현재 교육자료로 사용되는 것이고, 후자 강의자료는 동영상, 슬라이드, 그리고 슬라이드 노트를 포함하고 있다. 소프트웨어 카펜트리 [Software Carpentry's FAQ](http://software-carpentry.org/faq.html) 정보도 공유한다.
 
-*   Explain that the lesson materials can all be freely re-mixed and re-used
-    under the [Creative Commons - Attribution](../../LICENSE.html) (CC-BY) license,
-    provided people cite us as the original source
-    (e.g., provide a link back to our site).
-    However,
-    Software Carpentry's name and logo are trademarked,
-    and cannot be used without our permission.
-    We normally grant this to any class that
-    (a) covers our core topics and
-    (b) has at least one badged instructor on the teaching roster,
-    but are happy to discuss specifics.
+*   교육자료의 원래 출처(예를 들어, 소프트웨어 카펜트리 웹사이트)를 명확히 밝힌다면 교육 자료는 [크리에이티브 커먼즈 - 저작자표시](../../LICENSE.html) (CC-BY) 라이선스에 따라 자유로이 변경하고 재사용할 수 있다. 하지만 소프트웨어 카펜트리 이름과 로고는 등록상표로 허가없이 사용할 수는 없다. 일반적으로 다음 조건을 만족하는 경우에는 이용허가를 한다.
+    (a) 소프트웨어 카펜트리 핵심 교육 주제를 다룬다.   
+    (b) 강사 명단에 최소 1명 이상 소프트웨어 카펜트리 강사가 원칙이지만, 구체적 사항에 관해 협의도 가능하다.
 
-*   Plan for the first 30-60 minutes of the workshop to be spent on installation and setup,
-    because it's going to happen anyway.
-    Running a pre-workshop "help desk" doesn't really affect this:
-    the people who are most likely to have installation problems
-    probably won't show up.
-    (We fantasize occasionally about turning people away if they haven't installed software,
-    or at least downloaded the installers,
-    but in practice it's hard to do.)
+*   워크샵 시작 첫 30-60분은 설치 및 환경설정에 할당하는데 이유는 항상 발생하는 문제이기 때문이다. 사전 워크샵 "업무지원센터(help desk)"를 운영하는 것도 정말 영향을 주지 않습니다. 소프트웨어 설치에 가장 많은 애로를 가질 것 같은 신청가는 아마도 워크샵에 나타나지 않을 것이다. (소프트웨어를 설치하지 않고, 최소 인스톨러도 다운로드하지 않고 나타나는 워크샵 신청자를 되돌려 보내는 공상을 하지만, 실무에서 그렇게 하기는 어렵다.)
 
-*   Emphasise that good software development skills contribute to productive, reproducible, reusable research.
+*   좋은 소프트웨어 개발 기술이 생산적이고, 재사용가능하고, 재현가능한 연구에 도움이 된다는 것을 강조한다.
 
-*   Have learners post a red sticky note
-    on their laptop
-    whenever they have a question or need help.
-    Have them take down their sticky notes at the start of each practical exercise,
-    and then post a green one when they're done
-    (and a red one when they need help).
+*   학습자 질문이나 도움이 필요할 때 빨간색 포스트잇 노트를 노트북이나 모니터에 붙이게 한다. 매번 실습을 시작하기 전에는 포스트잇 노트를 떼어서 내려 놓게 한다. 실습이 완료되면 녹색 포스트잇을 붙이게 하고 도움이 필요하면 빨간색 포스트잇을 붙이게 한다.
 
-*   At lunch and again at the end of the day,
-    ask learners to write one good point (i.e., something they learned or enjoyed)
-    on their green sticky note
-    and one bad point (i.e., something that didn't work, that they didn't understand, or that they already knew)
-    on their red one.
-    It only takes a couple of minutes to sort through these,
-    and it's a quick way to find out how things are actually going.
+*   점심시간과 워크샵 하루의 끝에 학습자에게 한가지 좋은 점(즉, 학습한 것 혹은 즐거웠던 것)을 녹색 포스트잇에 적어서 제출하도록 요청한다.  그리고 나빴던 점(즉, 동작하지 않았던 것, 이해하지 못한 것, 혹은 이미 알고 있는 것)도 빨간색 포스트잇에 적어 제출하도록 요청한다. 
 
-*   At the very end of the workshop,
-    ask learners to alternately give one good point or one bad one
-    about the entire workshop. 
-    Write these down on the whiteboard as they come in,
-    and do not allow repeats
-    (i.e., every point has to be new).
-    The first few negative points will usually be pretty innocuous;
-    after those have been exhausted,
-    you will start to get the real feedback.
+*   참가자가 작성한 것을 살펴보는데 몇분정도 걸리지만, 실제 워크샵이 전반적으로 어떻게 돌아가고 있는지 파악하는 빠른 방법이다.
 
-*   As a variation on the red/green sticky notes,
-    make little name tents out of red and green paper,
-    held together with name tag labels.
-    The learners write their names on the name tags,
-    and prop the tents either green side up or red side up
-    depending on the feedback they want to give about the lesson being too fast or too slow.
+*   워크샵 마지막에는 전체 워크샵을 통해서 한가지 좋은 점과 한가지 나쁜 점을 제시하도록 요청한다. 순서대로 앞으로 나와서 칠판(화이트 보드)에 적는다.하지만 반복은 허용되지 않습니다. (즉, 항목은 모두 새로운 것이어야 한다.) 대체로 처음 몇개의 부정적인 항목은 무해하다. 즉, 부정적인 항목이 모두 소진된 후에 실질적인 피드백을 받기 시작한다.
 
-*   Back up the material with your own anecdotes, experiences and evidence&mdash;it
-    makes you more credible,
-    helps learners understand how to apply what you're teaching to their own problems,
-    and prevents the lectures from becoming too dry.
+*   빨간/녹색 포스트잇 변형으로 이름을 적을 수 있는 태그 라벨과 함께 작은 빨간색/녹색 작은 종이텐트를 만든다. 학습자가 이름 태그 라벨에 자신의 이름을 적고, 강의 속도가 너무 빠르거나 너무 늦으면 빨간색/녹색 종이 텐트를 통해서 피드백을 준다.
 
-*   Keep a running list of the commands encountered so far in the lesson
-    in the Etherpad
-    or on a whiteboard adjacent to the projection screen.
-    Encourage learners (particularly ones who already know the material and might otherwise get bored)
-    to take notes in the Etherpad as well.
-    This reduces the effort per learner,
-    gives you a chance to see what they think you're saying,
-    and provides a record after the workshop of what was actually taught.
+*   강의자 일화, 경험, 증거자료를 강의자료로 뒷받침하라. 학습자에게 신뢰를 주고, 학습자로 하여금 자신이 가지고 있는 문제에 어떻게 적용할 수 있는지 이해를 돕는다. 마지막으로 수업이 너무 무미건조하게 진행되는 것을 방지하는 효과도 있다.
 
-*   When the co-instructor isn't teaching,
-    she can answer questions on the Etherpad
-    and update it with the key points made by the instructor
-    (along with commands
-    and any related points the instructor may not have mentioned).
-    It's less disruptive to the "live" instructor than interjecting with these points,
-    but allows the attendees to get the shared expertise from both instructors.
+*   Etherpad나 빔프로젝트 화면 옆에 화이트보드에 지금까지 학습한 명령어 목록을 적어둔다. 학습자(특히 강의 자료를 이미 잘 알고 있어서 자칫 지루해할 수 있는 참가자 대상)에게 Etherpad를 통해서 노트하도록 독려한다. 이렇게 하는 것은 한명의 학습자에 드는 수고를 줄여 주고, 강의자가 전달하는 것을 학습자가 어떻게 생각하고 있는지 볼 수 있는 기회도 마련해 준다. 그리고, 워크샵을 마친 다음에 실제로 강의한 것에 대한 기록도 된다. 
 
-*   For workshops that extend over more than two days (e.g. four afternoons spread over two weeks),
-    it's a good idea to email the learners at the end of each day with a summary of what was taught
-    (with links to the relevant online notes).
-    Not only does this allow absent learners to catch up before the next session,
-    it's also a great opporunity to present the lessons of the day in the context of the entire workshop.
+*   공동 강사가 강의하지 않을 때, 공동 강사는 Etherpad에 올라온 질문에 답을 하고 강사가 넘어간 핵심사항(핵심사항 뿐 아니라, 강사가 언급하지 않은 명령어나 연관된 요점)을 Etherpad를 통해서 전달한다.  공동 강사가 요점을 중간에 말참견하는 것보다 "강의중인(live)" 강사를 덜 방해하게 되지만, 학습 참여자에게는 두명의 강사로부터 공유 전문지식을 얻게 도와준다.
 
-*   The long-form notes are intended as a script for instructors
-    and as self-study material for learners.
-    Do *not* show these notebooks to learners:
-    instead,
-    start with a blank notebook when teaching and add code as you go.
-    This helps prevent you from racing ahead of learners
-    and makes it easier for you to improvise in response to their questions.
+*   장문의 노트는 강사를 위한 스크립트나 학습자가 자기주도 학습을 위해서 준비된 것이다. 노트를 학습자에게 보여주지 *마세요*. 대신에 강의를 시작할 때 빈 노트에서 시작하고 수업을 진행하면서 코드를 추가하라. 이렇게 진행하는 방식이 마치 학습자와 앞서나가는 경주하는 것을 막고, 질문에 대한 응답으로 즉흥적으로 수업을 진행하게 돕는다.
 
-*   Point learners at the online versions of the long-form notes
-    (either on your workshop's home page
-    or at [http://software-carpentry.org/v5/](http://software-carpentry.org/v5/)
-    *after* the lesson is done:
-    if you do it before the lesson,
-    they'll try to read the notes while you're trying to talk.
+*   학습을 *완료*한 다음에 온라인 학습 자료(워크샵 홈페이지 혹은 [http://software-carpentry.org/v5/](http://software-carpentry.org/v5/))를 알려줘라. 만약 사전에 학습자료 위치를 알려준다면, 강의하는 동안에 참여자들이 온라인 학습자료를 읽어 수업참여도가 떨어질 수 있다.
 
-*   If you're really keen,
-    keep the SVG's of the diagrams handy in the directory where you're doing your teaching
-    so that you can include them in your notebooks by adding an `<img src="...">` element to a Markdown cell
-    (or just display them in your browser).
-    Most people don't ever actually do this though,
-    either because they forget to
-    or because they have a whiteboard or flipchart handy.
+*   정말 강사분이 열정적이라면, 강의하고 있는 디렉토리에 있는 SVG 다이어그램을 가까이 배치하여 마크다운 문법 `<img src="...">`을 사용하여 노트북에 삽입하거나 웹브라우져에서 볼 수 있게 한다. 하지만, 대부분의 강사는 실제로 이렇게 하지는 않는다. 왜냐하면 그런 방식을 잊어버렸거나 화이트보드나 플립차트가 손쉽기 때문이다.
 
-*   There are (at least) three ways to get data files to learners at the start of a lesson:
-    1.  Create a zip file, add it to your workshop's repository, and put a link to it in your workshop's `index.html` page
-        so that they can click, download, and unzip.
-        This uses something everyone already understands,
-        but does assume they know how to navigate from their download directory to their working (lesson) directory,
-        which is often not the case.
-    2.  Create a throwaway Git repository on GitHub and tell them to run one command to clone it at the start of class.
-        This (usually) works even if they've never used Git,
-        and as a bonus,
-        lets you identify people who (are going to) have Git problems early.
-    3.  Paste the data into an Etherpad for learners to copy.
-        As a bonus,
-        this lets you identify people who (are going to) have trouble using a text editor early.
+*   학습 전에 강의에 사용되는 데이터 파일을 학습자에게 전달하는 세가지 방법이 있다.
+    1. zip 파일을 만들어서 워크샵 저장소에 추가하고, 워크샵 `index.html` 파일에 링크를 걸어둔다. 학습자가 링크를 클릭하여 다운로드하고 압축을 푼다. 거의 모든 학습자가 이해하는 방식이지만, 다운로드한 디렉토리에서 학습 디렉토리로 학습자가 어떻게 돌아다니는지 정확하게 이해하고 있다는 가정이 바탕을 이룬다. 종종 이러한 가정이 틀리다는 것은 어렵지 않게 찾을 수 있다.
+    2. GitHub에 한번 쓰고 버릴 Git 저장소를 생성하고, 수업을 시작할 때 저장소를 클론(clone)하는 명령어를 알려준다. 학습자가 Git를 사용한 적이 없더라도 대체로 잘 따라온다. 그리고 보너스로 초기에 어떤 학습자가 Git에 문제가 있는지 식별할 수 있게 한다.
+    3. CV신공을 이용하여 Etherpad에 데이터를 복사하여 붙여넣게 한다. 그리고 보너스로 텍스트 편집기를 사용하는데 문제가 있거나 잠재된 학습자를 식별할 수 있게 한다.
 
-*   If you are using multiple windows 
-    (e.g., a command window and an editor window)
-    make sure they are both large enough to be visible by all attendees.
-    Remember to pause when switching from one window to the other
-    so that learners don't become confused.
-    If possible,
-    use different background colors for different text windows
-    to make it easier for learners to tell them apart
-    (but keep in mind red-green and blue-yellow color blindness).
+*   복수개의 윈도우를 사용(예를 들어, 편집기 윈도우와 CLI 명령 윈도우)하고 있다면, 모든 학습자에게 잘 보일만큼 윈도우 크기가 큰지 확인한다. 이쪽 윈도우에서 다른 윈도우로 전환할 때 잠시 시간을 두어 쉬는 것을 기억하라. 학습자에게 혼란을 주지 않도록 한다. 만약 가능하다면 학습자가 두 윈도우를 분별하기 쉽도록 다른 배경색을 사용하라. (하지만, 적록(red-green) 색맹, 황청(blue-yellow) 색맹을 명심한다.)
 
-*   As you type at the command line,
-    read out what you're typing.
-    Remember that most learners can only go half as fast as you,
-    because they have to watch you type
-    then type it all in again themselves.
+*   명령 라인에 타이핑할 때 타이핑하는 것을 읽어준다. 대부분의 학습자는 강사보다 속도가 절반이상 느리다는 것을 기억하라. 왜냐하면 학습자는 강사가 타이핑하는 것을 봐야하고, 다시 타이핑을 스스로 해야하기 때문이다.
 
 #### Pitfalls
 
