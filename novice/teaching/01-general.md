@@ -56,146 +56,59 @@ level: novice
 
 *   명령 라인에 타이핑할 때 타이핑하는 것을 읽어준다. 대부분의 학습자는 강사보다 속도가 절반이상 느리다는 것을 기억하라. 왜냐하면 학습자는 강사가 타이핑하는 것을 봐야하고, 다시 타이핑을 스스로 해야하기 때문이다.
 
-#### Pitfalls
+#### 함정 (Pitfalls)  
 
-Instructing at a workshop isn't trivial.
-The most important thing is to remember that
-no lesson plan survives contact with the audience.
-Whether it's the network going down
-or the sudden realization that many of your learners *don't* know how to use SSH,
-you will frequently need to improvise.
-And even when there aren't hiccups like those,
-try your best to adjust your pace and examples based on
-learners' questions, puzzled looks, and sighs of impatience.
+워크샵에서 강의하는 것이 간단하지는 않다. 기억할 것은 어떠한 강의 계획도 실제 참석자와 접촉에서 살아남지 못한다는 것이다. 네트워크가 갑자기 죽는다던가 혹은 학습자 중 상당수가 SSH를 어떻게 사용하는지 *알지 못하는* 사실을 간파한다든가 따라서 즉흥적으로 수업을 이끌어야만 한다. 이와 같은 경우가 아니더라도, 참여자의 질문, 당황한 표정, 조바심이 섞인 한숨 등을 반영하여 자신만의 적당한 학습 속도를 조정해 나가도록 최선을 다해야 한다.
 
-**Allow enough time for setup.**
+**충분한 시간을 설치 및 초기 환경설정에 투입하라**  
 
-In almost all cases,
-learners want to use their own laptops during workshops
-so that they leave with a working environment set up.
-Even if you ask attendees to prepare beforehand,
-and give them detailed instructions,
-some will not have time, 
-or will have run into problems that they're not yet able to fix.
-You should therefore schedule at least 20 minutes for
-<em>checking the learners' machines</em>
-at the beginning of the first day.
-Some workshops start early on the first day to allow time to
-troubleshoot setup problems.
+대부분의 경우, 워크샵이 진행되는 동안 개인용 노트북을 소지하고 학습에 임해서 컴퓨터 작업 환경을 강사와 조교에게 맡긴다. 설사 참석자가 사전에 준비를 하고 상세한 안내지침을 전달한다고 하더라도, 몇몇은 시간이 없어서, 몇몇은 스스로 고칠 수 없는 문제를 봉착한 채로 워크샵에 준비가 덜된 상태로 나타난다. 워크샵 첫날 시작할 때 *학습 참여자 컴퓨터가 점검*을 위해서 최소 20분을 일정에 반영해야 한다. 몇몇 워크샵은 첫날 조금 일찍 시작해서 소프트웨어 설치 및 환경설정과 관련된 문제를 해결할 수 있는 시간을 벌충한다.  
 
-**Don't ignore your learners.**
+**학습자를 무시하지 말라.**  
 
-You're not there to reproduce one of our online videos in person:
-you're there to interact with people so that they get a
-better learning experience.
-You shouldn't ever go more than two or three minutes without
-asking a question (and listening to the answer),
-and if it has been 15 minutes since any of your learners asked one,
-odds are you've either lost them or are boring them.
+강사가 직접 온라인 강의를 재생하기 하려고 워크샵에 있는 것은 아니다. 학습자와 교감하면서 더 나은 학습 경험을 제공하려고 워크샵에 강사가 있는 것이다. 질문이 없거나 대답을 경청하지 않고 2~3분이 지나가면 안된다. 만약 학습자중 한명이 마지막 질문을 한 다음에 15분이 지났다면 아마도 학습 참여자를 지루하게 했거나 잃어버린 것이다.  
 
-**Don't bore your learners.**
+**학습 참여자를 따분하게 만들지 말라.**
 
-Your audience will never care more about what you're teaching 
-than you appear to,
-so if they get the feeling you're not interested in it,
-they won't be either.
-This does <em>not</em> mean you have to shout,
-crack three jokes a minute,
-or harangue them about how this stuff is really, really important,
-but you do owe it to your audience to show up mentally as well as physically.
+학습 참여자는 강사가 전달하려고 하는 자체에 정말 관심이 많다. 그래서 만약 학습 참여자가 느끼기에 강사가 관심이 없다는 느낌을 가지게 된다면, 학습 참여자도 마찬가지로 그럴 것이다. 그렇다고 큰 소리로 강의를 진행하거나, 일분에 3번 개그를 작렬하거나 어떻게 동작하는지에 대해서 장황하게 설명해야 한다는 것은 아니다. 정말로 중요한 것은 정신적으로 육체적으로 학습참여자에게 워크샵 참석에 대해서 빚을 지고 있다는 것이다.  
+
+**강의만 하고 실습이 없게 하지 말라.**  
+
+학습 참여자가 키보드를 눌러 실습을 더 많이 진행하면 할수록, 실질적으로 더 많은 시간을 주목을 하는 것이다. 학습 참여자 앞에 컴퓨터가 놓여 있다. 만약 5분 이상 컴퓨터 실습없이 강의만 진행한다면, 학습참여자도 페이스북 같은 소셜네트워크 서비스 같은 것을 통해서 그렇게 할 것이다.
   
-**Don't be all talk, no action.**  
+**마술을 사용하지 말라.**  
 
-The more time folks spend with their hands on the keyboards 
-doing exercises,
-the more time they're actually paying attention.
-The students have their computers in front of them:
-if you talk for more than five minutes without asking them to 
-use their computers, they'll do so anyway&mdash;on Facebook.
+너무 빨리 타이핑하고, 학습 참여자가 지금까지 경험하지 못한 단축키나 명령어를 사용하는 사례. 기본적으로 강사가 "지금 당장 이것에 대해서 걱정하지 마세요."라고 말하거나, 학습 참여자가 "잠시만요, 어떻게 한거죠?", "잠시 천천히 진행해 주세요. 따라가기 힘드네요."라고 말한다면, 실질적으로 강사나 조교가 도움이 되는 것은 아니다.  
+
+**키보드를 빼앗지 말라.**
+
+학습 참여자가 실습을 진행할 때 도움을 주려고 여기 저기 돌아다닐 때, 학습자의 컴퓨터에 절대 손을 대지 말라. 잠시 끼어들어 학습참여자가 따라갈 수 없는 몇가지 변경을 하기는 너무 쉽다. 몇몇 학습 참여자 그룹은 이와 같은 행동이 불편하다고 절대 말하지도 않고 질문도 하지 않는다.  
+
+**절대 CV 신공(복사해서 붙여넣기)을 하지 말라.**
+
+인터넷에 코드 조각을 찾기는 쉽다. 하지만, 학습의 일부는 텍스트 입력을 통해서 근육에 기억하는 감동을 줘라. 이해하지 못하는 코드를 실행하는 위험이 있다는 것을 명확히 알려주려고 실전에 나가기 전에 모래 주머니(sandbox) 연습처럼 가상의 실험공간을 만들어서 `rm -rf /` 사례를 보여줄 수도 있다.
+
+**피드백을 무시하지 말라.**
+
+포스트잇과 설문을 통해서 입수한 피드백은 관심을 갖지 않거나 혹은 더 나쁘게는 자기 합리화를 위해서 해명하려고 한다면 무의미하게 된다. 만약 피드백을 반영하여 강의하는 것과 방식을 바구지 않는다면, 워크샵 진행하는 동안 혹은 워크샵 마다 입수한 피드백은 의미가 없게 된다.
+
+**"왜(why)"를 학습 참여자에게 전달한다.**  
+
+대부분의 학습 참여자는 과학과 공학분야의 대학원생들이다. 따라서 근거가 어떤 것인지, 왜 업무관례가 근거기반이어야 하는지 알고 있다. 그렇다고 강사와 조교가 경험적 소프트웨어 공학에 대해서 전부를 알고 있어야 한다는 것을 의미하는 것은 아니다. *[Facts and Fallacies of Software Engineering](http://www.amazon.com/Facts-Fallacies-Software-Engineering-Robert/dp/0321117425/)*을 읽고 학습에 몇 사례를 인용하여 반영하라.
   
-**Don't use magic.**  
+**학습 참여자에게 숲을 보여주지도 말고 나무도 보여주지 말라.**  
 
-Typing too fast, using shortcuts or commands 
-learners haven't seen yet&mdash;basically,
-any time you say, "Don't worry about this just now,"
-or they say, "Wait, how did you do that?" or, 
-"Can you please slow down, I can't keep up,"
-you're no longer actually helping them.
+소프트웨어 카펜트리가 가르치는 것은 서로 강화해 나가는 것이다. 그래서 기회가 있을 때마다 각각을 강하게 엮는 것이다. 유닉스 쉘에서 파이프로 연결하는 것은 함수를 사슬처럼 엮는 것과 같은 것을 명확히 알려주는 것이다. 혹은 버젼 제어 시스템에 커밋하기 전에 쉘 스크립트를 사용해서 서로 다른 테스트 묶음을 실행할 수 있게 하는 것도 포함된다. 만약 가능하다면 약 15분정도 시간을 들여서 매일 매일 일샂억인 작업에 이러한 도구를 어떻게 사용하는지 시연하라.  
 
-**Don't take over the keyboard.**
+**설치 요구사항을 과소 평가하지 말라.**  
 
-When you go around helping people out as they work
-on the material, never put your hands on a learner's
-computer.  It's too easy to step in and do a few
-quick changes that they can't follow and certain
-groups of learners will never say that this makes them
-uncomfortable - or ask questions.
+모든 노트북을 연결할 멀티탭(power outlet)이 충분한가요? (확실한가요?) 동시에 학습참여자 50명이 버젼 제어 저장소에 접속할 때 충분한 네트워크 대역폭이 있나요? (어떻게 충분하다는 것을 알 수 있죠?) 실제로 모든 사람이 로그인할 수 있나요? 화장실이 열려있나요? 캠퍼스 보안 담당자가 주말에 강의실을 사용한다는 것을 인지하고 있나요?
 
-**Never copy and paste.**
+**학습 참가자 서로 무시하지 말게 하라.**
 
-It's easy to find code snippets on the web
-but impress upon learners that part of what
-they are learning is the muscle memory of 
-doing the text input.  To drive this home, you
-could show them an example of `rm -rf /` in a sandbox
-just to make it clear that there are risks
-to running code you don't understand.
+소프트웨어 카펜트리 워크샵은 학습 참여자에게 엄청난 네트워킹 기회이고 주최측에게도 마찬가지다. 학습 참여자 서로 이름을 알게 하고 짝을 지어 학습에 참여하게 하고 최소 두세번 짝을 바꾸어 서로 섞일 수 있도록 하자. 커피 휴식시간, 점심시간에 서로 얘기할 수 있게 격려하고 첫째날 피자나 카레를 먹을 수 있는 저녁시간을 마련하자. 
 
-**Don't ignore feedback.**
+**휴식.**
 
-The feedback you get from learners on sticky notes or through
-surveys is pointless if you don't pay attention to it 
-(or worse, if you explain it away).
-There's no point collecting feedback 
-during and after each workshop 
-if you don't change what and how you teach to reflect it.
-
-**Tell learners "why".**  
-
-Most of our learners are graduate students in science and engineering,
-so they know what evidence looks like, 
-and why working practices should be evidence-based.
-That doesn't mean you have to have the whole of 
-empirical software engineering at your fingertips,
-but please do read
-*[Facts and Fallacies of Software Engineering](http://www.amazon.com/Facts-Fallacies-Software-Engineering-Robert/dp/0321117425/)*
-and sprinkle a few of the findings it quotes into your lessons.
-  
-**Don't show them the forest but not the trees.**  
-
-The things we teach reinforce each other,
-so tie them together at every opportunity.
-Point out that connecting things with pipes in the shell is like chaining functions together,
-or that they can use a shell script to re-run a bunch of different tests before committing to version control,
-and so on.
-If possible, take 15 minutes or so each day to show them how you use these tools in your day-to-day work.
-
-**Don't underestimate setup requirements.**  
-
-Do you have enough power outlets?
-(Are you sure?)
-Do you have enough bandwidth to handle fifty people hitting your version control repository at the same time?
-(How do you know?)
-Can everyone actually log in?
-Are the washrooms unlocked?
-Does campus security know you're using the room over the weekend?
-
-**Don't let your learners ignore each other.**
-
-Software Carpentry workshops are a great networking opportunity
-for our learners (and for us, too).
-Get to know your learners by name,
-have them work in pairs, and get them to mix up the pairs
-at least a couple of times.
-Encourage them to chat to one another at coffee breaks and lunch,
-and to get a pizza or some curry together for dinner on the first day.
-
-**Relax.**
-
-Something always fails to install for someone
-(or they fail to install anything at all),
-or a bunch of learners are accidentally locked out of the building after lunch,
-or whoever was supposed to drop off power bars didn't.
-Roll with it,
-and remember to laugh
-(even if it's a bit hysterically).
+누군가는 뭔가 항상 설치에 실패한다. 혹은 어떤 것도 설치가 되지 않기도 하다. 
+혹은 점심 식사 후에 학습 참여자 한무리가 건물밖에서 잠겨 들어오지 못하기도 한다. 누군가 전원 스위치를 내리려야 하는데 아무도 그러지 않았다. 그대로 갑시다. 설사 다소 신경질적이기도 하지만, 웃어 버립시다.
