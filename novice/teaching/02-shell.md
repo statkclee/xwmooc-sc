@@ -1,40 +1,17 @@
 ---
 layout: lesson
 root: ../..
-title: The Unix Shell
+title: 유닉스 쉘(Shell)
 ---
-Many people have questioned whether we should still teach the shell.
-After all,
-anyone who wants to rename several thousand data files
-can easily do so interactively in the Python interpreter,
-and anyone who's doing serious data analysis
-is probably going to do most of their work inside the IPython Notebook or R Studio.
-So why teach the shell?
 
-The first answer is,
-"Because so much else depends on it."
-Installing software,
-configuring your default editor,
-and controlling remote machines frequently assume a basic familiarity with the shell,
-and with related ideas like standard input and output.
-Many tools also use its terminology
-(for example, the `%ls` and `%cd` magic commands in IPython).
+많은 분들이 쉘(shell)을 지금도 가르쳐야 하는지 질문을 한다.
+결국, 수천개 데이터 파일 이름을 변경하고자 하는 사람 누구나 쉽게 파이썬 인터프리터(Python Interpreter)를 통해서 작업을 할 수 있고, 심도 깊은 데이터 분석을 하는 누구나 R Studio나 IPython Notebook 내부에서 원하는 작업 대부분을 할 수 있다. 그런데 왜 쉘을 가르쳐야 할까요?  
 
-The second answer is,
-"Because it's an easy way to introduce some fundamental ideas about how to use computers."
-As we teach people how to use the Unix shell,
-we teach them that they should get the computer to repeat things
-(via tab completion,
-`!` followed by a command number,
-and `for` loops)
-rather than repeating things themselves.
-We also teach them to take things they've discovered they do frequently
-and save them for later re-use
-(via shell scripts),
-to give things sensible names,
-and to write a little bit of documentation
-(like comment at the top of shell scripts)
-to make their future selves' lives better.
+첫번째 대답은 "너무나 많은 것들이 쉘에 의존성을 갖기 때문이다." 소프트웨어 설치, 기본 편집기 환경설정, 원격으로 컴퓨터 제어하기 등등 모두 쉘 사용에 프로그래머/사용자/운영자 모두 친숙하다고 가정한다. 표준 입력, 출력(standard input, output) 같은 아이디어와도 연관이 된다. 또한 많은 도구(tools)도 쉘 용어를 사용한다. (예를 들어, IPython에서 `%ls`과 `%cd`는 매직 명령어다.)
+
+두번째 대답은 "컴퓨터를 어떻게 사용할까에 대한 근본적인 아이디어를 소개하는 쉬운 방법이기 때문이다." 유닉스 쉘 사용법을 학습 참여자에게 가르칠 때, 복사해서 붙여넣기 같은 반복을 사용자가 스스로 하기 보다는 컴퓨터가 반복적인 작업(탭 자동완성, `!` 다음 명령문, `for` 루프)을 할 수 있게 가르친다. 또한, 자주하는 작업인 정보를 찾아내서 뽑아내고, 쉘 스크립트를 통해서 나중에 재사용할 수 있도록 저장하고, 연상가능한 이름을 붙이고, 쉘 스크립트 상단에 주석같은 약간의 문서화 작업을 통해서 나중에 고생하기 않고 삶의 질을 높일 수 있는 방법을 가르친다.  
+
+
 
 Finally,
 and perhaps most importantly,
