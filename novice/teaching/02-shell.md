@@ -11,88 +11,30 @@ title: 유닉스 쉘(Shell)
 
 두번째 대답은 "컴퓨터를 어떻게 사용할까에 대한 근본적인 아이디어를 소개하는 쉬운 방법이기 때문이다." 유닉스 쉘 사용법을 학습 참여자에게 가르칠 때, 복사해서 붙여넣기 같은 반복을 사용자가 스스로 하기 보다는 컴퓨터가 반복적인 작업(탭 자동완성, `!` 다음 명령문, `for` 루프)을 할 수 있게 가르친다. 또한, 자주하는 작업인 정보를 찾아내서 뽑아내고, 쉘 스크립트를 통해서 나중에 재사용할 수 있도록 저장하고, 연상가능한 이름을 붙이고, 쉘 스크립트 상단에 주석같은 약간의 문서화 작업을 통해서 나중에 고생하기 않고 삶의 질을 높일 수 있는 방법을 가르친다.  
 
+마지막으로, 쉘을 학습 참여자에게 가르치는 것은 아마도 가장 중요하게는 합성함수(composite function)관점에서 프로그램을 생각할 수 있게 가르친다. 쉘의 경우에 중첩된 함수 호출보다 파이프라인(pipeline) 형태로 구현된다. 하지만, "작은 조각, 느슨한 조합"이라는 핵심 아이디어는 동일하다.  
 
+거의 모든 학습자료를 3시간 동안 다르게 된다. 윈도우 시스템을 사용하는 학습 참여자가 다음과 같은 장애물에 부딪치지 않는다는 가정에서 그렇다.
 
-Finally,
-and perhaps most importantly,
-teaching people the shell lets us teach them
-to think about programming in terms of function composition.
-In the case of the shell,
-this takes the form of pipelines rather than nested function calls,
-but the core idea of "small pieces, loosely joined" is the same.
+*   홈(home) 디렉토리 위치를 알아낼 수 없다. (특히 Cygwin을 사용한다면 문제가 된다.)
+*   텍스트 편집기를 실행할 수 없다.
+*   DOS 라인 엔딩(line ending)을 포함한 쉘 스크립트를 실행할 수 없다.
 
-All of this material can be covered in three hours
-as long as learners using Windows do not run into roadblocks such as:
+#### 강의 노트
 
-*   not being able to figure out where their home directory is
-    (particularly if they're using Cygwin);
-*   not being able to run a plain text editor;
-    and
-*   the shell refusing to run scripts that include DOS line endings.
+*   쉘을 열어서 `whoami`, `pwd`, `ls` 명령어를 차례로 실행한다. `workshop`이라는 이름의 디렉토리를 만들어서 `cd` 명령어로 디렉토리 내부로 들어간다. 그래서 모든 학습 참여자가 수업동안에 수행한 모든 작업은 기존에 있던 어떤 것도 손대지 않는다.
 
-#### Teaching Notes
+*   모든 학습 참여자가 가능한 빠른 시점에 편집기를 실행해서 `workshop` 디렉토리에 파일을 저장하게 한다. 전체 수업에서 이것이 가장 큰 걸림돌이다. 많은 학습 참여자가 강사와 동일한 편집기를 실행(학습 참여자가 Vim 지옥에 빠질수도...)하거나, 작업한 파일을 저장할 디렉토리로 어떻게 돌아다니는지 알지 못하거나, 텍스트 편집기 대신에 워드 프로세서를 사용한다. 이러한 문제를 헤쳐나가는 가장 빠른 방법이 좀더 지식이 있는 동료 학습자가 도움이 필요한 학습 참여자를 돕는 것이다.
 
-*   Have learners open a shell
-    and then do `whoami`,
-    `pwd`,
-    and `ls`.
-    Then have them create a directory called `workshop`
-    and `cd` into it,
-    so that everything else they do during the lesson
-    is unlikely to harm whatever files they already have.
+*   탭 자동완성(tab completion)이 작은 것처럼 들린다. 하지만 그렇지 않다. `!123` 혹은 `!wc`을 사용하여 이전 명령어를 다시 실행하는 것은 절대로 작은 것이 아니다. 와일드카드 확장 `for` 루프도 마찬가지로 작은 것이 아니다. 각각은 소프트웨어 카펜트리 아이디어 중 하나를 반복할 수 있는 소중한 기회가 된다. 만약 컴퓨터가 *반복할* 수 있다면, 어디선가 어떤 프로그래머가 거의 확실히 컴퓨터가 *반복하는** 방법을 찾아서 구현해 놨다.
 
-*   Get them to run an editor
-    and save a file in their `workshop` directory
-    as early as possible.
-    Doing this is usually the biggest stumbling block during the entire lesson:
-    many will try to run the same editor as the instructor
-    (which may leave them trapped in the awful nether hell that is Vim),
-    or will not know how to navigate to the right directory
-    to save their file,
-    or will run a word processor rather than a plain text editor.
-    The quickest way past these problems is to have more knowledgeable learners
-    help those who need it.
+*   4 혹은 5 단계로 구성된 파이프라인(pipeline)을 작성하고, 재사용하려고 쉘 스크립트에 저장하고 `for` 루프 내부에서 스크립트를 호출하는 실습 사례는 "마법의 수 일곱, 더하거나 빼기 둘" 법칙이 프로그래밍에 어떻게 연결되는지 보여줄 수 있는 훌륭한 기회다. 약간 복잡한 무언가를 어떻게 처리하는 해결하고 나면, 재사용할 수 있게 만들고, 이름을 붙인다. 그렇게 함으로써 머리속 단기 기억장소는 여러 저장공간 대신에 한 저장소만 필요로 한다. 또한 탐색적 프로그래밍(exploratory programming)에 대해서 논의할 수 있는 소중한 시간이기도 하다. 프로그램을 사전에 치밀하게 설계하는 대신에, 몇가지 유용한 프로그램을 만들고 나서 미래 재사용 목적으로 어떤 것을 캡슐화(encapsulation)하면 가치가 있는지 소급적용하는 것이다.
 
-*   Tab completion sounds like a small thing: it isn't.
-    Re-running old commands using `!123` or `!wc`
-    isn't a small thing either,
-    and neither are wildcard expansion and `for` loops.
-    Each one is an opportunity to repeat one of the big ideas of Software Carpentry:
-    if the computer *can* repeat it,
-    some programmer somewhere will almost certainly have built 
-    some way for the computer *to* repeat it.
+*   한정된 시간 때문에 중요한 많은 사항을 다루지 못하고 넘어간다. 파일 권한(file permission), 작업 관리(job control), SSH가 대표적이다. 만약 학습 참여자가 기본적인 학습 내용을 숙지 하고 있다면, 안내지침으로 제시된 온라인 학습 내용 대신에 심화 내용을 다룰 수도 있다. 시간적인 제약 때문에 다음 후속 결과가 따라온다.  
 
-*   Building up a pipeline with four or five stages,
-    then putting it in a shell script for re-use
-    and calling that script inside a `for` loop,
-    is a great opportunity to show how
-    "seven plus or minus two"
-    connects to programming.
-    Once we have figured out how to do something moderately complicated,
-    we make it re-usable and give it a name
-    so that it only takes up one slot in working memory
-    rather than several.
-    It is also a good opportunity to talk about exploratory programming:
-    rather than designing a program up front,
-    we can do a few useful things
-    and then retroactively decide which are worth encapsulating
-    for future re-use.
+*   학습에서 다루지 않는 권한관리 없이 `#!` (shebang, 샤방) 을 논하기는 어렵다.  
+*   Bash하고 윈도우 상에서 유닉스 명령어를 실행하는 것은 항상 손을 봐야하고 종종 좌절을 안겨주기도 한다. 수업을 시작하기 *전에* 강사나 조교가 실습을 하고 최신 설치 안내지침을 참조하라.
 
-*   We have to leave out many important things because of time constraints,
-    including file permissions, job control, and SSH.
-    If learners already understand the basic material,
-    this can be covered instead using the online lessons as guidelines.
-    These limitations also have follow-on consequences:
-
-*   It's hard to discuss `#!` (shebang) wihtout first discussing permissions,
-    which we don't do.
-
-*   Installing Bash and a reasonable set of Unix commands on Windows
-    always involves some fiddling and frustration.
-    Please see the latest set of installation guidelines for advice,
-    and try it out yourself *before* teaching a class.
-
-*   On Windows, it appears that:
+*   윈도우 상에서 다음과 같다.
 
     ~~~
     $ cd
@@ -100,43 +42,25 @@ as long as learners using Windows do not run into roadblocks such as:
     ~~~
     {:class="in"}
 
-    will always put someone on their desktop.
-    Have them create the example directory for the shell exercises there
-    so that they can find it easily
-    and watch it evolve.
+    바탕화면에 작업하는 사람이 항상 있다. 쉘 실습을 위해서 예제 디렉토리를 만들게 하라. 그래서 쉽게 찾을 수 있게 하고 진행내용을 지켜볼 수 있게 한다.
 
-*  Stay within POSIX-compliant commands, as all the teaching materials do.
-   Your particular shell may have extensions beyond POSIX that are not available
-   on other machines, especially the default OSX bash and Windows bash emulators.
-   For example, POSIX `ls` does not have an `--ignore=` or `-I` option, and POSIX
-   `head` takes `-n 10` or `-10`, but not the long form of `--lines=10`.
+*  모든 교학습 교재가 그렇듯이 POSIX 호환가능한 명령어로 한정하라. 다른 컴퓨터에서 동작하지 않는 POSIX 확장 쉘이 강사의 컴퓨터에 설치될 수 있으니 주의한다. 특히, 기본으로 설치된 OSX bash과 윈도우 bash 에뮬레이터가 대표적이다. 예를 들어, POSIX `ls` 명령어는 `--ignore=` 혹은 `-I` 옵션이 없다. POSIX
+   `head`는  `-n 10` 혹은 `-10`을 사용할 수 있지만, 장문의 `--lines=10` 옵션은 사용되지 않는다.
 
-#### Windows
+#### 윈도우
 
-Installing Bash and a reasonable set of Unix commands on Windows
-always involves some fiddling and frustration.
-Please see the latest set of installation guidelines for advice,
-and try it out yourself *before* teaching a class.
-Options we have explored include:
+Bash하고 윈도우 상에서 유닉스 명령어를 실행하는 것은 항상 손을 봐야하고 종종 좌절을 안겨주기도 한다. 수업을 시작하기 *전에* 강사나 조교가 실습을 하고 최신 설치 안내지침을 참조하라. 소프트웨어 카펜트리에서 먼저 살펴본 옵션은 다음과 같다.
 
-1.  [msysGit](http://msysgit.github.io/) (also called "Git Bash"),
+1.  [msysGit](http://msysgit.github.io/) ("Git Bash"라고도 부른다.),
 2.  [Cygwin](http://www.cygwin.com/),
-3.  using a desktop virtual machine, and
-4.  having learners connect to a remote Unix machine (typically a VM in the cloud).
+3.  데스크탑 가상 컴퓨터(virtual machine, VM) 사용,
+4.  클라우드에 VM을 사용하여 원격으로 유닉스 운영체제에 접속.
 
-Cygwin was the preferred option until mid-2013,
-but once we started teaching Git,
-msysGit proved to work better.
-Desktop virtual machines and cloud-based VMs work well for technically sophisticated learners,
-and can reduce installation and configuration at the start of the workshop,
-but:
+2013년 중반까지 Cygwin이 선호되는 옵션이었다. 하지만, Git를 가르치기 시작하면서 msysGit가 더 잘 동작하는 것으로 판명되었다. 데스크탑 가상컴퓨터와 클라우드 기반의 가상 컴퓨터(VM)는 특히 고급 학습 참여자에게 잘 어울리고 워크샵 시작에 설치와 환경설정 시간을 줄여준다. 하지만,
 
-1.  they don't work well on underpowered machines,
-2.  they're confusing for novices (because simple things like copy and paste work differently),
-3.  learners leave the workshop without a working environment on their operating system of choice, and
-4.  learners may show up without having downloaded the VM or the wireless will go down (or become congested) during the lesson.
+1.  사양이 낮은 컴퓨터가 있어 잘 동작하지 않는다.
+2.  초보자에게 어렵다. (왜냐하면, 복사하고 붙여넣기 같은 단순한 것도 다르게 동작하기 때문이다.)
+3.  학습 참여자가 자신이 선택한 운영체제에 작업환경 설정을 하지 않고 워크샵을 떠난다.
+4.  가상 컴퓨터(VM)를 다운로드하지 않고 학습 참여자가 워크샵에 나타나거나, 무선 네트워크가 수업 중에 동작하지 않거나 과부하로 속도가 매우 늦거나 한다.
 
-Whatever you use,
-please *test it yourself* on a Windows machine *before* your workshop:
-things may always have changed behind your back since your last workshop.
-And please also make use of our Windows setup helper.
+어떠한 선택지를 고르든지 상관없이 워크샵 실시 *전에* 윈도우 운영체제에서는 *직접 테스트*를 하세요. 마지막 워크샵 다음에 무언가 항상 변경될 수 있다. 그리고 소프트웨어 카펜트리 윈도우 설치 도우미(Windows Setup Helper)를 사용하세요.
