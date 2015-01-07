@@ -20,34 +20,20 @@ title: 파이썬 프로그래밍
     *   매우 큰 과학자 커뮤니티가 있다.
     *   초보자가 대부분의 성숙된 다른 언어를 배우는 것보다 쉽다. (원래, 소프트웨어 카펜트리는 펄(perl)을 사용했다. 펄에서 파이썬으로 전환했을 때, 펄로 3일 동안 다룬 내용을 파이썬으로 2일 동안 다룰 수 있었고, 학습 참여자 유지율이 더 높았다.)
 
-*   We do *not* include instructions on running the IPython Notebook in the tutorial
-    because we want to focus on the language rather than the tools.
-    Instructors should, however, walk learners through some basic operations:
-    *   Launch from the command line with `ipython notebook`.
-    *   Create a new notebook.
-    *   Enter code or data in a cell and execute it.
-    *   Explain the difference between `In[#]` and `Out[#]`.
+*   이번 튜토리얼에는 IPython Notebook을 실행하는 사용방법을 포함하지 *않았다*. 왜냐하면, 도구 자체보다는 언어에 좀더 초점을 맞췄다. 하지만, 강사는 몇가지 기본 작업을 학습참여자에게 보여줘야 한다.
+    *   `ipython notebook`을 명령 실행창에서 입력하여 실행한다.
+    *   새 노트북을 생성한다.
+    *   셀에 데이터 혹은 코드를 입력하고 실행한다.
+    *   `In[#]` 과 `Out[#]`의 차이점을 설명한다.
 
-*   Watching the instructor grow programs step by step
-    is as helpful to learners as anything to do with Python.
-    Resist the urge to update a single cell repeatedly
-    (which is what you'd probably do in real life).
-    Instead,
-    clone the previous cell and write the update in the new copy
-    so that learners have a complete record of how the program grew.
-    Once you've done this,
-    you can say,
-    "Now why don't we just breaks things into small functions right from the start?"
+*   파이썬으로 어느 것이라도 강사가 프로그래을 단계적으로 작성해 나가는 것을 학습참여자에게 보여주는 것은 도움이 된다. 반복적으로 하나의 셀을 갱신하고자 하는 것는 자제하라.(하지만, 이것은 실제에서 아마도 그렇게 늘 하는 일이다.) 대신에 이전 셀을 복사하고 클론한 것에 갱신하는 코드를 작성하라. 그래서 학습 참여자가 어떻게 프로그램을 점차적으로 작성해 나가는지 온전한 이력을 가지게 된다. 이것을 수행한 뒤에 바로, "왜 처음부터 작은 함수로 잘게 쪼개서 작성하지 않았을까?" 라고 말할 수 있다.
 
-*   The discussion of command-line scripts
-    assumes that students understand standard I/O and building filters,
-    which are covered in the lesson on the shell.
+*   명령-라인 스크립트(command-line scripts) 토론은 학습 참여자가 쉘 학습에서 다뤄진 표준 입출력, 파이프-필터 설계를 이해한다고 가정한다.
 
-*   Do *not* start the notebook with:
+*   다음으로 노트북(notebook)을 시작하지 *마세요*.
 
     ~~~
     ipython notebook --pylab [backend]
     ~~~
 
-    The `--pylab` option has been deprecated for a long time,
-    and is being removed soon.
+    `--pylab` 옵션은 오랜동안 사용되지 않고 있고, 곧 제거될 것이다.
