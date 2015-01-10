@@ -1,179 +1,137 @@
 ---
 layout: base
 root: ../..
-title: Workshop Checklist &mdash; Admin
+title: 워크샵 점검표(Checklist) &mdash; 관리자(admin)
 ---
 <p>
-  Admin is the staff at Software Carpentry's (virtual) headquarters
-  who support workshop hosts by finding instructors,
-  setting up registration
-  and assessment,
-  and other tasks.
+  관리자(admin)는 소프트웨어 카펜트리 (가상) 본부에 있는 직원으로 강사를 섭외하고, 등록과 평가 준비 및 기타 작업을 도와줌으로써 워크샵 개최를 지원한다.
 </p>
 
 <div class="well">
-  <h3>Preliminaries</h3>
+  <h3>사전 준비</h3>
   <p>
-    Before the workshop host has committed to holding a workshop, 
-    Software Carpentry admin helps them decide 
-    when and where the workshop should be,
-    advises on likely cost,
-    and provides other guidance.
+    워크샵 주최자가 워크샵 개최를 결정하기 전에, 소프트웨어 카펜트리 관리자는 주최측을 도와서 워크샵이 언제 어디에서 실시되어야 하는지, 예상 비용을 조언하고, 기타 안내사항을 제공한다. 
   </p>
 </div>
 
 <div class="well">
-  <h3>Initial Setup</h3>
+  <h3>초기 준비</h3>
   <ul>
     <li>
-      Find <a href="{{page.root}}/workshops/operations.html#host_instructors">instructors</a>.
-      This should be done <em>before</em> the workshop is publicly announced.
+      <a href="{{page.root}}/workshops/operations.html#host_instructors">강사</a>를 섭외한다.
+      워크샵이 공개적으로 발표되기 <em>전에</em> 완료되어야 한다.      
     </li>
     <li>
-      Either create a 
-      <a href="{{page.root}}/workshops/operations.html#admin_webpage">Github web page</a> for the workshop
-      or ask the lead instructor to do it.
+      워크샵을 위해서 <a href="{{page.root}}/workshops/operations.html#admin_webpage">Github 웹 페이지</a>를 생성하거나 총괄 강사에게 웹페이지 생성을 요청한다.
     </li>
     <li>
-      Add that GitHub repository's URL to <code>config/workshop_urls.yml</code>
-      in the <a href="http://github.com/swcarpentry/site">site</a> repository.
+      소프트웨어 카펜트리 <a href="http://github.com/swcarpentry/site">site</a> 저장소 <code>config/workshop_urls.yml</code> 파일에 GitHub 저장소 URL을 추가한다.
     </li>
     <li>
-      Set up an 
-      <a href="{{page.root}}/workshops/operations.html#eventbrite">Eventbrite event</a>
-      if required.
+      필요하다면, <a href="{{page.root}}/workshops/operations.html#eventbrite">Eventbrite 이벤트</a>를 설정한다.
       <ul>
         <li>
-	  Add the host administrator permission for the Eventbrite event.
-	</li>
+          Eventbrite 이벤트에 주최측 관리자 권한을 추가한다.
+	      </li>        
         <li>
-	  Add the Eventbrite event ID to the internal database.
-	</li>
+          내부 데이터베이스에 Eventbrite 이벤트 ID를 추가한다.
+	      </li>
       </ul>
     </li>
     <li>
-      Announce the workshop on
+      워크샵을 발표한다.
       <ul>
-	<li>
-	  the <a href="{{site.twitter_url}}">Software Carpentry</a> Twitter feed
-	  and
-	</li>
-	<li>
-	  the <a href="{{site.mailing_lists}}/mailman/listinfo/discuss_lists.software-carpentry.org">discussion list</a>.
-	</li>
+	  <li>
+      <a href="{{site.twitter_url}}">소프트웨어 카펜트리</a> 트위터 피드
+	  </li>
+	  <li>
+      <a href="{{site.mailing_lists}}/mailman/listinfo/discuss_lists.software-carpentry.org">토론 목록</a>.
+	  </li>
       </ul>
     </li>
     <li>
-      Discuss the hosting institution's intent and ability 
-      to make a contribution to support Software Carpentry development.
+      소프트웨어 카펜트리 개발 지원을 후원할 능력과 의향이 있는지 개최 기관과 협의한다.
     </li>
     <li>
-      Confirm that funding is available 
-      for instructors' travel expenses.
+      강사의 출장 경비 지원이 가능한지 확인한다.
     </li>
   </ul>
 </div>
 
 <div class="well">
-  <h3>Before the Workshop</h3>
+  <h3>워크샵 시작 전</h3>
   <ul>
     <li>
-      Set up a <a href="{{page.root}}/workshops/operations.html#admin_list">mailing list</a>
-      for the host, instructors, and helpers.
+      주최측, 강사, 조교를 위한 <a href="{{page.root}}/workshops/operations.html#admin_list">메일링 리스트(mailing list)</a>를 준비한다.
     </li>
     <li>
-      Make sure instructors know how to claim their
-      <a href="{{page.root}}/workshops/operations.html#admin_travel">travel expenses</a>,
-      if any.
+      만약 가능다하면, 강사가 <a href="{{page.root}}/workshops/operations.html#admin_travel">출장 경비</a>를 청구하는 방법을 확실히 한다.
     </li>
     <li>
-      Help the host recruit helpers, if required.
+      만약 필요하다면, 주최측이 조교를 섭외할 수 있도록 돕는다.
     </li>
     <li>
-      Set up the
-      <a href="{{page.root}}/workshops/operations.html#admin_assessment">pre-workshop assessment questionnaire</a>
-      and ask the host to distribute it to learners.
+      <a href="{{page.root}}/workshops/operations.html#admin_assessment">사전 워크샵 평가 설문지</a>를 준비하고 학습참가자에게 주최측이 배포하도록 요청한다.
     </li>
     <li>
-      Set up the
-      <a href="{{page.root}}/workshops/operations.html#post_assessment">post-workshop assessment questionnaire</a>
-      to be distributed at the end of the workshop.
+      <a href="{{page.root}}/workshops/operations.html#post_assessment">사후 워크샵 평가 설문지</a>를 준비하고 학습참가자에게 워크샵 말미에 배포한다.
     </li>
   </ul>
 </div>
 
 <div class="well">
-  <h3>A Week Before</h3>
+  <h3>워크샵 일주일 전</h3>
   <ul>
     <li>
-      Remind Greg to mail the instructors to wish them luck.
+      Greg이 강사에게 행운을 기원하는 전자우편을 보내도록 상기시킨다.
     </li>
     <li>
-      If there are cancellations,
-      offer tickets to people on the <a href="{{page.root}}/workshops/operations.html#waiting_list">waiting list</a>.
+      만약 취소가 발생한다면, <a href="{{page.root}}/workshops/operations.html#waiting_list">대기 목록</a>에 있는 다른 학습참여자에게 참여기회를 제공한다.
     </li>
     <li>
-      Make sure everything is going smoothly.
+      모든 사항이 원만히 진행되도록 확실히 한다.
     </li>
   </ul>
 </div>
 
 <div class="well">
-  <h3>During</h3>
+  <h3>워크샵 실시 중</h3>
   <ul>
     <li>
-      Check with the host and instructors by email on the first day
-      to see how it's going.
+      주최측과 강사는 워크샵이 어떻게 진행되고 있는지 살펴보기 위해서 첫째날 전자우편으로 점검한다.
     </li>
   </ul>
 </div>
 
 <div class="well">
-  <h3>After</h3>
+  <h3>워크샵 실시 후</h3>
   <ul>
     <li>
-      Set up a conference call so that Greg can debrief the instructors.
+      컨퍼런스 콜(conference call)을 준비해서 Greg이 강사에게서 보고를 받게 한다.
     </li>
     <li>
-      Record the names and email addresses of attendees and helpers
-      in our internal database.
-      (If names and email addresses are unavailable,
-      record the number of attendees.)
+      소프트웨어 카펜트리 데이터베이스에 학습참여자와 조교의 이름과 전자우편 주소를 기록한다.
     </li>
     <li>
-      Make sure other details about the workshop 
-      (date, location, instructors, helpers, etc.) 
-      are recorded correctly 
-      in the internal database.
+      소프트웨어 카펜트리 데이터베이스에 워크샵에 관한 세부사항(날짜, 장소, 강사, 조교 등)이 올바르게 기록되었는지 확실히 한다.
     </li>
     <li>
-      Collect post-workshop assessment questionnaire responses.
+      사후 워크샵 평가 설문 결과를 취합한다.
     </li>
     <li>
-      Make sure the instructors have filled in 
-      <em>their</em> post-assessment questionnaire.
+      강사가 <em>스스로</em> 강사 사후 평가 설문지를 작성했는지 확실히 한다.
     </li>
     <li>
-      Invite attendees to
-      <a href="{{page.root}}/pages/join.html">join our mailing lists</a>.
+      학습 참여자가 <a href="{{page.root}}/pages/join.html">메일링 리스트(mailing lists)에 참여</a>하도록 초대한다.
     </li>
     <li>
-      Make sure that instructors, 
-      hosts, 
-      and helpers
-      are awarded the appropriate 
-      <a href="{{page.root}}/badges/index.html">badges</a>.
+      강사, 주최측, 조교가 적절한 <a href="{{page.root}}/badges/index.html">배지(badges)</a>를 수여받았는지 확실히 한다.
     </li>
     <li>
-      If there are any people on the waiting list
-      who didn't get a space at the workshop,
-      add them to a list of people to contact 
-      when we run another workshop in the area.
+      금번 워크샵에 자리가 없어 참여하지 못하고 대기 명단에 이름을 올린 사람이 있다면, 다른 워크샵을 실시할 때 연락을 취할 명단에 추가한다.
     </li>
     <li>
-      Two months after the workshop, 
-      remind the host to send out 
-      the long-term post-workshop assessment form.
+      워크샵 실시 2개월 뒤에 장기 사후 워크샵 평가지를 송부하도록 상기시킨다.
     </li>
   </ul>
 </div>
