@@ -1,56 +1,47 @@
 ---
 layout: workshop_index
 root: ..
-title: Workshops
+title: 워크샵 (Workshops)
 nocomments: 1
 ---
 <div id="about">
   <p>
-    A workshop is an on-site workshop,
-    typically two days long,
-    that covers the core skills needed to be productive in a small research team:
+    워크샵은 현장 워크숍을 기본으로 일반적으로 2일 과정이다. 작은 조직에서 생산적으로 연구하거나 업무를 진행하는데 필요한 핵심 기술을 다룬다.
   </p>
   <ul>
-    <li>the Unix shell (and how to automate repetitive tasks);</li>
-    <li>Python or R (and how to grow a program in a modular, testable way);</li>
-    <li>Git and GitHub (and how to track and share work efficiently); and</li>
-    <li>SQL (and the difference between structured and unstructured data).</li>
+    <li>유닉스 쉘 (그리고 반복적인 작업을 자동화하는 방법);</li>
+    <li>파이썬 혹은 R(그리고 모듈 방식으로 테스트 가능하게 프로그램을 작성하는 방법);</li>
+    <li>Git과 GitHub (그리고 효율적으로 작업을 추적하고 공유하는 방법); and</li>
+    <li>SQL (그리고 정형 데이터와 비정형 데이터 간의 차이점).</li>
   </ul>
   <p>
-    Short tutorials alternate with hands-on practical exercises;
-    learners work on their own laptops using either native software or a virtual machine,
-    so that they have a working environment when the workshop is done.
+    짧은 강의와 실무 실습이 번갈아 진행된다. 학습 참여자는 본인의 노트북에 소프트웨어를 설치하거나 가상 컴퓨터(virtual machine)를 사용하여 실습한다. 그렇게 함으로써 워크샵을 마쳤을 때, 작업환경을 그대로 가져갈 수 있다.
   </p>
   <p>
     <em>
-      All workshop participants are required to abide by our
-      <a href="{{page.root}}/conduct.html">code of conduct</a>
-      to ensure that all attendees to have an enjoyable and fulfilling experience.
+      모든 워크샵 참여자가 <a href="{{page.root}}/conduct.html">행동 강령(code of conduct)</a>을 준수하여 즐겁고 유익한 워크샵 경험을 가질 수 있도록 한다.
     </em>
   </p>
   <ul>
     <li>
-      Want to know more?
-      See our <a href="{{page.root}}/faq.html">FAQ</a>.
+      더 많은 정보를 원하신다면, <a href="{{page.root}}/faq.html">FAQ</a>를 참조하세요.
     </li>
     <li>
-      Want to run one?
-      See our <a href="{{page.root}}/workshops/operations.html">operations guide</a>
-      or <a href="{{page.root}}/workshops/checklists/index.html">checklists</a>.
+      워크샵을 운영하고자 한다면, <a href="{{page.root}}/workshops/operations.html">운영 안내서</a> 혹은 
+      <a href="{{page.root}}/workshops/checklists/index.html">점검표</a>를 참조하세요.
     </li>
     <li>
-      Want us to teach one where you are?
-      Please <a href="mailto:{{site.contact}}">email us</a>.
+      소프트웨어 카펜트리 직접 교육을 원한다면, <a href="mailto:{{site.contact}}">전자우편</a>으로 연락주세요.
     </li>
   </ul>
 
   <div align="center">
-    <p><em><a href="./previous.html">See where we've been!</a></em></p>
+    <p><em><a href="./previous.html">소프트웨어 카펜트리 워크샵 실시 장소</a></em></p>
   </div>
 </div>
 
 <div id="future">
-  <h2>Future Workshops</h2>
+  <h2>예정된 워크샵</h2>
   <table class="table table-striped workshops">
     {% for workshop in site.workshops %}
       {% if workshop.startdate >= site.today %}
@@ -79,19 +70,12 @@ nocomments: 1
 </div>
 
 <div id="assessment">
-  <h2>Assessment</h2>
+  <h2>평가</h2>
   <p>
-    To help us improve our instruction,
-    we have prepared
-    a <a href="{{page.root}}/workshops/assess/pre-learner.html">pre-assessment questionnaire for learners</a>
-    that can be used to ensure instruction is at the right level,
-    a <a href="{{page.root}}/workshops/assess/post-learner.html">post-assessment questionnaire for learners</a>
-    to help us determine how well the workshop went,
-    and
-    a <a href="{{page.root}}/workshops/assess/post-instructor.html">post-assessment questionnaire for instructors</a>
-    for calibration.
-    Please contact us if you are organizing a workshop
-    for help delivering and evaluating
-    <a href="{{page.root}}/workshops/assess/index.html">these questionnaires</a>.
+    강의를 향상시키기 위해서, 
+    <a href="{{page.root}}/workshops/assess/pre-learner.html">학습 참여자를 위한 사전 평가 설문지</a>를 준비해서 강의 적절성을 확실히 하기 위해서 사용하고,  
+    <a href="{{page.root}}/workshops/assess/post-learner.html">학습 참여자를 위한 사후 평가 설문지</a>를 준비해서 워크샵이 얼마나 잘 진행되었는지 판단하기 위해서 사용하고,
+    <a href="{{page.root}}/workshops/assess/post-instructor.html">강사를 위한 사후 평가 설문지</a>를 준비해서 미세 조정하는데 사용한다.
+    <a href="{{page.root}}/workshops/assess/index.html">설문지</a>를 평가하고 인계하는 워크샵을 기획하고 계시다면 연락을 주세요.
   </p>
 </div>
