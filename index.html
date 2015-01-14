@@ -4,14 +4,14 @@ root: .
 venue: 한국전파진흥협회(RAPA)
 address: 서울특별시 양천구 목동중앙로 13나길 3
 country: 한국
-humandate: Feb 00-00, 2015
-humantime: 9:00 am - 6:00 pm
-startdate: 2014-02-00
-enddate: 2014-00-00
+humandate: Feb 25-27, 2015
+humantime: 9:30 am - 5:30 pm
+startdate: 2015-02-25
+enddate: 2015-02-27
 latlng: 37.5461345,126.88066530000003
 registration: restricted
 instructor: ["이광춘 (xwmooc)"]
-helper: ["한정수"]
+helpers: ["한정수"]
 contact: kwangchun.lee.7@gmail.com
 #redirect: http://www.3rd.party.workshop.home.page.com
 #eventbrite: 00000000000
@@ -39,7 +39,7 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', '파이썬', 'SQL', 'Git', 'B
 -->
 <p>
   <strong>교육 대상:</strong>
-  예비 창업자, 스타트업 기업인, 방송통신 분야 재직자
+  예비 창업자, 스타트업 기업인, 디지털 콘텐츠 분야 재직자
 </p>
 
 <!--
@@ -74,13 +74,26 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', '파이썬', 'SQL', 'Git', 'B
 -->
 <p>
   <strong>연락처</strong>:
-  궁금한 점 문의 전자우편(
-  {% if page.contact %}
-    <a href='mailto:{{page.contact}}'>{{page.contact}}</a>
-  {% else %}
-    <a href='mailto:{{site.contact}}'>{{site.contact}}</a>
-  {% endif %}
-  )으로 연락주세요.
+  <ul>
+    <li>교육 운영: 한국전파진흥협회, <a href="mailto:sunny@rapa.or.kr">정선희 과장</a>, 02-317-6189</li>
+    <li>교육 과정: XWMOOC, 이광춘 대표,  
+      {% if page.contact %}
+         <a href='mailto:{{page.contact}}'>{{page.contact}}</a>
+      {% else %}
+         <a href='mailto:{{site.contact}}'>{{site.contact}}</a>
+      {% endif %}</li>
+  </ul>
+</p>
+
+<p>
+  <strong>모집인원 및 비용</strong>: 20명(선착순 모집), 무료
+  <li>단, 점심식사는 제공되지 않습니다.</li>
+</p>
+
+<p>
+  <strong>후원</strong>
+  <a href="http://www.misp.go.kr" target="_blank"><img src="./img/sponsors/misp.jpg"></a>
+  <a href="http://www.rapa.or.kr" target="_blank"><img src="./img/sponsors/rapa.jpg"></a>
 </p>
 
 <hr/>
@@ -94,34 +107,34 @@ lessons: ['컴퓨터 과학 언플러그드', 'R', '파이썬', 'SQL', 'Git', 'B
   <div class="span4">
     <h3>1 일차</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>컴퓨터 과학 언플러그드, 컴퓨터적 사고</td> </tr>
+      <tr> <td>09:30</td> <td>컴퓨터 과학 언플러그드, 컴퓨터적 사고</td> </tr>
       <tr> <td><em>10:30</em></td> <td><em>커피 시간</em></td> </tr>
       <tr> <td>12:00</td> <td>점심 시간</td> </tr>
       <tr> <td>13:00</td> <td>클라우드 VM, 웹 어플리케이션</td> </tr>
       <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
-      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>17:00</td> <td>Wrap-up</td> </tr>
     </table>
   </div>
   <div class="span4">
     <h3>2 일차</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>작업 자동화 (유닉스 쉘)</td> </tr>
+      <tr> <td>09:30</td> <td>작업 자동화 (유닉스 쉘)</td> </tr>
       <tr> <td><em>10:20</em></td> <td><em>커피 시간</em></td> </tr>
       <tr> <td>12:00</td> <td>점심 시간</td> </tr>
       <tr> <td>13:00</td> <td>파이썬 프로그래밍</td> </tr>
       <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
-      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>17:00</td> <td>Wrap-up</td> </tr>
     </table>
   </div>
   <div class="span4">
     <h3>3 일차</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>버젼관리(Git)</td> </tr>
+      <tr> <td>09:30</td> <td>버젼관리(Git)</td> </tr>
       <tr> <td><em>10:30</em></td> <td><em>커피 시간</em></td> </tr>
       <tr> <td>12:00</td> <td>점심 시간</td> </tr>
       <tr> <td>13:00</td> <td>데이터 관리(SQL)</td> </tr>
       <tr> <td><em>14:30</em></td> <td><em>커피 시간</em></td> </tr>
-      <tr> <td>18:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>17:00</td> <td>Wrap-up</td> </tr>
     </table>
   </div>
 </div>
