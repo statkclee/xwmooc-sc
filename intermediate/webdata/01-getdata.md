@@ -696,7 +696,7 @@ for i in range(num_years):
     plt.show()
 
 
-![png](01-getdata_files/01-getdata_55_0.png)
+![png](01-getdata_files/intermediate/webdata/01-getdata_55_0.png)
 
 
 이것은 원하는 바가 아니다: 라이브러리가 리스트 짝을 하나의 곡선에 대한 (x,y) 좌표라기 보다는 두개 상응하는 곡선으로 해석했다.
@@ -713,7 +713,7 @@ for i in range(num_years):
     plt.show()
 
 
-![png](01-getdata_files/01-getdata_59_0.png)
+![png](01-getdata_files/intermediate/webdata/01-getdata_59_0.png)
 
 
 차이(difference)가 천천히 줄어드는 것처럼 보이지만, 신호(signal)에 잡음(noise)이 많다. 이 지점에서, 만약 실질적 해답을
