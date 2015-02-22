@@ -16,14 +16,11 @@ root: ../..
 형식으로 웹상에 데이터셋을 공개한다. REST의 상세한 사항(그리고 사항)이 중요한 것은 아니다; 중요하는 것은 REST가 언제 사용되고, 모든
 데이터셋이 URL로 식별된다는 것이다.
 
-예제로 세계은행 [기후 데이터 API(Climate Data API)](http://data.worldbank.org/developers
-/climate-data-api)로 제공되는 15개 지구순환모델로 생성되는 데이터를 사용한다. API 홈페이지에 따르면, 다양한 값에 대한
+예제로 세계은행 [기후 데이터 API(Climate Data API)](http://data.worldbank.org/developers/climate-data-api)로 제공되는 15개 지구순환모델로 생성되는 데이터를 사용한다. API 홈페이지에 따르면, 다양한 값에 대한
 연평균치를 담고 있는 데이터셋은 URL 형태로 식별된다.
 
 <pre>
-http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/<em><strong>v
-ar</strong></em>/year/<em><strong>iso3</strong></em>.<em><strong>ext</strong></e
-m>
+http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/<em><strong>var</strong></em>/year/<em><strong>iso3</strong></em>.<em><strong>ext</strong></em>
 </pre>
 
 각 요소는 다음과 같다.:
