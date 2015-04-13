@@ -13,7 +13,7 @@ include vars.mk
 # Convert SVG diagrams into PNG images for use in LaTeX.
 #----------------------------------------------------------------------
 
-INKSCAPE = /Applications/Inkscape.app/Contents/Resources/bin/inkscape
+INKSCAPE = /usr/bin/inkscape
 SVG_TO_PNG = $(INKSCAPE) --export-png
 DIAGRAM_SRC = $(wildcard novice/*/img/*.svg)
 DIAGRAM_DST = $(patsubst %.svg,%.png,$(DIAGRAM_SRC))

@@ -4,8 +4,6 @@
 \usepackage{amssymb,amsmath}
 \usepackage{booktabs}
 \usepackage{ifxetex,ifluatex}
-\usepackage[hangul]{kotex}
-\kscntformat{chapter}{}{~장}
 \usepackage{fixltx2e} % provides \textsubscript
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
