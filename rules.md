@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: The Rules
+title: 규칙 (Rules)
 ---
 *   A week of hard work can sometimes save you an hour of thought. <a name="week-hard-work-hour-thought"></a>
 

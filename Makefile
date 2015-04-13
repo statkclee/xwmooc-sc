@@ -51,15 +51,6 @@ MOST_SRC = \
 	 intro.md \
 	 team.md \
 	 novice/shell/index.md $(sort $(wildcard novice/shell/??-*.md)) \
-	 novice/git/index.md $(sort $(wildcard novice/git/??-*.md)) \
-	 novice/hg/index.md $(sort $(wildcard novice/hg/??-*.md)) \
-	 novice/python/index.md $(sort $(wildcard novice/python/??-*.md)) \
-	 novice/matlab/index.md $(sort $(wildcard novice/matlab/??-*.md)) \
-	 novice/sql/index.md $(sort $(wildcard novice/sql/??-*.md)) \
-	 novice/extras/index.md $(sort $(wildcard novice/extras/??-*.md)) \
-	 novice/teaching/index.md  $(sort $(wildcard novice/teaching/??-*.md)) \
-	 teaching/index.md $(sort $(wildcard teaching/??-*.md)) \
-	 novice/ref/index.md  $(sort $(wildcard novice/ref/??-*.md)) \
 	 bib.md \
 	 gloss.md \
 	 rules.md \

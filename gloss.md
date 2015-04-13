@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: Glossary
+title: 용어사전 (Glossary)
 ---
 **<a name="absolute-error">absolute error</a>**:
 The absolute value of the difference between a mathematical value

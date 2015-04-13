@@ -1,9 +1,9 @@
 ---
 layout: lesson
 root: .
-title: Our Team
+title: 소프트웨어 카펜트리 팀(Our Team)
 ---
-Many thanks to all of the people who have contributed to Software Carpentry over the years.
+수년동안 소프트웨어 카펜트리(Software Carpentry)에 기여해주신 모든 분들께 감사의 말씀을 전합니다.
 
 <table width="100%">
 <tr>

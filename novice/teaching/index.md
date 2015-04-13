@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 강사 안내서
+title: 강사 안내서 (instructors guide)
 ---
 
 한 생물종으로서, 두뇌가 어떻게 학습하고, 다양한 교육 방법이 얼마나 효과적이고, 

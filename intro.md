@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: .
-title: 들어가며
+title: 들어가며(introduction)
 ---
 
 여기 꿈이 있다.

@@ -6,7 +6,7 @@ import re
 # Header required to make this a Jekyll file.
 HEADER = '''---
 layout: book
-title: "Software Carpentry Volume 1: Basics"
+title: "Software Carpentry Version 5.2"
 root: .
 ---'''
 
