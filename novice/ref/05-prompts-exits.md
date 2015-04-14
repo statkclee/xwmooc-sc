@@ -1,119 +1,111 @@
 ---
 layout: lesson
 root: ../..
-title: Recognising prompts and how to exit
+title: 프롬프트 인식하는 방법과 끝내는 방법
 ---
-When working at the command line, you might not recognise your
-prompt.  On this page you will find tips to discover where you are and how to
-exit if you are not where you want to be.
 
-### Shell
+명령 라인(command line)에서 작업할 때, 프롬프트를 이식하지 못할 수도 있다.
+이번 페이지에서 현재 위치를 파악하는 비밀정보(tip)와 만약 원하는 곳에 있지 않을 때 어떻게 탈출할 수 있는지 학습한다.
 
-- If your shell prompt is `$` you are at `bash`.
+### 쉘 (Shell)
+
+- 만약 쉘 프롬프트가 `$`이면, 현재 위치는  you are at `bash`가 된다.
 
   <img src="img/bash.png" />
 
-  To exit from `bash` type `exit` and press `ENTER`.
+  `bash`에서 탈출하기 위해서는 `exit`를 타이핑하고 `ENTER` 키를 친다.
 
-- If your shell prompt is `>` you may have typed `'` or `"`, to specify a
-  string, as part of a shell command but have not typed another `'` or `"` to
-  close the string.
+- 만약 쉘 프롬프트가 `>` 이면, 문자열을 지정하는데 쉘 명령 일부로 `'` 혹은 `"`을 타이핑했을 수 있다. 
+  하지만, 문자열을 마무리하기 위해서 상응하는 `'` 혹은 `"` 을 타이핑하지 않았다.
 
   <img src="img/bash-unclosed.png" />
 
-  To interrupt the current command press `CTRL-C`.
+  현재 명령을 중단하려면, `CTRL-C`를 누른다.
 
-- If the bottom-left of your shell window shows `--More--` you are viewing
-  a file using `more`.
+- 만약 쉘 윈도우 하단 왼쪽에 `--More--`가 보인다면, `more`를 사용해서 파일을 보고있다.
 
   <img src="img/more.png" />
 
-  To exit from `more` press `q`.
+  `more`에서 나가려면, `q`를 누른다.
 
-- If the bottom-left of your shell window shows `filename`, `:` or `(END)` you
-  are viewing a file using `less`.
+- 만약 쉘 윈도우 하단 왼편에 `filename`, `:`, `(END)`가 보인다면, `less`를 사용해서 파일을 보고있다.
 
   <img src="img/less.png" />
 
-  To exit from `less` press `q`.
+  `less`에서 탈출하려면, `q`를 누른다.
 
-- If the bottom-left of your shell window shows `Manual page` you are
-  viewing a `man` page.
+- 만약 쉘 윈도우 하단 왼편에 `Manual page`가 보인다면, `man` 페이지를 보고 있다.
 
   <img src="img/man.png" />
 
-  To exit from `man` press `q`.
+  `man`에서 탈출하려면, `q`를 누른다.
 
-- If the top of your shell window shows "GNU nano" you are in the `nano` text editor.
+- 만약 쉘 윈도우 상단에 "GNU nano"가 보인다면, `nano` 텍스트 편집기에 있다.
 
   <img src="img/nano.png" />
 
-  To exit from `nano` press `CTRL-X`. If you have unsaved changes, you will be
-  asked to save these - press `y` to save, or `n` to quit without saving.
+  `nano`에서 탈출하려면, `CTRL-X`를 누른다. 만약 저장하지 못한 변경사항이 있다면,
+  저장하도록 질문을 받은데 - `y`를 눌러 저장하거나, `n`를 눌러 저장하지 않고 끝낸다.
 
-- If your shell window shows `~` at the beginning of each lines you are in the `vi`
-  text editor.
+- 쉘 윈도우에 각 행 시작지점에 `~`가 보인다면, `vi` 텍스트 편집기에 있다.
 
   <img src="img/vim.png" />
+  
+  `vi`에서 탈출하려면, 저장하지 않고 나가기는데 `:q!`을 타이핑한다.
+  만약 화면에 `:q!`이 텍스트로 나타난다면, `ESC`를 누루고 나서, `:q!`을 타이핑한다.
 
-  To exit from `vi` type `:q!` to exit without saving. If this text just appears
-  on screen then press `ESC` then type `:q!`.
-
-- If the bottom of your shell window shows `(Fundamental) ----`
-  you are in the `emacs` or `xemacs` text editor.
+- 만약 쉘 윈도우 하단에 `(Fundamental) ----`이 보인다면, `emacs` 혹은 `xemacs` 텍스트 편집기에 있다.
 
   <img src="img/emacs.png" />
 
-  To exit from `emacs` or `xemacs` press `CTRL-X CTRL-C`. If you have unsaved
-  changes, you will be asked to save these - press `y` to save, or `n` then type
-  `yes` to quit without saving.
+  `emacs` 혹은 `xemacs`에서 탈출하려면, `CTRL-X CTRL-C`을 누른다.
+  만약 저장되지 않은 변경사항이 있다면, 저장할 것인지 질문을 받게 된다 - 저장하려면 `y`를 누르거나,
+  `n` 하고 나서 `yes`를 타이핑해서 저장하지 않고 끝낸다.
 
-  > #### Calling GUI from console
+  > #### 콘솔(console)에서 GUI 호출하기 
   >
-  > Emacs has a graphical user interface mode. When you call it from the prompt,
-  > the prompt will stop responding to your commands until you close Emacs.
+  > Emacs에는 그래픽 사용자 인터페이스 모드가 지원된다.
+  > 프롬프트에서 호출하면, Emacs를 종료할 때까지 프롬프트가 명령에 응답하지 않는다.
   >
   > <img src="img/emacs-gui.png" />
 
-### Python
+### 파이썬
 
-- If your shell prompt is `>>>` you are in `python`.
+- 만약 쉘 프롬프트가 `>>>`이면, `python`에 있다.
 
   <img src="img/python.png" />
 
-  To exit from `python` type `exit()` or `CTRL-D`.
+  `python`에서 탈출하려면, `exit()` 혹은 `CTRL-D`를 타이핑한다.
 
-- If your shell prompt is `...` you have an unclosed environment inside
-  `python`.
+- 만약 쉘 프롬프트가 `...`이면, `python` 내부 열려있는(unclosed) 환경상태다.
 
   <img src="img/python-unclosed.png" />
 
-  To interrupt the environment type `CTRL-C`.
+  환경을 중단하려면, `CTRL-C`를 타이핑한다.
 
-- If your shell prompt is `In [123]:` you are in `ipython`.
+- 만약 쉘 프롬프트가 `In [123]:`이면, `ipython`에 있다.
 
   <img src="img/ipython.png" />
 
-  To exit from `ipython` type `exit()`, or `CTRL-D` then press `y`.
+  `ipython`에서 탈출하려면, `exit()`, 혹은 `CTRL-D`을 누루고 나서 `y`를 누른다.
 
-- If your shell prompt is `...:` you have an unclosed environment inside
-  `ipython`.
+- 만약 쉘 프롬프트가 `...:`이면, `ipython` 내부 열려있는(unclosed) 환경에 있다.
 
   <img src="img/ipython-unclosed.png" />
 
-  To interrupt the environment type `CTRL-C`.
+  환경을 중단하려면, `CTRL-C`를 타이핑한다.
 
 ### R
 
-- If your shell prompt is `>` you are in `R`.
+- 만약 쉘 프롬프트가 `>`이면, `R`에 있다.
 
   <img src="img/r.png" />
 
-  To exit from `R` type `q()`. It will ask if you want to save the workspace and
-  you should type `y` for yes and `n` for no.
+  `R`에서 탈출하려면, `q()`을 타이핑한다.만약 작업공간(workspace)을 저장할지 묻는다면,
+  `y`를 눌러 저장하거나, `n`를 눌러 저장하지 않는다.
 
-- If your shell prompt is `+` you have a unclosed environment inside `R`.
+- 만약 쉘 프롬프트가 `+`라면, `R` 내부 열려있는(unclosed) 환경에 있다.
 
   <img src="img/r-unclosed.png" />
 
-  To interrupt the environment type `CTRL-C`.
+  환경을 중단하려면, `CTRL-C`를 타이핑한다.

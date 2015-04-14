@@ -1,9 +1,10 @@
 ---
 layout: lesson
 root: ../..
-title: Git Reference
+title: 깃 참고 정보 (Git Reference)
 ---
-Set global configuration (only needs to be done once per machine):
+
+전역 환경설정 (컴퓨터마다 한번만 필요)
 
 ~~~
 git config --global user.name "Your Name"
@@ -12,130 +13,130 @@ git config --global color.ui "auto"
 git config --global core.editor "your_editor"
 ~~~
 
-Initialize the current working directory as a repository:
+저장소로 현재 작업 디렉토리를 초기화한다:
 
 ~~~
 git init
 ~~~
 
-Display the status of the repository:
+저장소 상태를 화면에 출력한다:
 
 ~~~
 git status
 ~~~
 
-Add specific files to the staging area:
+집결 영역(staging area)에 특정 파일 추가한다:
 
 ~~~
 git add filename_1 filename_2
 ~~~
 
-Add all modified files in the current directory and its sub-directories to the staging area:
+집결 영역(staging area)에 현재 디렉토리와 그 하위 디렉토리 변경된 모든 파일을 추가한다:
 
 ~~~
 git add -A .
 ~~~
 
-Commit changes in the staging area to the repository's history:
-(Without `-m` and a message, this command runs a text editor.)
+집결 영역 변경사항을 저장소 이력으로 커밋(commit)한다:
+(`-m`과 메시지가 없으면, 해당 명령어는 텍스트 편집기를 실행한다.)
 
 ~~~
 git commit -m "Some message"
 ~~~
 
-View the history of the repository:
+저장소 이력을 살펴본다:
 
 ~~~
 git log
 ~~~
 
-Display differences between the current state of the repository and the last saved state:
+저장소 현재 상태와 저장된 가장 최근 상태 사이 차이분을 화면에 출력한다:
 
 ~~~
 git diff
 ~~~
 
-Display differences between the current state of a particular file and the last saved state:
+특정 파일의 현재 상태와 저장된 가장 최신 상태 사이 차이분을 화면에 출력한다:
 
 ~~~
 git diff path/to/file
 ~~~
 
-Display differences between the last saved state and what's in the staging area:
+저장된 가장 최신 상태와 집결 영역(staging area) 사이 차이분을 화면에 출력한다:
 
 ~~~
 git diff --staged
 ~~~
 
-Compare files to the previously saved state:
+특정 파일과 이전에 저장된 상태를 비교한다:
 
 ~~~
 git diff HEAD~1 path/to/file
 ~~~
 
-Compare files to an earlier saved state:
+파일과 훨씬 이전에 저장된 상태를 비교한다:
 
 ~~~
 git diff HEAD~27 path/to/file
 ~~~
 
-Compare files to a specific earlier state:
+파일과 특정 이전 상태를 비교한다:
 
 ~~~
 git diff 123456 path/to/file
 ~~~
 
-Erase changes since the last save:
+마지막 저장된 상태이래로 변경사항을 제거한다ㅣ:
 
 ~~~
 git reset --hard HEAD
 ~~~
 
-Restore file to its state in a previous revision:
+파일을 이전 수정 상태로 되돌린다:
 
 ~~~
 git checkout 123456 path/to/file
 ~~~
 
-Add a remote to a repository:
+원격(remote) 저장소를 추가한다:
 
 ~~~
 git remote add nickname remote_specification
 ~~~
 
-Display a repository's remotes:
+원격 저장소를 화면에 출력한다:
 
 ~~~
 git remote -v
 ~~~
 
-Push changes from a local repository to a remote (assuming `master` already exists in the remote):
+로컬 저장소 원격 저장로 변경 사항을 푸쉬(push)한다. (원격 저장소에 `master`가 이미 존재한다고 가정):
 
 ~~~
 git push nickname master
 ~~~
 
-Push changes from a local repository to a remote (if `master` doesn't yet exist in the remote):
+로컬 저장소에서 원격 저장소로 변경 사항을 푸쉬(push)한다. (원격 저장소에 `master`가 존재하지 않는다면)
 
 ~~~
 git push -u nickname master
 ~~~
 
-Pull changes from a remote repoisitory:
+원격 저장소에서 변경 사항을 풀(pull)한다:
 
 ~~~
 git pull nickname master
 ~~~
 
-Note: `master` may be replaced with another branch name by more advanced users.
+주의: `master`가 좀더 고급 사용자에 의해서 또다른 브랜치로 교체될 수도 있다.
 
-Clone a remote repository:
+원격 저장소를 복제(clone)한다:
 
 ~~~
 git clone remote_specification
 ~~~
 
-Markers used to show conflict in a file during a merge:
+병합(merge)하는 동안에 파일에 충돌(conflict)를 보여주는데 표식자(`<`, `>`)가 사용된다:
 
 ~~~
 <<<<<<< HEAD

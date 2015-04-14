@@ -3,8 +3,8 @@ kramdown        :
   entity_output : as_input # &mdash; is output as &mdash;
   smart_quotes  : [39, 39, 34, 34] # decimal for left/right single/double quotes
 exclude         : [branding, "*.Rmd"]
-contact         : "admin@software-carpentry.org"
-github_url      : "https://github.com/swcarpentry"
+contact         : "i@xwmooc.net"
+github_url      : "https://github.com/statkclee/xwmooc-sc"
 irc_url         : "irc://moznet/sciencelab"
 rss_url         : "http://software-carpentry.org/feed.xml"
 swc_prefix      : "http://software-carpentry.org"
