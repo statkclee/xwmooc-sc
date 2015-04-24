@@ -1,30 +1,27 @@
 ---
 layout: lesson
 root: ../..
-title: Automating Tasks with Make
+title: Make로 작업 자동화
 level: intermediate
 ---
 
-Originally invented to manage compilation of programs, `make` can be
-used to automatically execute sequences of commands (programs) and
-update any set of files that depend on another set of files. This
-makes it a good solution for many data analysis and data management
-problems, including the generation of images from data.
+최초에 프로그램 컴파일 작업 관리를 위해 발명되었지만, `make`를 사용해서 자동으로 일련의 명령(프로그램)을 실행할 수 있고,
+또 다른 파일 집합에 의존성이 있는 임의 파일 집합을 갱신 작업도 수행한다.
+많은 자료분석과 데이터에서 이미지 생성을 포함하는 자료 관리 문제에 대한 좋은 해결책이 된다.  
 
-Programs that `make` will execute are described by a text file (almost
-always called `Makefile`) containing a list of commands, called
-*rules*, and the files that they create, called *targets*. The rules
-describe how files depend on each other, and how to update out-of-date
-files. They can be very specific, useful to generate one file, or
-general, specifying a pattern for creating a certain class of files.
+`make`가 실행하는 프로그램은 텍스트 파일(거의 항상 `Makefile`로 명명)로 기술되는데 
+*rules*로 불리는 명령 목록과 *targets*으로 불리는 `make`가 생성하는 파일이 담겨 있다.
+규칙(rules)은 파일이 서로 어떤 의존성을 갖는지 기술하고, 이전 파일을 어떻게 갱신하는지도 기술한다.
+매우 구체적이며 유용하게 파일 하나를 생성하거나, 특정 파일 종류를 생성하는 패턴을 일반화해서 구체화할 수 있다.
 
-Topics
+
+학습 주제
 ------
-*   [Introduction](00-intro.html)
-*   [Basic Tasks](01-basics.html)
-*   [Automatic Variables and Wildcards](02-automatic-variables.html)
-*   [Patterns](03-patterns.html)
-*   [Variables](04-variables.html)
-*   [Futher Reading](05-futher-reading.html)
+*   [들어가며](00-intro.html)
+*   [기본 작업](01-basics.html)
+*   [자동 변수와 와일드카드](02-automatic-variables.html)
+*   [패턴](03-patterns.html)
+*   [변수](04-variables.html)
+*   [추가 읽을거리](05-futher-reading.html)
 
-[Reference](reference.html)
+[참고 문헌](reference.html)

@@ -1,10 +1,12 @@
 ---
 layout: lesson
 root: ../..
-title: Introduction
+title: 들어가며
 level: intermediate
 ---
  
+
+
 Here's a typical working day for our robot.
 The first thing it wants to do when it sits down in the morning is re-draw Figure 8 for the paper it's writing.
 In order to do that, it needs to re-calculate the data (since it has some new numbers from a colleague back home).
