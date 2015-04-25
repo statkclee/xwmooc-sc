@@ -56,6 +56,8 @@ It was invented by a summer intern at Bell Labs in 1975.
 Over 35 years, Make has grown into a little programming language.
 It is a cryptic language, with no debugger, whose syntactical conventions and naming schemes only make sense to those familiar with the long history of the Unix operating system.
 
+좋은 소식은 [GNU Make](http://www.gnu.org/software/make/) (사실상 `make` 표준)이 빠르고, 무료이며, 문서화가 잘 되어 있다.
+
 The good news is,
 [GNU Make](http://www.gnu.org/software/make/) (the de facto standard version of Make) is fast, free, and well-documented.
 And many other tools know how to work with Make.

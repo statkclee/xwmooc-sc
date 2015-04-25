@@ -1,47 +1,45 @@
 ---
 layout: lesson
 root: ../..
-title: Basic Tasks
+title: 기본 작업
 level: intermediate
 ---
-Objectives
+학습목표
 ----------
-* show the basic `Makefile` syntax
-* show how to run `make` from the commandline
-* explain how rules and targets determine commands to be executed
-* show the default target and the default Makefile
+* 기본적인 `Makefile` 구문 학습한다.
+* 명령-라인에서 `make` 실행방법을 학습한다.
+* 규칙(rules)과 목표(targets)로 실행 명령을 결정하는 방법을 설명한다.
+* 기본설정 목표(target)와 기본설정 Makefile 을 학습한다.
 
-To illustrate how `make` works, here's the dependency tree for the paper that the robot is working on.
-`paper.pdf` depends on `paper.wdp` (the raw word processor file),
-and on `figure-1.svg` and `figure-2.svg`.
-`figure-1.svg` depends on `summary-1.dat`,
-which in turn depends on `data-1-1.dat`, `data-1-2.dat`, and so on,
-while `figure-2.svg` depends on files with similar names.
+`make`가 어떻게 동작하는지 시연하기 위해서, 다음에 로봇이 작업하는 논문에 대한 의존성 나무(dependency tree)가 있다.
+`paper.pdf`는 `paper.wdp` (워드 프로세서 원본 파일)에 의존성을 갖고,
+워드 파일은 그림 `figure-1.svg`과 `figure-2.svg`에 의존성을 갖는다.
+그림 `figure-1.svg`은 `summary-1.dat`에 의존성을 갖는다.
+마찬가지로, 요약 데이터는 `data-1-1.dat`와 `data-1-2.dat` 등에 의존성을 갖는다.
+`figure-2.svg`도 유사한 이름을 갖는 파일에 의존성을 갖는다.
 
-In order to create `paper.pdf`, we have to run some command (maybe `latexmk`).
-For the purpose of this lecture, it doesn't matter what `latexmk` actually does
-and we will not use this command further.
-All we need to know is that if `paper.tex` or either of the figure SVG's change, we need to
-re-build `paper.pdf`.
+`paper.pdf`을 생성하기 위해서, 특정 명령어(아마도 `latexmk`)를 실행해야 한다.
+이번 강의 목적으로 `latexmk`가 실질적으로 무엇을 수행하는지는 문제되지 않는다.
+더이상 이 명령어를 사용하지는 않는다.
+필요한 모든 것은 만약 `paper.tex` 파일이나 SVG 그림 파일에 변경이 생긴다면, 
+`paper.pdf` 파일을 다시 빌드(rebuild)해서 생성해야 한다.
 
-To create `figure-1.svg`, we run `python create_figure.py figure-1.svg summary-1.dat`.
-Again, it doesn't matter for now what `create_figure.py` command actually is.
-What matters is that we need to run it whenever `figure-1.svg` is out of date,
-i.e., whenever it is older than the `summary-1.dat` file it depends on.
-Finally, in order to update `summary-1.dat`, we need to run our own little script, `stats.py`,
-with all the files named `data-1-something.dat` as input.
-We don't know in advance how many of these there will be: we could conceivably have dozens or hundreds of raw data files to summarize.
 
-That little program `stats.py` adds one more wrinkle to our example problem.
-We're constantly updating it as we think of new ways to process our raw data files.
-We're also finding and fixing bugs more often than we'd like.
-Each time it changes, we should probably update `summary-1.dat`,
-just in case a new feature or bug fix changes the summary values.
-We should therefore include `stats.py` in the list of things `summary-1.dat` depends on,
-so that changes to `stats.py` will trigger recalculation of `summary-1.dat`.
+그림 파일 `figure-1.svg`를 생성하기 위해서, `python create_figure.py figure-1.svg summary-1.dat`을 실행한다.
+다시 한번, `create_figure.py` 파이썬 프로그램이 지금당장 무엇인지는 문제되지 않는다.
+문제되는 것은 `figure-1.svg` 파일이 이전 파일이 되어 정보가 갱신되지 않을 때마다 실행할 필요가 있다는 것이다.
+즉, 그림 파일이 의존성을 갖는 `summary-1.dat` 보다 더 이전 정보를 갖는 파일이 될 때마다 자동갱신한다.
+마지막으로, `summary-1.dat` 파일을 갱신하기 위해서, `data-1-something.dat` 이름의 파일을 입력값으로 받는 작성한 작은 스크립트 `stats.py` 를 실행할 필요가 있다.
+미리 얼마나 많은 파일이 있을지 알지는 못한다: 요약할 원파일이 수십 혹은 수백개가 될 것으로 짐작만 할 수 있다.
 
-This is all a bit much to digest at once, so let's look at the simplest piece.
-How can we get `make` to re-create `figure-1.svg` automatically whenever `summary-1.dat` changes?
+작은 프로그램 `stats.py`이 기존 예제 문제에 또 한가지를 더한다. 원데이터 파일을 처리하는 새로운 방식을 생각해내면서 항상 `stats.py`을 갱신해 나간다. 또한 버그를 찾고 고치는 것을 좀더 자주한다. 
+변경할 때마다,새로운 기능 혹은 버그 수정(bug fix)가 요약값을 변경하는 경우를 대비해서 아마도 `summary-1.dat` 파일을 갱신해야 한다. 따라서, `stats.py` 파일을 `summary-1.dat` 데이터 파일이 의존성을 갖는 리스트 목록에 추가해야 한다.
+그래서 `stats.py`에 변경이 생기면 `summary-1.dat` 데이터 파일을 다시 계산하게 자동으로 동작시킨다.
+
+상기 내용은 한번에 소화시키기에는 다소 많다. 그래서, 가장 단순한 조각을 살펴보자. 어떻게 하면, 
+`summary-1.dat` 파일에 변경사항이 생길때마다 자동으로 `make`로 하여금 `figure-1.svg`을 다시 생성하게 할 수 있을까?
+
+
 
 Let's start by going into the directory containing the files we're using in the paper,
 and use the `ls` command to get a listing of what's there.
