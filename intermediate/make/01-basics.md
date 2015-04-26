@@ -193,43 +193,42 @@ python create_figure.py figure-2.svg summary-2.dat
 
 > ### 연습문제
 >
-> You decide that you want to make another figure called `figure-2-copy.svg` that
-> is a copy of `figure-2.svg`.  Create a make file that has `figure-2-copy.svg`
-> depend on `figure-2.svg` and updates `figure-2-copy.svg` appropriately.
-> *Hint*: `cp` is copy in the Unix shell.
+> `figure-2.svg` 그림파일 사본인 `figure-2-copy.svg`라는 또 다른 그림 파일을 만들기로 결심했다.
+> figure-2-copy.svg` 그림 파일은 `figure-2.svg`에 의존성을 갖으며, `figure-2-copy.svg` 그림 파일을 적절히 
+> 갱신하는 make 파일을 생성하라. *힌트:* `cp` 명령어는 유닉스 쉘 복사명령어다.
+>
 
-One thing to note is that the order in which commands are executed is arbitrary.
-`make` could decide to update `figure-2.svg` first, rather than `figure-1.svg`,
-because there's no dependency to respect between the two.
-`make` could also update them in parallel if it had more than one processor to use&mdash;we'll return to this idea later.
+한가지 주목할 점은 명령이 실행되는 순서는 작위적으로 특별한 순서가 없다.
+`make`가 `figure-1.svg` 파일 보다 더 먼저 `figure-2.svg` 그림 파일을 갱신할 수 있다.
+왜냐하면, 두 파일 사이 준수할만한 의존성이 없기 때문이다.
+만약 프로세서(processor)가 하나 이상 있다면, 병렬로 그림파일을 갱신할 수도 있다&mdash;
+나중에 다시 다룰 예정이다.
 
-Something else this example shows us is that a single thing can be a target in one rule, and a prerequisite in others.
-The dependencies between the files mentioned in the Makefile make up a directed graph.
-In order for `make` to run, this graph must not contain any cycles.
-For example, if X depends on Y, Y depends on Z, and Z depends on X,
-everything depends on something else, so there is nothing `make` can build first.
-If it detects a cycle in a Makefile, `make` will print an error message and stop.
-Unfortunately, whether or not a cycle exists depends on which files exist,
-and `make`'s error message is usually not particularly informative.
+상기 예제가 보여주는 다른 것은 하나가 한 규칙에서 목표대상일 수 있고, 전제조건이 다른 규칙에 목표대상이 될 수 있다.
+`Makefile`에서 언급된 파일 사이 의존성이 방향성 있는 그래프(directed graph)를 구성한다.
+`make`가 실행되기 위해서, 해당 그래프는 어떤 사이클도 없어야 한다.
+예를 들어, 만약 `X`가 `Y`에 의존하고, `Y`가 `Z`에 의존하고, `Z`가 `X`에 의존한다면, 모두 다른 것에 의존하게 된다.
+그래서, 만약 `make`가 먼저 빌드(build)할 수 있는 것은 아무것도 없다.
+만약 `Makefile`에서 사이클을 탐지하면, `make`는 오류 메시지를 출력하고 멈춘다.
+불행하게도, 사이클 존재여부는 어떤 파일이 존재하느냐에 의존하게 되고, `make` 오류 메시지가 특별히 특별히 도움을 주는 정보를 제공하지는 않는다.
 
-The default target and the default Makefile
+
+디폴트 목표대상과 디폴트 `Makefile`
 -------------------------------------------
 
-In the previous section, a phony target `all` was added to make it
-easy to remake "all" targets. It turns out that many Makefiles have a
-target with this meaning and this name. If a target is not specified
-on the command line, `make` will use `all` as the default:
+앞선 절에서, 가짜 목표대상 `all`이 추가되어 "모든" 목표대상을 다시 빌드하는 것이 쉬었다.
+많은 `Makefile`이 이런 의미를 갖는 목표대상과 이름을 갖게 된다.
+만약 명령-라인에서 목표대상이 특정되지 않는다면, `make`는 `all`을 디폴트로 사용한다.
 
+~~~
     $ make -f phony.mk
     make: Nothing to be done for 'all'.
+~~~
+{:class="in"}
 
-Does the name make it special?
-No, target `all` is special simply because it specified *first*
-in the Makefile. Nevertheless, it is customary to call it just that.
+이름 자체가 특별하게 하나요? 아닙니다. 목표대상 `all`이 특별한데 단순히 이유가 `Makefile`에서 *처음*에 특정되기 때문이다.
+그럼에도 불구하고, 이와 같이 호명하는 것은 관습적이다.
 
-What happens if the Makefile name is not specified using the `-f`
-switch? `make` by default will use `Makefile` as the name of the
-Makefile. This means that our Makefile should usually be called just
-that. Combining the use of the default target and the default Makefile
-allows us to remake everything by simply saying `make` (without
-further parameters).
+만약 `-f` 플래그를 사용해서 `Makefile` 이름을 특정되지 않으면 무슨 일이 생길까요?
+`make`는 디폴트로 `Makefile`이름으로 `Makefile`을 사용한다. 이것이 의미하는 바는 `Makefile`이 통상 호출된다는 것이다.
+디폴트 목표대상과 디폴트 `Makefile`을 조합해서 단순히 (더이상 어떤 매개변수도 없이) `make`만 타이핑함으로써 모든 것을 다시 빌드할 수 있다.
