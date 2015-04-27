@@ -48,12 +48,15 @@ all : commands
 # Source Markdown files.  These are listed in the order in which they
 # appear in the final book-format version of the notes.
 MOST_SRC = \
-	 intro.md \
-	 team.md \
-	 novice/shell/index.md $(sort $(wildcard novice/shell/??-*.md)) \
+         intro.md \
+	 01-korean-translation.md \
+	 02-acknowledgements.md \
+	 csunplugged/01-part/intro.md $(sort $(wildcard csunplugged/01-part/??-*.md)) \
+	 csunplugged/02-part/intro.md $(sort $(wildcard csunplugged/02-part/??-*.md)) \
+	 csunplugged/03-part/intro.md $(sort $(wildcard csunplugged/03-part/??-*.md)) \
+	 csunplugged/04-part/intro.md $(sort $(wildcard csunplugged/04-part/??-*.md)) \
+	 csunplugged/05-part/intro.md $(sort $(wildcard csunplugged/05-part/??-*.md)) \
 	 bib.md \
-	 gloss.md \
-	 rules.md \
 	 LICENSE.md
 
 # All source pages (including things not in the book).

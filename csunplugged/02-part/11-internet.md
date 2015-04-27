@@ -75,14 +75,14 @@ title: 돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜
 <div class="challenge" markdown="1">
 #### 워크시트 활동: 활동카드(Action Cards)
 
-<img src="img/ch12-internet/12-internet-action-cards.png" alt="Action Cards" />
+<img src="img/ch11-internet/11-internet-action-cards.png" alt="Action Cards" />
 
 </div>
 
 <div class="challenge" markdown="1">
 #### 워크시트 활동: 메시지 전달
 
-<img src="img/ch12-internet/12-internet-messages.png" alt="Messages" />
+<img src="img/ch11-internet/11-internet-messages.png" alt="Messages" />
 
 </div>
 
