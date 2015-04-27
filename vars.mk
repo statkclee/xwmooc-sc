@@ -11,7 +11,9 @@ BOOK_MD = ./book.md
 # Source Markdown files.  These are listed in the order in which they
 # appear in the final book-format version of the notes.
 MOST_SRC = \
-	 intro.md \
+     00-intro.md \
+	 01-korean-translation.md \
+	 02-acknowledgements.md
 	 csunplugged/01-part/intro.md $(sort $(wildcard csunplugged/01-part/??-*.md)) \
 	 csunplugged/02-part/intro.md $(sort $(wildcard csunplugged/02-part/??-*.md)) \
 	 csunplugged/03-part/intro.md $(sort $(wildcard csunplugged/03-part/??-*.md)) \
