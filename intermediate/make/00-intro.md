@@ -1,10 +1,12 @@
 ---
 layout: lesson
 root: ../..
-title: Introduction
+title: 들어가며
 level: intermediate
 ---
  
+
+
 Here's a typical working day for our robot.
 The first thing it wants to do when it sits down in the morning is re-draw Figure 8 for the paper it's writing.
 In order to do that, it needs to re-calculate the data (since it has some new numbers from a colleague back home).
@@ -53,6 +55,8 @@ It was invented by a summer intern at Bell Labs in 1975.
 (He went on to become a vice president at IBM and Google, which shows you how far a good program can take you.)
 Over 35 years, Make has grown into a little programming language.
 It is a cryptic language, with no debugger, whose syntactical conventions and naming schemes only make sense to those familiar with the long history of the Unix operating system.
+
+좋은 소식은 [GNU Make](http://www.gnu.org/software/make/) (사실상 `make` 표준)이 빠르고, 무료이며, 문서화가 잘 되어 있다.
 
 The good news is,
 [GNU Make](http://www.gnu.org/software/make/) (the de facto standard version of Make) is fast, free, and well-documented.
