@@ -15,7 +15,7 @@ include vars.mk
 
 INKSCAPE = /usr/bin/inkscape
 SVG_TO_PNG = $(INKSCAPE) --export-png
-DIAGRAM_SRC = $(wildcard novice/*/img/*.svg)
+DIAGRAM_SRC = $(wildcard csunplugged/*/img/*.svg)
 DIAGRAM_DST = $(patsubst %.svg,%.png,$(DIAGRAM_SRC))
 
 diagrams : $(DIAGRAM_DST)
@@ -46,7 +46,6 @@ $(BOOK_MD) :
 
 $(BOOK_HTML) : $(BOOK_MD) $(DIAGRAM_DST)
 	make site
-	sed -i -e 's@\.\./\.\./gloss.html#@#g:@g' $@
 	sed -i -e 's@\.svg@\.png@g' $@
 	sed -i -e 's@<h4 id="challenges.*">@<h4>@g' $@
 	sed -i -e 's@<h4 id="key-points.*">@<h4>@g' $@
