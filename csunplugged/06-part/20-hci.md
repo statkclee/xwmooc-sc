@@ -31,7 +31,7 @@ title: 쵸코릿 공장 &mdash; 휴먼 인터페이스 디자인 (Human interfac
 
 </div>
 
-### 쵸콜릿 공장
+### 쵸콜릿 공장 (Human interface design)
 
 <div class="row-fluid">
 <div class="span6">

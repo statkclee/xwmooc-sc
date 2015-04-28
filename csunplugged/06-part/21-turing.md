@@ -27,7 +27,7 @@ title: 컴퓨터와 대화하기 &mdash; 튜링 테스트(Turing test)
 
 </div>
 
-### 컴퓨터와 대화하기  
+### 컴퓨터와 대화하기 (Turing test) 
 
 <img src="img/ch21-turing/20-turing-01-conversation.png" alt="conversation" />   
 

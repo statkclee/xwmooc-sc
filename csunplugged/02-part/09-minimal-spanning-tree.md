@@ -24,8 +24,8 @@ title: 진흙도시 프로젝트 &mdash; 최소생성나무(Minimal Spanning Tre
 -- 판지를 작은 사각형으로 자른 것 (대략 아이당 40개)
 
 </div>
-
-### 진흙 도시
+ 
+### 진흙 도시 (Minimal Spanning Trees)
 
 ##### 들어가며
 

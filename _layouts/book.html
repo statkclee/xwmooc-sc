@@ -4,7 +4,7 @@
 <html>
   <head>
     {% if page.title %}
-      <title>{{ page.title }}</title>
+      <title>컴퓨터 과학 언플러그드 3.1</title>
     {% endif %}
     {% include header.html %}
     <link rel="stylesheet" type="text/css" href="{{page.root}}/css/lesson.css" />
@@ -20,34 +20,86 @@
 	  <div align="center">
 	    <h1 class="title">컴퓨터 과학 언플러그드
               <span class="subtitle">버젼 3.1</span>
-              <span><h5>한국어 번역: 이광춘</h5></span>
-              <span><h5>한국어 삽화: 문춘경</h5></span>
+              <span><h4>한국어 번역: 이광춘</h4></span>
+              <span><h4>한국어 삽화: 문춘경</h4></span>
               <span><h5>저자: Tim Bell, Ian H. Witten, Mike Fellows</h5></span>
               <span><h5>실험수업: Robyn Adams and Jane McKenzie</h5></span>
               <span><h5>삽화: Matt Powell</h5></span>
             </h1>
 	  </div>
 
+	  <img src="img/00_cover_boy_girl.png" alt="Korean Computer Science Unplugged" height="480">
+	  
 	  <div class="toc">
 	    <ul>
-	      <li><a href="#introduction">들어가며</a></li>
-	      <li><a href="#our-team">한국어 번역</a></li>
-	      <li><a href="#unix-shell">감사의 글</a></li>
+	      <li><a href="#intro">들어가며</a></li>
+	      <li><a href="#korean-translation">한국어 번역</a></li>
+	      <li><a href="#acknowledgement">감사의 글</a></li>
 	      
-	      <li><a href="#unix-shell">제1부 정보를 나타내는 원재료&mdash;데이터</a></li>
+	      <li><a href="#part-i">제1부 정보를 나타내는 원재료&mdash;데이터</a></li>
 	      <ul>
-		<li><a href="#git">점의 개수를 세다&mdash;이진수</a></li>
-		<li><a href="#git">숫자로 색깔 표현하기&mdash;이미지 표현</a></li>
-		<li><a href="#git">다시 말할 수 있어요!&mdash;텍스트 압축</a></li>
+		<li><a href="#binary-numbers">점의 개수를 세다&mdash;이진수</a></li>
+		<li><a href="#image-representation">숫자로 색깔 표현하기&mdash;이미지 표현</a></li>
+		<li><a href="#text-compression">다시 말할 수 있어요!&mdash;텍스트 압축</a></li>
+	        <li><a href="#error-detection-and-correction">카드 뒤집기 마술&mdash;오류 탐지 및 수정</a></li>
+	        <li><a href="#information-theory">질문 20개&mdash;정보 이론</a></li>
+	      </ul>
+
+	      <li><a href="#part-ii">제2부 컴퓨터를 동작시키기&mdash;알고리즘</a></li>
+	      <ul>
+		<li><a href="#searching-algorithms">전함 (battleship)&mdash;검색 알고리즘</a></li>
+		<li><a href="#sorting-algorithms">가장 가벼운 것과 가장 무것운 것&mdash;정렬 알고리즘</a></li>
+		<li><a href="#sorting-networks">시간내 일을 마치기&mdash;정렬 네트워크(Sorting Network)</a></li>
+	        <li><a href="#minimal-spanning-trees">진흙도시 프로젝트&mdash;최소생성나무(Minimal Spanning Trees)</a></li>
+	        <li><a href="#orange-game">오렌지 게임&mdash;네트워크 라우팅(Routing)과 교착상태(Deadlock)</a></li>
+	        <li><a href="#tablets-of-stone">돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜</a></li>
+	      </ul>
+
+	      <li><a href="#part-iii">제3부 컴퓨터에 무엇을 수행할지 지시하기&mdash;절차의 표현</a></li>
+	      <ul>
+		<li><a href="#finite-state-automata">보물 찾기&mdash;유한상태 오토마타</a></li>
+		<li><a href="#marching-orders">진군 명령&mdash;프로그래밍 언어(Programming Languages)</a></li>
+	      </ul>
+
+	      <li><a href="#part-iv">제4부 정말 어려운 문제 &mdash; 난해성(Intractability)</a></li>
+	      <ul>
+		<li><a href="#graph-coloring">가난한 지도 제작자 &mdash; 그래프 색칠하기</a></li>
+		<li><a href="#dominating-sets">관광 마을 &mdash; 지배 집합 (Dominating Sets)</a></li>
+		<li><a href="#steiner-trees">얼음길 &mdash; 스타이너 트리(Steiner trees)</a></li>
 	      </ul>
 	      
-	      <li><a href="#git">1</a></li>
+	      <li><a href="#part-v">제5부 비밀 공유와 범죄와 전쟁 &mdash;암호화(Cryptography)</a></li>
+	      <ul>
+		<li><a href="#information-hiding-protocols">비밀공유 &mdash; 정보 은닉 프로토콜</a></li>
+		<li><a href="#cryptographic-protocols">페루 동전 던지기 &mdash; 암호화 프로토콜</a></li>
+		<li><a href="#public-key-encryption">키드 크립토(Kid Krypto) &mdash; 공개키 암호화</a></li>
+	      </ul>
 
+	      <li><a href="#part-vi">제6부 사람 냄새나는 컴퓨터&mdash;컴퓨터와 상호 작용</a></li>
+	      <ul>
+		<li><a href="#human-interface-design">쵸코릿 공장 &mdash; 휴먼 인터페이스 설계</a></li>
+		<li><a href="#turing-test">컴퓨터와 대화 &mdash; 튜링 테스트</a></li>
+	      </ul>
+	      
 	      <li><a href="#reading">추천 도서</a></li>
 	      <li><a href="#licenses">라이센스</a></li>
 	    </ul>
+	    
+	    <h3>한국어 번역 이력</h3>
+	      <table>
+		<tr><th>출시일자</th><th>주요 내용</th></tr>
+		<tr><td><strong>2015년 05월</strong></td><td>CS Unplugged Ver 3.1 HTML/PDF/E-PUB/MOBI/AZW3 무료 전자책 배포</td></tr>
+		<tr><td><strong>2015년 04월</strong></td><td>CS Unplugged Ver 3.1 한국어 번역</td></tr>
+		<tr><td><strong>2015년 03월</strong></td><td>CS Unplugged Ver 3.0 상용 MS 워드에서 공개 소프트웨어 플랫폼 전환</td></tr>
+		<tr><td><strong>2015년 02월</strong></td><td>CS Unplugged Ver 3.0 삽화 한국화 작업</td></tr>
+		<tr><td><strong>2015년 01월</strong></td><td>CS Unplugged Ver 3.0 Part IV,V,VI 번역 (MS 워드)</td></tr>
+		<tr><td><strong>2014년 08월</strong></td><td>CS Unplugged Ver 3.0 Part I,II,III 번역 (MS 워드)</td></tr>
+	      </table>
+
 	  </div>
 
+	  
+	  
           {{content}}
 
 	</div>

@@ -1,14 +1,14 @@
 ---
 layout: lesson
 root: ../..
-title: 제 4 부
+title: 제 4 부 (Part IV)
 ---
 
 ### 정말 어려운 문제 &mdash; 난해성(intractability)
 
-   -  [불쌍한 지도 제작자 &mdash; 그래프 색칠하기(Graph Coloring)](14-graph-coloring.html)  
-   -  [여행자 도시(Tourist town) &mdash; 지배 집합(Dominating Sets)](15-dominating-sets.html)  
-   -  [얼음길(Ice roads) &mdash; 스타이너 나무(Steiner Trees)](16-Steiner trees.html)  
+   -  [불쌍한 지도 제작자 &mdash; 그래프 색칠하기(Graph Coloring)](csunplugged/04-part/14-graph-coloring.html)  
+   -  [여행자 도시(Tourist town) &mdash; 지배 집합(Dominating Sets)](csunplugged/04-part/15-dominating-sets.html)  
+   -  [얼음길(Ice roads) &mdash; 스타이너 나무(Steiner Trees)](csunplugged/04-part/16-Steiner trees.html)  
 
 <div class="objectives" markdown="1">
 

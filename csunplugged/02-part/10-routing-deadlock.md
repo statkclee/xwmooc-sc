@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 오렌지 게임 &mdash; 네트워크 라우팅(Routing)과 교착상태(Deadlock)
+title: 오렌지 게임 &mdash; 네트워크 라우팅과 교착상태(Routing and Deadlock in Networks)
 ---
 <div class="objectives" markdown="1">
 
@@ -28,7 +28,7 @@ title: 오렌지 게임 &mdash; 네트워크 라우팅(Routing)과 교착상태(
 
 </div>
 
-### 오렌지 게임
+### 오렌지 게임 (Orange Game)
 
 <div class="row-fluid">
 <div class="span6">

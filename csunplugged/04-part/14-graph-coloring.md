@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 가난한 지도 제작자 &mdash; 그래프 색칠하기
+title: 가난한 지도 제작자 &mdash; 그래프 색칠하기(Graph coloring)
 ---
 <div class="objectives" markdown="1">
 
@@ -31,7 +31,7 @@ title: 가난한 지도 제작자 &mdash; 그래프 색칠하기
 
 </div>
 
-### 그래프 색칠하기
+### 그래프 색칠하기 (Graph coloring)
 
 <img src="img/ch14-coloring/13-coloring-01-painter.png" alt="painter" />   
 

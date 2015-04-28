@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 점의 개수를 세다—이진수
+title: 점의 개수를 세다&mdash;이진수(binary numbers)
 ---
 <div class="objectives" markdown="1">
 
@@ -140,7 +140,7 @@ title: 점의 개수를 세다—이진수
   
 이진수 체계는 카드가 앞면인지 뒷면인지를 표현하는데 **0**과 **1**을 사용한다. **0**은 카드 뒷면, **1**은 점을 볼 수 있는 윗면이다. 예를 들어,
 
-<img src="img/ch01-binary/01-binary-05-working-with-binary_01.png" alt="Photocopy Master: Binary Numbers" />
+<img src="img/ch01-binary/01-binary-05-working-with-binary_01.svg" alt="Photocopy Master: Binary Numbers" />
 
 10101 이 무엇인지 풀 수 있나요? 11111 은 무엇일까요?  
 

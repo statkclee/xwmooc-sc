@@ -26,7 +26,7 @@ title: 얼음길 &mdash; 스타이너 트리(Steiner trees)
 
 </div>
 
-### 얼음길
+### 얼음길(Steiner trees)
 
 <img src="img/ch16-steiner/15-steiner-01-ice-roads.png" alt="ice roads" />   
 
@@ -98,9 +98,10 @@ title: 얼음길 &mdash; 스타이너 트리(Steiner trees)
 10. 또다른 흥미로운 활동은 스타이너트리 비눗방울 모델을 구축하는 것이다. 다음에 보여주듯이, 두장의 투명한 플라스틱 판 사이에 장소를 나타내는 핀을 끼워넣는다. 비눗물 용액에 전체 구조물을 담군다. 비눗물에서 빼내게 되면, 아름다운 스타이너 네트워크로 핀이 연결된 비누막을 발견하게 된다. 하지만, 불행하게도 반듯이 *최소* 스타이터 트리가 되는 것은 아니다. 비누막이 전체 길이를 최소화하는 배치조합을 찾아내지만, 찾아진 배치조합은 단지 지역 최소(local minimum)이지, 전역 최소(global minimum)는 아니다. 좀더 전체 길이를 적게 하려고 전혀 다르게 스타이너점을 배치하게 될 수도 있다. 예를 들어, 처음으로 비눗물 용액에 담궈 빼냈을 때, 첫번째 비누막 배치조합을 확장활동에 나와있는 것처럼 상상할수도 있고, 두번째 비눗물 용액에 담궈 빼냈을 때 또다른 비누막 배치조합을 상상할 수도 있다.  
 <img src="img/ch16-steiner/15-steiner-09-soap-solution.png" alt="minimal steiner tree" />   
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=dAyDi1aa40E
-" target="_blank"><img src="http://img.youtube.com/vi/dAyDi1aa40E/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>  
+<div class="youtube">
+    <iframe width="350" height="260" src="http://www.youtube.com/watch?feature=player_embedded&v=dAyDi1aa40E" frameborder="0" allowfullscreen>
+    </iframe>                      
+</div>  
 
 <div class="keypoints" markdown="1">
 #### 컴퓨터 과학 핵심 개념

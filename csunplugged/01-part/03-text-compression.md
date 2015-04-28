@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 다시 말할 수 있어요!&mdash;텍스트 압축
+title: 다시 말할 수 있어요!&mdash;텍스트 압축 (Text compression)
 ---
 <div class="objectives" markdown="1">
 
@@ -31,7 +31,7 @@ title: 다시 말할 수 있어요!&mdash;텍스트 압축
 
 </div>
 
-### 다시 말할 수 있어요!
+### 다시 말할 수 있어요! (Text compression)
 
 <table width="100%" class="table table-striped">
     <tr>

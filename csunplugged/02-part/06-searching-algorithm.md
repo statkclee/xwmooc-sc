@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 전함 &mdash; 검색 알고리즘
+title: 전함 &mdash; 검색 알고리즘 (Searching Algorithms)
 ---
 <div class="objectives" markdown="1">
 
@@ -29,7 +29,7 @@ title: 전함 &mdash; 검색 알고리즘
 
 </div>
 
-### 전함 (Battleships)
+### 전함 (Searching Algorithms)
 <div class="row-fluid">
 <div class="span6">
 <table width="100%" class="table table-striped">

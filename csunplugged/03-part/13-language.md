@@ -28,7 +28,7 @@ title: 진군 명령 &mdash; 프로그래밍 언어(Programming Languages)
 
 </div>
 
-### 진군 명령
+### 진군 명령 (Marching orders)
 
 <div class="row-fluid">
 <div class="span3">

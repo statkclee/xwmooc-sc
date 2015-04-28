@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 카드 뒤집기 마술 &mdash; 오류 탐지 및 수정 
+title: 카드 뒤집기 마술 &mdash; 오류 탐지 및 수정 (error detection and correction)
 ---
 <div class="objectives" markdown="1">
 
@@ -30,7 +30,7 @@ title: 카드 뒤집기 마술 &mdash; 오류 탐지 및 수정
 
 </div>
 
-### 마술
+### 마술 (error detection and correction)
 
 <table width="100%" class="table table-striped">
     <tr>
@@ -61,11 +61,11 @@ title: 카드 뒤집기 마술 &mdash; 오류 탐지 및 수정
 
 1.  다음과 같이 5 × 5 정사각형에 임의로 앞뒤가 뒤섞인 카드를 놓을 어린이를 고르세요.
 
-<img src="img/ch04-checksum/04-checksum-01-magician-01.png?raw=true" alt="Magician 01" />  
+<img src="img/ch04-checksum/04-checksum-01-magician-01.png" alt="Magician 01" />  
 
 "조금 더 어렵게 만들도록" 추가로 행(row)과 열(column)을 덧붙이세요.
 
-<img src="img/ch04-checksum/04-checksum-01-magician-02.png?raw=true" alt="Magician 02" />
+<img src="img/ch04-checksum/04-checksum-01-magician-02.png" alt="Magician 02" />
 
 추가되는 카드들이 묘기의 가장 중요한 요소입니다. 
 추가되는 카드를 골라서 각 행과 열에 짝수 색깔 카드가 될 수 있도록 맞춥니다.  

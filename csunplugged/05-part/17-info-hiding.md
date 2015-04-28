@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 비밀 공유 &mdash; 정보 은닉 프로토콜
+title: 비밀 공유 &mdash; 정보 은닉 프로토콜(Information hiding protocols)
 
 ---
 <div class="objectives" markdown="1">
@@ -25,7 +25,7 @@ title: 비밀 공유 &mdash; 정보 은닉 프로토콜
 
 </div>
 
-### 비밀 공유
+### 비밀 공유(Information hiding protocols)
 
 <img src="img/ch17-info-hiding/16-info-hiding-01-sharing-secrets.png" alt="sharing secrets" />   
 

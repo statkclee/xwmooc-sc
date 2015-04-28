@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 가장 가벼운 것과 가장 무거운 것 &mdash; 정렬 알고리즘
+title: 가장 가벼운 것과 가장 무거운 것 &mdash; 정렬 알고리즘(Sorting Algorithms)
 ---
 <div class="objectives" markdown="1">
 
@@ -31,7 +31,7 @@ title: 가장 가벼운 것과 가장 무거운 것 &mdash; 정렬 알고리즘
 
 </div>
 
-### 가장 가벼운 것과 가장 무거운 것
+### 가장 가벼운 것과 가장 무거운 것(Sorting Algorithms)
 
 <div class="row-fluid">
 <div class="span6">

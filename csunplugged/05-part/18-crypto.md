@@ -28,7 +28,7 @@ title: 페루 동전 던지기 &mdash; 암화화 프로토콜 (Cryptographic pro
 
 </div>
 
-### 페루 동전 던지기
+### 페루 동전 던지기 (Cryptographic protocols)
 
 <div class="row-fluid">
 <div class="span6">

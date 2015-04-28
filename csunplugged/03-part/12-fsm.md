@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 보물 찾기 &mdash; 유한상태 오토마타
+title: 보물 찾기 &mdash; 유한상태 오토마타(Finite-State Automata)
 ---
 <div class="objectives" markdown="1">
 

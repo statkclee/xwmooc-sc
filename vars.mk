@@ -19,6 +19,7 @@ MOST_SRC = \
 	 csunplugged/03-part/intro.md $(sort $(wildcard csunplugged/03-part/??-*.md)) \
 	 csunplugged/04-part/intro.md $(sort $(wildcard csunplugged/04-part/??-*.md)) \
 	 csunplugged/05-part/intro.md $(sort $(wildcard csunplugged/05-part/??-*.md)) \
+	 csunplugged/06-part/intro.md $(sort $(wildcard csunplugged/06-part/??-*.md)) \
 	 bib.md \
 	 LICENSE.md
 

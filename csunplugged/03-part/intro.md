@@ -1,13 +1,13 @@
 ---
 layout: lesson
 root: ../..
-title: 제 3 부
+title: 제 3 부 (Part III)
 ---
 
 ### 컴퓨터에 무엇을 수행할지 지시하기 &mdash; 절차의 표현
 
-   -  [보물 찾기&mdash;유한상태 오토마타](12-fsm.html)  
-   -  [진군 명령&mdash;프로그래밍 언어(Programming Languages)](13-language.html)
+   -  [보물 찾기&mdash;유한상태 오토마타](csunplugged/03-part/12-fsm.html)  
+   -  [진군 명령&mdash;프로그래밍 언어(Programming Languages)](csunplugged/03-part/13-language.html)
 
 <div class="objectives" markdown="1">
 
@@ -23,7 +23,7 @@ title: 제 3 부
 
 두번째 활동은 인간이 어떻게 컴퓨터와 상호작용하는지 배웁니다. 좋은 프로그래머는 문자 그대로 해석되는 한정된 명령어 집합으로 컴퓨터가 무엇을 수행할지 전달하는 방식에 대해서 이해할 필요가 있습니다. 명령어 목록이 프로그램입니다. 이러한 명령어를 작성하는 프로그래밍 언어가 많이 있지만, 여기서는 컴퓨터 없이도 사용할 수 있는 매우 간단한 언어를 사용할 것입니다.
 
-<img src="img/03-part-three.svg" alt="part III" />  
+<img src="img/03-part-three.png" alt="part III" />  
 
 
 </div>

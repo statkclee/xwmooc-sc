@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜
+title: 돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜(Network Communication Protocols)
 ---
 <div class="objectives" markdown="1">
 

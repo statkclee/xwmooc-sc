@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 시간 내 일을 마치기 &mdash; 정렬 네트워크
+title: 시간 내 일을 마치기 &mdash; 정렬 네트워크(Sorting Networks)
 ---
 <div class="objectives" markdown="1">
 

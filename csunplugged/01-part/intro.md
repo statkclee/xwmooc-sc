@@ -1,16 +1,16 @@
 ---
 layout: lesson
 root: ../..
-title: 제 1 부
+title: 제 1 부 (Part I)
 ---
 
 ### 정보를 나타내는 원재료 &mdash; 데이터
 
-   - [점의 개수를 세다—이진수](01-binary-numbers.html)  
-   - [숫자로 색깔 표현하기—이미지 표현](02-image-representation.html)  
-   - [다시 말할 수 있어요!—텍스트 압축](03-text-compression.html)  
-   - [카드 뒤집기 마술—오류 탐지 및 수정](04-checksum.html)  
-   - [질문 20개—정보 이론](05-info-theory.html)  
+   - [점의 개수를 세다—이진수](csunplugged/01-part/01-binary-numbers.html)  
+   - [숫자로 색깔 표현하기—이미지 표현](csunplugged/01-part/02-image-representation.html)  
+   - [다시 말할 수 있어요!—텍스트 압축](csunplugged/01-part/03-text-compression.html)  
+   - [카드 뒤집기 마술—오류 탐지 및 수정](csunplugged/01-part/04-checksum.html)  
+   - [질문 20개—정보 이론](csunplugged/01-part/05-info-theory.html)  
 
 <div class="objectives" markdown="1">
 

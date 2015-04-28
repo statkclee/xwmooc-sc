@@ -36,7 +36,7 @@ title: 키드 크립토(Kid Krypto) &mdash; 공개키 암호화(Public-key encry
 
 </div>
 
-### 키드 크립토 (Kid Krypto)  
+### 키드 크립토 (Public-key encryption)  
 
 <div class="row-fluid">
 <div class="span6">

@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../
-title: 들어가며
+title: 들어가며 (Intro)
 ---
 <div class="objectives" markdown="1">
 

@@ -1,17 +1,17 @@
 ---
 layout: lesson
 root: ../..
-title: 제 2 부
+title: 제 2 부 (Part II)
 ---
 
 ### 컴퓨터를 동작시키기 &mdash; 알고리즘
 
-   - [전함 (battleship)&mdash;검색 알고리즘](06-searching-algorithm.html)    
-   - [가장 가벼운 것과 가장 무것운 것&mdash;정렬 알고리즘](07-sorting-algorithm.html)  
-   - [시간내 일을 마치기&mdash;정렬 네트워크(Sorting Network)](08-sorting-networks.html)  
-   - [진흙도시 프로젝트&mdash;최소생성나무(Minimal Spanning Trees)](09-minimal-spanning-tree.html)  
-   - [오렌지 게임&mdash;네트워크 라우팅(Routing)과 교착상태(Deadlock)](10-routing-deadlock.html)  
-   - [돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜](11-internet.html)
+   - [전함 (battleship)&mdash;검색 알고리즘](csunplugged/02-part/06-searching-algorithm.html)    
+   - [가장 가벼운 것과 가장 무것운 것&mdash;정렬 알고리즘](csunplugged/02-part/07-sorting-algorithm.html)  
+   - [시간내 일을 마치기&mdash;정렬 네트워크(Sorting Network)](csunplugged/02-part/08-sorting-networks.html)  
+   - [진흙도시 프로젝트&mdash;최소생성나무(Minimal Spanning Trees)](csunplugged/02-part/09-minimal-spanning-tree.html)  
+   - [오렌지 게임&mdash;네트워크 라우팅(Routing)과 교착상태(Deadlock)](csunplugged/02-part/10-routing-deadlock.html)  
+   - [돌명판(Tablets of Stone) &mdash; 네트워크 통신 프로토콜](csunplugged/02-part/11-internet.html)
    
 <div class="objectives" markdown="1">
 

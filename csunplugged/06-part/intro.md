@@ -1,13 +1,13 @@
 ---
 layout: lesson
 root: ../..
-title: 제 5 부
+title: 제 6 부 (Part VI)
 ---
 
 ### 사람 냄새나는 컴퓨터 &mdash; 컴퓨터와 상호작용(Interacting with computers)
 
-   - [쵸코릿 공장 &mdash; 휴먼 인터페이스 설계](20-hci.html)    
-   - [컴퓨터와 대화 &mdash; 튜링 테스트](21-turing.html)  
+   - [쵸코릿 공장 &mdash; 휴먼 인터페이스 설계](csunplugged/06-part/20-hci.html)    
+   - [컴퓨터와 대화 &mdash; 튜링 테스트](csunplugged/06-part/21-turing.html)  
 
    
 

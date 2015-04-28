@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 질문 20 개 &mdash; 정보 이론
+title: 질문 20 개 &mdash; 정보 이론 (Information Theory)
 ---
 <div class="objectives" markdown="1">
 
@@ -36,7 +36,7 @@ Ths sntnc hs th vwls mssng.
 
 </div>
 
-### 질문 20개
+### 질문 20개 (Information Theory)
 
 ##### 토론  
 1. 아이들과 아이들이 생각하는 정보가 무엇인지에 대해서 토론해 봅시다.  

@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: 숫자로 색깔 표현하기&mdash;이미지 표현
+title: 숫자로 색깔 표현하기&mdash;이미지 표현 (image representation)
 ---
 <div class="objectives" markdown="1">
 
@@ -27,7 +27,7 @@ title: 숫자로 색깔 표현하기&mdash;이미지 표현
 
 </div>
 
-### 숫자로 색깔 표현하기
+### 숫자로 색깔 표현하기 (image representation)
 
 <table width="100%" class="table table-striped">
     <tr>

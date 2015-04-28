@@ -1,14 +1,14 @@
 ---
 layout: lesson
 root: ../..
-title: 제 5 부
+title: 제 5 부 (Part V)
 ---
 
 ### 비밀 공유와 범죄와 전쟁 &mdash; 암호화(Cryptography) 
 
-   - [비밀 공유 &mdash; 정보 은닉 프로토콜(Information hiding protocols)](17-info-hiding.html)  
-   - [페루 동전 던지기 &mdash; 암호화 프로토콜(Cryptographic protocols)](18-crypto.html)    
-   - [키드 크립토 &mdash; 공개키 암호화(Public-key encryption)](19-public-key.html)      
+   - [비밀 공유 &mdash; 정보 은닉 프로토콜(Information hiding protocols)](csunplugged/05-part/17-info-hiding.html)  
+   - [페루 동전 던지기 &mdash; 암호화 프로토콜(Cryptographic protocols)](csunplugged/05-part/18-crypto.html)    
+   - [키드 크립토 &mdash; 공개키 암호화(Public-key encryption)](csunplugged/05-part/19-public-key.html)      
 
 <div class="objectives" markdown="1">
 
