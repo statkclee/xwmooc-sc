@@ -1,106 +1,78 @@
 ---
 layout: lesson
 root: ../..
-title: A comparison of Make and doit
-level: intermediate
+title: Make 와 doit 비교
+level: 중급
 ---
 
-## Why learn doit and not Make?
+## Make가 아닌 doit을 학습하는 이유.
 
-Software Carpentry has lessons covering two different build
-tools: Make and doit. Which should you choose when starting
-to automate your data analysis pipelines? This page is intended
-to give a brief overview of the benefits and drawbacks of each
-tool.
+소프트웨어 카펜트리에 서로 다른 두가지 빌드 도구를 가지고 수업을 진행한다: Make 와 doit. 자료 분석 파이프라인(Data Analysis Pipeline)을 자동화할 때, 어느 것을 선택해야 할까? 여기에서 각 도구의 장점과 단점을 전반적으로 다뤄보려고 한다.
 
-### 1. Popularity
+### 1. 대중성 (Popularity)
 
-Make is by far the most popular build tool currently in use. This
-is probably it's greatest advantage. Learning how to write 
-Makefiles will help you to reuse some pipelines written by other
-people. It will also be a big help if and when you need to
-install software from source code in a compiled language. If you
-have ever installed something by typing some combination of
-`./configure; make; make install` then you have already been
-using Makefiles without knowing. Doit, on the other hand,
-has a much smaller user base. If you learn doit, you may have
-more difficulty finding examples, and less people will be able
-to help you on forums or sites like Stack Overflow.
+`Make`는 현재 사용되고 있는 가장 대중적인 빌드 도구(build tool)다. 아마도 이것이 가장 큰 장점이다.
+`Makefiles` 작성하는 방법을 배우면 누군가 작성한 파이프라인을 재사용할 수 있는 도움이 받게된다.
+컴파일된 언어로 작성된 소스코드를 가지고 소프트웨어를 설치하려면 이것은 매우 큰 혜택이다.
+만약 `./configure; make; make install` 조합을 타이핑해서 무언가 설치한다면, 부지불식 중에 `Makefiles`를 이미 사용하고 있는 것이다.
+다른 한편으로 `Doit`은 훨씬더 적은 사용자 기반이 있다. 만약 `doit`을 배운다면, 유사 사례를 찾는데 훨씬 더 어려움이 있고,
+더 적은 사람이 Stack Overflow 같은 사이트나 포럼에서 도움이 된다.
 
-### 2. Availability
+### 2. 가용성(Availability)
 
-Make is available by default on most unix machines (i.e. linux 
-and mac). Doit, on the other hand, is highly unlikely to be
-pre-installed on any machine you might use. Doit is fairly
-easy to install if you have root privileges, but suffers from 
-all the problems of python packaging if you do not. On the other
-hand, if you are a windows user, neither doit nor Make will
-be available by default and doit may well be considerably easier
-to install.
+`Make`는 기본 디폴트로 대부분 유닉스 컴퓨터(즉, 리눅스와 맥)에서 사용가능하다.
+반대로 `Doit`은 사용하는 어떤 컴퓨터에도 선탑재되어 있지 않을 가능성이 높다.
+만약 루트 권한이 있다면, `Doit`을 설치하는 것은 매우 쉽다.
+하지만, 루트 권한이 없다면 파이썬 패키징관련 문제로 고생할 수도 있다.
+또다른 한편으로 만약 윈도우 사용자라면, `doit` 혹은 `Make` 어느 것도 기본 디폴트로 설치되어 있지 않아서,
+`doit`이 매우 설치하기 쉬운 것이 당연할지도 모른다.
 
-### 3. Readability
+### 3. 가독성 (Readability)
 
-Doit is much more verbose and readable than Make. Make has a lot
-of non-obvious automatic variables such as $^ and $@, whereas
-automatic variables in doit are probably clearer, the equivalents
-being %(dependencies)s and %(targets)s. Any if/then control flow
-or parameters that you may wish to add are also likely to be
-much more readable in doit/python than in make - especially if
-the person reading does not know either language.
+`Doit`이 `Make` 보다 축약되지 않고(verbose) 훨씬 더 가독성이 좋다.
+`Make`에는 `$^`와 `$@` 같은 명확하지 않은 자동변수가 있는 반면에,
+`doit`에 대응되는 %(의존성)와 %(대상, target) 자동변수가 아마도 더 명확하다.
+그리고 추가하고자 하는 매개변수 혹은 `if/then` 제어 흐름이 `make`보다 `doit/python`에서 훨씬더 가독성이 좋다.
+- 코드를 읽는 사람이 어느 언더도 모른다면 특히 그렇다.
 
-### 4. Self-Documentation
+### 4. 자동-문서화(Self-Documentation)
 
-Doit implements a `list` command, which will list all the
-available targets on the command line. If you write docstrings
-for your tasks, doit will also expose these as help pages for
-each target. By default, neither Make nor doit does a good job
-of listing possible parameters. However, with a little work
-doit can be combined with other python libraries such as
-argparse, which allows for a much more usable and self-
-documenting user interface
+`Doit`이 `list` 명령을 구현해서 명령라인에 가용한 모든 대상(target)을 목록으로 출력할 수 있다.
+만약 작업을 docstring으로 작성하면, `doit`은 또한 각 대상(target)별로 도움말 페이지에 노출시킨다.
+기본 디폴트로 `Make`나 `doit` 어느 것도 가능한 매개변수를 목록으로 출력하는데 작업은 좋지 못하다.
+하지만, 약간의 작업으로 `doit`이 `argparse` 같은 파이썬 라이브러리와 조합될 수 있다.
+이를 통해서 훨씬더 사용성 좋고, 자동문서화하는 사용자 인터페이스가 가능하다.
 
-### 5. Dry Runs
+### 5. 예행연습 (Dry Runs)
 
-Make can be run in "dry run" mode, where it won't actually do
-anything, but will instead simply print out the commands
-that would be executed. Doit does not have an equivalent of
-this command.
+`Make`를 "예행연습(dry run)" 모드로 실행해서 실제로는 어떤 것도 수행하지 않지만,
+대신에 실행될 명령을 단순히 출력만 한다. `Doit`에는 대응되는 명령 모드가 없다.
 
-### 6. Python
+### 6. 파이썬 (Python)
 
-If you already know python, learning doit ought to be much
-quicker than learning Make. Additionally, if you work mainly
-in python, automating your pipelines with doit would reduce
-the cognitive overload associated with switching between
-programming languages.
+만약 이미 파이썬을 알고 있다면, `doit`을 배우는 것이 `Make`를 배우는 것보다 훨씬 더 빠르다.
+추가적으로, 만약 주로 파이썬으로 작업한다면, `doit`으로 파이프라인 작업을 자동화하는 것이
+프로그래밍 언어 사이를 전환하면서 연관된 인지부하를 줄인다.
 
-### 7. Debugging
 
-Doit can make use of any of the available python debuggers.
-You can also run doit with the --pdb option to automatically
-drop into a pdb shell when any errors occur. There are 
-debuggers available for Make, but they are not especially 
-easy to use.
+### 7. 디버깅 (Debugging)
 
-### 8. Extensibility
+`Doit`은 어떤 이용가능한 파이썬 디버거도 쓸 수 있다.
+또한, `pdb` 옵션을 갖고 `doit`을 실행할 수도 있는데, 오류가 발생할 때, pdb 쉘에 자동으로 떨어뜨릴 수 있다.
+`Make`에도 가용한 디버거가 있지만, 사용하기는 그다지 쉽지는 않다.
 
-Doit is very lightweight, and very extensible. You can easily
-add your own commands, your own ways of determining whether
-tasks should be re-run, your own ways to report the results
-of a pipeline run, and much more.
+### 8. 확장성 (Extensibility)
 
-### 9. The doit Database
+`Doit`은 매우 가볍고 매우 확장성이 좋다.
+쉽게 본인만의 명령어를 추가하고, 작업이 재실행되는 자신만의 방법도 추가하고, 
+파이프라인 실행 결과를 자신만의 보고서를 만들기도 쉽다.
 
-Make decides whether a file has changed if the timestamp
-on a dependency is newer than the timestamp on a target.
-Doit decides a file has changed if it detects a change
-in the files MD5 hash (i.e. only if the actual contents
-of the file changes). This eliminates un-needed re-
-calculation of some target files. On the other hand, in
-order to do this doit needs to store file MD5 hashes in
-a database file. If you accidentally delete this file,
-or if you run doit in such a way that it can no longer
-find the database file, it will be unable to tell which files 
-have changed, and will default to re-running all of your 
-tasks.
+### 9. `doit` 데이터베이스 
+
+만약 의존성(dependancy) 시간도장(timestamp)이 대상 시간도장보다 최신인지에 따라 
+`Make`는 파일이 변경되었는지 결정한다.`Doit`은 파일 변경 여부를 파일에 MD5 해쉬(즉, 파일 실제 내용이 변경되었다면)에 변경여부를 탐지해서 결정한다.
+이런 방식이 원치않는 대상 파일에 대한 재실행을 방지한다.
+다른 한편으로, `doit`은 데이터베이스로 MD5 해쉬 파일을 저장할 필요가 있다.
+우연히 해쉬파일을 삭제하게 되거나 데이터베이스 파일을 찾을 수 없는 방식으로 `doit`을 실행하게 된다면, 
+어떤 파일이 변경되었는지 판별할 수 없고, 기본 디폴트 설정으로 모든 작업을 다시 실행한다.
 
