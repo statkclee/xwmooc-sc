@@ -1,31 +1,26 @@
 ---
 layout: lesson
 root: ../..
-title: Automating an analysis pipeline using doit
-level: intermediate
+title: doit을 이용한 분석 파이프라인 자동화
+level: 중급
 ---
 
-This lesson series covers the automation of analysis pipeline's using
-python's doit library. You should be familiar with functions, libraries
-and dictionaries in python. Additionally, knowledge of python generators
-would be very helpful.
+이번 학습에서 파이썬 `doit` 라이브러리를 사용해서 분석 파이프라인 자동화를 다룬다.
+파이썬 함수, 라이브러리, 딕셔너리에 친숙해야 한다.
+추가적으로 파이썬 생성자 지식이 매우 도움이 될 것이다.
 
-Complex data analysis often involves a series of steps that all have 
-to be carried out in a specific order, and may also require the
-creation of a number of intermediate files. These types of pipelines
-are well suited to automation using a class of software tools called
-"build tools". Although this lesson covers one specific tool, many
-of the key concepts should apply to other build tools. If you aren't 
-a big python fan, there will almost certainly be tools available in
-the language of your choice.
+복잡한 데이터 분석은 종종 특정 순서로 수행되어야 되는 일련의 과정이 포함된다.
+그리고 다수의 중간 파일 생성도 필요하다.
+이런 유형의 파이프라인이 "빌드 도구(build tool)"로 불리는 유형의 소프트웨어 도구를 사용하는 자동화에 적합하다.
+이번 학습에서 특정 도구만 다루지만, 많은 주요개념은 다른 빌드도구에도 적용된다.
+만약 열렬한 파이썬 사용자가 아니라면, 본인이 주로 사용하는 언어에도 가용한 도구가 분명히 있을 것이다.
 
-The most popular build tool is Make. For a specific comparison between
-Make and doit, see [Make vs. doit](make-vs-doit.html).
+가장 대중적인 빌드 도구는 `Make`다. `Make`와 `doit` 비교는 [Make와 doit 비교](make-vs-doit.html)을 참조 바란다. 
 
 <div class="toc" markdown="1">
 
-1.  [Getting started with doit](01-doit_basics.html)
-2.  [Sub-tasks](02-sub_tasks.html)
-3.  [Checking whether analyses are up to date](03-uptodate.html)
+1.  [doit 시작하기](01-doit_basics.html)
+2.  [부작업(Sub-tasks)](02-sub_tasks.html)
+3.  [분석결과가 최신상태인지 점검하기](03-uptodate.html)
 
 </div>
